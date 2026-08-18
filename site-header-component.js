@@ -7,14 +7,14 @@
     {level:4,name:'Зерттеуші',min:2200},
     {level:5,name:'Білгір',min:3500},
     {level:6,name:'Білгір',min:5000},
-    {level:7,name:'Сарапшы',min:7000},
+    {level:7,name:'Білгір',min:7000},
     {level:8,name:'Сарапшы',min:9500},
-    {level:9,name:'Тарихшы',min:12500},
-    {level:10,name:'Тарихшы',min:16000},
-    {level:11,name:'Шежіреші',min:20000},
-    {level:12,name:'Шежіреші',min:25000},
-    {level:13,name:'Магистр',min:31000},
-    {level:14,name:'Ұлы тарихшы',min:38000},
+    {level:9,name:'Сарапшы',min:12500},
+    {level:10,name:'Сарапшы',min:16000},
+    {level:11,name:'Тарихшы',min:20000},
+    {level:12,name:'Тарихшы',min:25000},
+    {level:13,name:'Тарихшы',min:31000},
+    {level:14,name:'Аңыз',min:38000},
     {level:15,name:'Аңыз',min:46000}
   ];
   function activeKey(){const p=(location.pathname.split('/').pop()||'index.html').toLowerCase();if(p==='games.html')return'games';if(p==='periods.html'){if(location.hash==='#topicsSection')return'topics';if(location.hash==='#navProgress')return'progress';return'periods'}return'home'}
