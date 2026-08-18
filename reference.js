@@ -1,13 +1,10 @@
 (() => {
-  const primaryMascot = './assets/mascot-main.webp?v=2';
-  const fallbackMascot = './mascot.svg';
+  const primaryMascot = './assets/image-Photoroom%20-%202026-08-18T221923.934.png?v=3';
 
   document.querySelectorAll('.mascot').forEach(img => {
     img.decoding = 'async';
     img.loading = 'eager';
-    img.onerror = () => {
-      if (!img.src.endsWith('/mascot.svg')) img.src = fallbackMascot;
-    };
+    img.onerror = null;
     img.src = primaryMascot;
   });
 
