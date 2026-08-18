@@ -18,7 +18,7 @@ let state={mode:'cards',index:0,score:0,total:0,answered:false};
 const stage=document.getElementById('stage');
 const xpEl=document.getElementById('xpValue');
 const correctEl=document.getElementById('correctValue');
-function getProgress(){return JSON.parse(localStorage.getItem('juzderek_game_progress')||'{"xp":0,"correct":0}')}function saveProgress(addXp=0,addCorrect=0){const p=getProgress();p.xp+=addXp;p.correct+=addCorrect;localStorage.setItem('juzderek_game_progress',JSON.stringify(p));syncScore()}function syncScore(){const p=getProgress();xpEl.textContent=p.xp+' XP';correctEl.textContent=p.correct+' дұрыс'}syncScore();
+function getProgress(){return JSON.parse(localStorage.getItem('juzderek_game_progress')||'{"xp":0,"correct":0}')}function saveProgress(addXp=0,addCorrect=0){const p=getProgress();p.xp+=addXp;p.correct+=addCorrect;localStorage.setItem('juzderek_game_progress',JSON.stringify(p));syncScore();window.dispatchEvent(new CustomEvent('juzderek:progress',{detail:p}))}function syncScore(){const p=getProgress();xpEl.textContent=p.xp+' XP';correctEl.textContent=p.correct+' дұрыс'}syncScore();
 function progressPct(i,total){return Math.round((i/total)*100)}
 function setMode(mode){state={mode,index:0,score:0,total:0,answered:false};document.querySelectorAll('.game-tab').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));render()}
 document.querySelectorAll('.game-tab').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
