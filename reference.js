@@ -5,10 +5,13 @@
   const hero=document.getElementById('periodHero'), title=document.getElementById('heroTitle');
   if(hero&&title){function syncReferenceHero(){hero.classList.toggle('reference-ancient',title.textContent.trim()==='Ежелгі заман')}syncReferenceHero();new MutationObserver(syncReferenceHero).observe(title,{childList:true,characterData:true,subtree:true})}
 
-  const VERSION='20260819-username-3';
+  const VERSION='20260819-leaderboard-1';
   const oldProfileCss=document.querySelector('link[href*="profile-menu.css"]');
   if(oldProfileCss) oldProfileCss.href=`./profile-menu.css?v=${VERSION}`;
   else {const css=document.createElement('link');css.rel='stylesheet';css.href=`./profile-menu.css?v=${VERSION}`;document.head.appendChild(css)}
+
+  if(!document.querySelector('link[href*="leaderboard-full.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href=`./leaderboard-full.css?v=${VERSION}`;document.head.appendChild(l)}
+  if(!document.querySelector('script[src*="leaderboard-full.js"]')){const s=document.createElement('script');s.src=`./leaderboard-full.js?v=${VERSION}`;s.defer=true;document.body.appendChild(s)}
 
   const oldShared=document.querySelector('script[src*="site-header-component.js"]');
   if(oldShared) oldShared.remove();
