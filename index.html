@@ -5,62 +5,27 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>JUZDEREK — Тарих енді қызықты!</title>
 <link rel="stylesheet" href="./home.css">
+<link rel="stylesheet" href="./site-header.css">
 </head>
 <body>
-<header class="home-shell home-top">
-  <div class="home-brand"><span class="brand-box">J</span><span>JUZDEREK</span></div>
-  <nav class="home-nav">
-    <a class="active" href="index.html">⌂ Басты бет</a>
-    <a href="periods.html">▣ Кезеңдер</a>
-    <a href="periods.html#topicsSection">▤ Тақырыптар</a>
-    <a href="periods.html#games">🎮 Ойындар</a>
-    <a href="periods.html#navProgress">▥ Прогресс</a>
-    <a href="periods.html">★ Үздіктер</a>
-  </nav>
-  <button class="profile">◉ Адам аты⌄</button>
-</header>
-
-<main>
-<section class="home-hero">
-  <div class="home-shell hero-layout">
-    <div class="hero-copy-home">
-      <div class="hero-tag">✦ Оқы. Ойна. Есте сақта.</div>
-      <h1>Тарих енді <span>қызықты!</span></h1>
-      <p>JUZDEREK-пен даталарды жаттамай, оқиғаларды түсініп, нақты есте сақта.</p>
-      <div class="hero-actions">
-        <button class="hero-btn primary" onclick="location.href='periods.html'">▶ Оқуды бастау</button>
-        <button class="hero-btn" onclick="location.href='periods.html'">◉ Карта</button>
-      </div>
-    </div>
-    <img class="hero-mascot-home" src="./assets/image-Photoroom%20-%202026-08-18T223037.285.png" alt="JUZDEREK маскоты">
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-brand" href="index.html" aria-label="JUZDEREK басты бет"><span class="site-logo-mark" aria-hidden="true"></span><span class="site-brand-text">JUZDEREK</span></a>
+    <nav class="site-nav" aria-label="Негізгі мәзір">
+      <a class="site-nav-link active" href="index.html"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M9.5 20v-6h5v6"/></svg>Басты бет</a>
+      <a class="site-nav-link" href="periods.html"><svg viewBox="0 0 24 24"><path d="M4 7h16M6 7V5h12v2M6 7v12M10 7v12M14 7v12M18 7v12M4 19h16"/></svg>Кезеңдер</a>
+      <a class="site-nav-link" href="periods.html#topicsSection"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Тақырыптар</a>
+      <a class="site-nav-link" href="periods.html#games"><svg viewBox="0 0 24 24"><path d="M8 8h8a5 5 0 0 1 4.8 6.4l-1.1 3.7a2.2 2.2 0 0 1-3.8.8L14 17h-4l-1.9 1.9a2.2 2.2 0 0 1-3.8-.8l-1.1-3.7A5 5 0 0 1 8 8Z"/><path d="M7 12h3M8.5 10.5v3M16.5 11.5h.01M18.5 13.5h.01"/></svg>Ойындар</a>
+      <a class="site-nav-link" href="periods.html#navProgress"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V5M16 20v-7M22 20H2"/></svg>Прогресс</a>
+      <a class="site-nav-link" href="periods.html"><svg viewBox="0 0 24 24"><path d="m12 3 2.2 4.6 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5-3.6-3.5 5-.7L12 3Z"/></svg>Үздіктер</a>
+    </nav>
+    <button class="site-profile"><span class="site-avatar"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4.3 4-6.5 8-6.5s6.8 2.2 8 6.5"/></svg></span><span class="profile-name">Адам аты</span><span class="site-chevron">⌄</span></button>
   </div>
-</section>
-
-<section class="home-shell home-stats">
-  <div class="home-stat"><div class="sicon">🔥</div><div><strong>12</strong><span>Күндік streak</span></div></div>
-  <div class="home-stat"><div class="sicon">📚</div><div><strong>48</strong><span>Ойналған ойын</span></div></div>
-  <div class="home-stat"><div class="sicon">🎯</div><div><strong>92%</strong><span>Дәлдік</span></div></div>
-  <div class="home-stat"><div class="sicon">🏆</div><div><strong>#12</strong><span>Үздіктер тақтасы</span></div></div>
-</section>
-
-<section class="home-shell quick-grid">
-  <article class="quick-card" onclick="location.href='periods.html#games'">
-    <div class="qicon asset-icon"><img src="./assets/cards.webp" alt="Карточкалар"></div>
-    <div><h3>Карточкалар</h3><p>Даталар мен оқиғалар</p></div><span class="qgo">→</span>
-  </article>
-  <article class="quick-card" onclick="location.href='periods.html#games'">
-    <div class="qicon asset-icon"><img src="./assets/test.webp" alt="Тест"></div>
-    <div><h3>Тест</h3><p>Біліміңді тексер</p></div><span class="qgo">→</span>
-  </article>
-  <article class="quick-card" onclick="location.href='periods.html#games'">
-    <div class="qicon asset-icon"><img src="./assets/chronology.webp" alt="Хронология"></div>
-    <div><h3>Хронология</h3><p>Реттілігін тап</p></div><span class="qgo">→</span>
-  </article>
-  <article class="quick-card" onclick="location.href='periods.html#games'">
-    <div class="qicon asset-icon person-icon"><img src="./assets/person.webp" alt="Кейіпкерді таны"></div>
-    <div><h3>Кейіпкерді таны</h3><p>Бұл кім?</p></div><span class="qgo">→</span>
-  </article>
-</section>
+</header>
+<main>
+<section class="home-hero"><div class="home-shell hero-layout"><div class="hero-copy-home"><div class="hero-tag">✦ Оқы. Ойна. Есте сақта.</div><h1>Тарих енді <span>қызықты!</span></h1><p>JUZDEREK-пен даталарды жаттамай, оқиғаларды түсініп, нақты есте сақта.</p><div class="hero-actions"><button class="hero-btn primary" onclick="location.href='periods.html'">▶ Оқуды бастау</button><button class="hero-btn" onclick="location.href='periods.html'">◉ Карта</button></div></div><img class="hero-mascot-home" src="./assets/image-Photoroom%20-%202026-08-18T223037.285.png" alt="JUZDEREK маскоты"></div></section>
+<section class="home-shell home-stats"><div class="home-stat"><div class="sicon">🔥</div><div><strong>12</strong><span>Күндік streak</span></div></div><div class="home-stat"><div class="sicon">📚</div><div><strong>48</strong><span>Ойналған ойын</span></div></div><div class="home-stat"><div class="sicon">🎯</div><div><strong>92%</strong><span>Дәлдік</span></div></div><div class="home-stat"><div class="sicon">🏆</div><div><strong>#12</strong><span>Үздіктер тақтасы</span></div></div></section>
+<section class="home-shell quick-grid"><article class="quick-card" onclick="location.href='periods.html#games'"><div class="qicon asset-icon"><img src="./assets/cards.webp" alt="Карточкалар"></div><div><h3>Карточкалар</h3><p>Даталар мен оқиғалар</p></div><span class="qgo">→</span></article><article class="quick-card" onclick="location.href='periods.html#games'"><div class="qicon asset-icon"><img src="./assets/test.webp" alt="Тест"></div><div><h3>Тест</h3><p>Біліміңді тексер</p></div><span class="qgo">→</span></article><article class="quick-card" onclick="location.href='periods.html#games'"><div class="qicon asset-icon"><img src="./assets/chronology.webp" alt="Хронология"></div><div><h3>Хронология</h3><p>Реттілігін тап</p></div><span class="qgo">→</span></article><article class="quick-card" onclick="location.href='periods.html#games'"><div class="qicon asset-icon person-icon"><img src="./assets/person.webp" alt="Кейіпкерді таны"></div><div><h3>Кейіпкерді таны</h3><p>Бұл кім?</p></div><span class="qgo">→</span></article></section>
 </main>
 </body>
 </html>
