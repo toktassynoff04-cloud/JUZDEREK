@@ -1,0 +1,68 @@
+:root{--ref-orange:#ff5b16;--ref-ink:#111b29;--ref-muted:#707987}
+
+/* Final reference layer: keeps the existing app logic, but locks the dashboard to the approved visual. */
+.page-shell{width:min(1470px,calc(100% - 52px));margin:22px auto 54px}
+
+.hero{height:376px!important;border-radius:30px!important;overflow:hidden!important;display:grid!important;grid-template-columns:1.02fr .98fr!important;border:1px solid #f3dfd3!important;box-shadow:none!important;position:relative!important}
+.hero.reference-ancient{background:#fff url('./assets/hero-ancient.webp') center/cover no-repeat!important}
+.hero.reference-ancient:before,.hero.reference-ancient:after,.hero.reference-ancient .hero-orb,.hero.reference-ancient .history-silhouette{display:none!important}
+.hero-copy{padding:48px 0 34px 58px!important;position:relative!important;z-index:5!important}
+.hero-title-row{align-items:flex-start!important;gap:27px!important;margin-top:0!important}
+.hero-icon{width:92px!important;height:92px!important;border-radius:24px!important;margin-top:8px!important;background:rgba(255,255,255,.96)!important;border:1px solid #eff1f4!important;box-shadow:0 12px 28px rgba(36,43,52,.04)!important;flex:0 0 auto!important}
+.hero-icon svg{width:44px!important;height:44px!important;stroke:var(--ref-orange)!important}
+.eyebrow{font-size:10px!important;line-height:1!important;font-weight:800!important;letter-spacing:.13em!important;color:#4f5969!important;margin:3px 0 11px!important}
+.hero h1{font-size:52px!important;line-height:1.03!important;letter-spacing:-.052em!important;margin:0 0 13px!important;color:var(--ref-ink)!important;font-weight:800!important}
+.hero p{font-size:17px!important;line-height:1.5!important;color:var(--ref-muted)!important;margin:0!important;letter-spacing:-.02em!important;max-width:520px!important}
+.hero-count{width:178px!important;height:96px!important;margin:26px 0 0!important;border-radius:22px!important;background:linear-gradient(135deg,#ff5c14,#ff6d16)!important;padding:17px 53px 14px 24px!important;box-shadow:0 13px 25px rgba(255,91,22,.18)!important}
+.hero-count strong{font-size:43px!important;line-height:.95!important;letter-spacing:-.05em!important}
+.hero-count span{font-size:12px!important}
+.hero-count .arrow{right:18px!important;font-size:31px!important}
+.hero-art{position:relative!important;min-width:0!important;height:100%!important}
+.hero-mascot{position:absolute!important;right:96px!important;bottom:-14px!important;height:392px!important;width:auto!important;object-fit:contain!important;filter:drop-shadow(0 15px 17px rgba(84,50,24,.15))!important;z-index:4!important}
+
+.period-grid{gap:18px!important;margin-top:18px!important}
+.period-card{height:168px!important;border-radius:22px!important;padding:23px 25px!important;box-shadow:none!important}
+.period-card:hover{transform:translateY(-2px)!important;box-shadow:0 12px 28px rgba(32,38,49,.06)!important}
+.period-card-icon{width:58px!important;height:58px!important;border-radius:17px!important;margin-bottom:11px!important}
+.period-card h3{font-size:20px!important;margin:0 0 6px!important}
+.period-card p{font-size:12px!important}
+.round-arrow{right:18px!important;bottom:17px!important;width:31px!important;height:31px!important}
+
+.progress-section{margin-top:18px!important;border-radius:25px!important;padding:18px 20px 18px!important;box-shadow:none!important}
+.progress-section h2,.section-head h2{font-size:18px!important}
+.progress-layout{grid-template-columns:1fr 1fr 1.15fr 1.85fr!important;gap:14px!important;margin-top:12px!important}
+.metric-card{height:132px!important;border-radius:19px!important;padding:22px!important;gap:14px!important}
+.metric-icon{width:38px!important;height:38px!important;border-radius:12px!important}
+.metric-card strong{font-size:20px!important;margin:4px 0!important}
+.encourage-card{height:132px!important;border-radius:21px!important;padding:22px 26px!important}
+.encourage-mascot{height:222px!important;left:24px!important;bottom:-73px!important}
+.encourage-card h3{font-size:19px!important}
+
+.bottom-grid{margin-top:14px!important;gap:16px!important}
+.content-card{border-radius:23px!important;padding:17px 19px!important;box-shadow:none!important}
+.activity-row,.league-row{min-height:73px!important;border-radius:17px!important;margin-top:12px!important;padding:12px 15px!important}
+
+.topics-section{margin-top:24px!important}
+
+@media(max-width:1100px){
+ .hero{grid-template-columns:1.15fr .85fr!important}
+ .hero-copy{padding-left:38px!important}
+ .hero-mascot{right:20px!important;height:340px!important}
+ .progress-layout{grid-template-columns:repeat(2,1fr)!important}
+ .encourage-card{grid-column:1/-1!important}
+}
+@media(max-width:760px){
+ .page-shell{width:calc(100% - 20px);margin-top:12px}
+ .hero{height:520px!important;display:block!important}
+ .hero-copy{padding:26px!important}
+ .hero-title-row{gap:16px!important}
+ .hero-icon{width:64px!important;height:64px!important;border-radius:18px!important}
+ .hero-icon svg{width:32px!important;height:32px!important}
+ .hero h1{font-size:36px!important}
+ .hero p{font-size:14px!important}
+ .hero-count{margin-top:20px!important;width:156px!important;height:86px!important}
+ .hero-mascot{height:255px!important;right:16px!important;bottom:-5px!important}
+ .period-grid{grid-template-columns:1fr 1fr!important}
+ .progress-layout{grid-template-columns:1fr!important}
+ .encourage-card{grid-column:auto!important}
+}
