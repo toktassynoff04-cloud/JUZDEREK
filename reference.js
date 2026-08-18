@@ -5,13 +5,19 @@
   const hero=document.getElementById('periodHero'), title=document.getElementById('heroTitle');
   if(hero&&title){function syncReferenceHero(){hero.classList.toggle('reference-ancient',title.textContent.trim()==='Ежелгі заман')}syncReferenceHero();new MutationObserver(syncReferenceHero).observe(title,{childList:true,characterData:true,subtree:true})}
 
-  const VERSION='20260819-leaderboard-1';
+  const VERSION='20260819-leaderboard-2';
   const oldProfileCss=document.querySelector('link[href*="profile-menu.css"]');
   if(oldProfileCss) oldProfileCss.href=`./profile-menu.css?v=${VERSION}`;
   else {const css=document.createElement('link');css.rel='stylesheet';css.href=`./profile-menu.css?v=${VERSION}`;document.head.appendChild(css)}
 
   if(!document.querySelector('link[href*="leaderboard-full.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href=`./leaderboard-full.css?v=${VERSION}`;document.head.appendChild(l)}
-  if(!document.querySelector('script[src*="leaderboard-full.js"]')){const s=document.createElement('script');s.src=`./leaderboard-full.js?v=${VERSION}`;s.defer=true;document.body.appendChild(s)}
+  function loadLeaderboard(cb){
+    if(typeof window.openJuzLeaderboard==='function'){cb&&cb();return}
+    const existing=document.querySelector('script[src*="leaderboard-full.js"]');
+    if(existing){existing.addEventListener('load',()=>cb&&cb(),{once:true});return}
+    const s=document.createElement('script');s.src=`./leaderboard-full.js?v=${VERSION}`;s.onload=()=>cb&&cb();document.body.appendChild(s)
+  }
+  loadLeaderboard();
 
   const oldShared=document.querySelector('script[src*="site-header-component.js"]');
   if(oldShared) oldShared.remove();
@@ -43,6 +49,16 @@
   setTimeout(ensureUsernameEdit,100);
   setTimeout(ensureUsernameEdit,500);
   setTimeout(ensureUsernameEdit,1500);
+
+  /* Capture-phase delegation: button works even if another script replaces onclick. */
+  document.addEventListener('click',e=>{
+    const target=e.target.closest('.leaderboard-card .text-btn,.site-nav-link,.profile-menu-link');
+    if(!target) return;
+    const text=(target.textContent||'').trim();
+    if(!/Толық рейтинг|Үздіктер/i.test(text)) return;
+    e.preventDefault();e.stopPropagation();
+    loadLeaderboard(()=>{if(typeof window.openJuzLeaderboard==='function')window.openJuzLeaderboard()});
+  },true);
 
   const modeMap={cards:'cards',date:'quiz',person:'person',chrono:'chrono'};
   document.addEventListener('click',e=>{const gameBtn=e.target.closest('#games .game-tab');if(gameBtn){e.preventDefault();e.stopImmediatePropagation();location.href=`games.html?mode=${modeMap[gameBtn.dataset.game]||'cards'}&v=${VERSION}`;return}},true);
