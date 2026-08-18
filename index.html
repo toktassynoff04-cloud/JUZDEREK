@@ -14,21 +14,15 @@
   <div class="topbar-inner">
     <div class="brand"><span class="brand-symbol">J</span>JUZDEREK</div>
     <nav class="nav">
-      <a href="#">Басты бет</a>
-      <a class="active" href="#">Тақырыптар</a>
-      <a href="#games">Ойындар</a>
-      <a href="#">Прогресс</a>
-      <a href="#">Лидерборд</a>
-      <a href="#">Кеңестер</a>
+      <a href="#">Басты бет</a><a class="active" href="#">Тақырыптар</a><a href="#games">Ойындар</a><a href="#">Прогресс</a><a href="#">Лидерборд</a><a href="#">Кеңестер</a>
     </nav>
     <div class="userbar">
-      <div class="u-stat"><span class="stat-icon">S</span><span id="topStreak">1 күн</span></div>
+      <div class="u-stat"><span class="stat-icon">S</span><span id="topStreak">0 күн</span></div>
       <div class="u-stat"><span class="stat-icon">XP</span><span id="topXp">0 XP</span></div>
       <button class="userpill"><div class="avatar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4.3 4-6.5 8-6.5s6.8 2.2 8 6.5"/></svg></div><span>Адам аты</span><span class="chev">⌄</span></button>
     </div>
   </div>
 </header>
-
 <main class="layout">
   <aside class="sidebar">
     <div class="panel topic-panel">
@@ -38,49 +32,21 @@
       <button class="topic" data-period="modern"><span class="topic-icon" data-icon="book"></span>Жаңа заман</button>
       <button class="topic" data-period="contemporary"><span class="topic-icon" data-icon="globe"></span>Қазіргі заман</button>
     </div>
-    <div class="goal">
-      <small>Күнделікті мақсат</small>
-      <strong>10 тапсырма орындау</strong>
-      <div class="track"><span id="goalBar" style="width:0%"></span></div>
-      <div class="goal-foot"><span>Бүгін</span><b id="goalText">0/10</b></div>
-    </div>
+    <div class="goal"><small>Күнделікті мақсат</small><strong>10 оқу әрекетін орындау</strong><div class="track"><span id="goalBar" style="width:0%"></span></div><div class="goal-foot"><span>Бүгін</span><b id="goalText">0/10</b></div></div>
   </aside>
-
   <section class="center" id="mainContent">
     <div id="topicBrowser"></div>
     <div id="studyView" class="hidden">
-      <div class="study-head">
-        <button class="back-btn" id="backToTopics">← Тақырыптарға оралу</button>
-        <div>
-          <div class="study-kicker">Ежелгі заман</div>
-          <h2 id="studyTopicTitle">Ежелгі Парсы мемлекеті</h2>
-        </div>
-      </div>
-      <div class="game-tabs" id="games">
-        <button class="game-tab active" data-game="cards">Карточка</button>
-        <button class="game-tab" data-game="date">Датаны тап</button>
-        <button class="game-tab" data-game="person">Тұлғаны тап</button>
-        <button class="game-tab" data-game="chrono">Хронология</button>
-      </div>
+      <div class="study-head"><button class="back-btn" id="backToTopics">← Тақырыптарға оралу</button><div><div class="study-kicker">Ежелгі заман</div><h2 id="studyTopicTitle">Ежелгі Парсы мемлекеті</h2></div></div>
+      <div class="game-tabs" id="games"><button class="game-tab active" data-game="cards">Карточка</button><button class="game-tab" data-game="date">Датаны тап</button><button class="game-tab" data-game="person">Тұлғаны тап</button><button class="game-tab" data-game="chrono">Хронология</button></div>
       <div class="stage" id="stage"></div>
     </div>
   </section>
-
   <aside class="rightbar">
-    <div class="panel widget">
-      <div class="widget-title"><span>Серияңыз</span><span class="widget-mark">S</span></div>
-      <div class="streak-big" id="streakValue">1 күн</div>
-      <div class="week" id="week"></div>
-    </div>
-    <div class="panel widget">
-      <div class="widget-title"><span>Жалпы прогресс</span><span class="orange" id="progressPct">0%</span></div>
-      <div class="track"><span id="progressBar" style="width:0%"></span></div>
-      <div class="progress-grid"><div><b id="cardsViewed">0</b><span>Карточка қаралды</span></div><div><b id="gamesDone">0</b><span>Ойын орындалды</span></div><div><b id="xpValue">0</b><span>XP жиналды</span></div></div>
-    </div>
-    <div class="panel widget">
-      <div class="league"><div><div class="widget-title" style="margin:0 0 8px">Лигаңыз</div><div class="orange league-name" id="leagueName">Бастапқы лига</div><div class="league-next" id="leagueNext">Келесі лигаға: 200 XP</div><div class="track league-track"><span id="leagueBar" style="width:0%"></span></div></div><div class="league-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v4c0 4-1.8 7-4 7s-4-3-4-7V4Z"/><path d="M8 6H4c0 4 1.5 6 5 6M16 6h4c0 4-1.5 6-5 6M12 15v4M8 21h8"/></svg></div></div>
-    </div>
-    <div class="panel widget tip-widget"><div class="widget-title"><span>Бүгінгі кеңес</span></div><p id="dailyTip">Датаны жеке жаттама — оны оқиға және тұлғамен байланыстырып есте сақта.</p><button class="tip-link" id="tipBtn">Басқа кеңес →</button></div>
+    <div class="panel widget"><div class="widget-title"><span>Серияңыз</span><span class="widget-mark">S</span></div><div class="streak-big" id="streakValue">0 күн</div><div class="week" id="week"></div></div>
+    <div class="panel widget"><div class="widget-title"><span>Тақырып прогресі</span><span class="orange" id="progressPct">0%</span></div><div class="track"><span id="progressBar" style="width:0%"></span></div><div class="progress-grid"><div><b id="cardsViewed">0/8</b><span>Карточка меңгерілді</span></div><div><b id="gamesDone">0</b><span>Дұрыс ойын жауабы</span></div><div><b id="xpValue">0</b><span>XP жиналды</span></div></div></div>
+    <div class="panel widget"><div class="league"><div><div class="widget-title" style="margin:0 0 8px">Лигаңыз</div><div class="orange league-name" id="leagueName">Бастапқы лига</div><div class="league-next" id="leagueNext">Келесі лигаға: 200 XP</div><div class="track league-track"><span id="leagueBar" style="width:0%"></span></div></div><div class="league-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v4c0 4-1.8 7-4 7s-4-3-4-7V4Z"/><path d="M8 6H4c0 4 1.5 6 5 6M16 6h4c0 4-1.5 6-5 6M12 15v4M8 21h8"/></svg></div></div></div>
+    <div class="panel widget tip-widget"><div class="widget-title"><span>Бүгінгі кеңес</span></div><p id="dailyTip">Датаны оқиғамен байланыстырып еске түсір.</p><button class="tip-link" id="tipBtn">Басқа кеңес →</button></div>
   </aside>
 </main>
 <script src="./app.js"></script>
