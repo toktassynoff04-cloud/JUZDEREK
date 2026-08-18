@@ -3,41 +3,64 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JUZDEREK — Тарихты ойнап үйрен</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./styles.css">
-<link rel="stylesheet" href="./reference.css">
-<link rel="stylesheet" href="./era-icons.css">
-<link rel="stylesheet" href="./progress-premium.css">
-<link rel="stylesheet" href="./home-bottom.css">
+<title>JUZDEREK — Тарих енді қызықты!</title>
+<link rel="stylesheet" href="./home.css">
 </head>
 <body>
-<header class="topbar"><div class="topbar-inner"><button class="brand nav-home" aria-label="Басты бет"><span class="brand-symbol">J</span><span>JUZDEREK</span></button><nav class="nav"><button class="nav-link active nav-home"><span data-icon="temple"></span>Кезеңдер</button><button class="nav-link" id="navTopics"><span data-icon="cards"></span>Тақырыптар</button><button class="nav-link" id="navProgress"><span data-icon="chart"></span>Прогресс</button><button class="nav-link"><span data-icon="award"></span>Жетістіктер</button><button class="nav-link"><span data-icon="flame"></span>Үздіктер</button></nav><button class="userpill"><span class="avatar-icon" data-icon="user"></span><span>Адам аты</span><span class="chev">⌄</span></button></div></header>
-<main class="page-shell"><section id="dashboardView">
-<div class="hero reference-ancient" id="periodHero"><div class="hero-copy"><div class="hero-title-row"><span class="hero-icon" id="heroIcon"></span><div><div class="eyebrow">КЕЗЕҢ</div><h1 id="heroTitle">Ежелгі заман</h1><p id="heroDescription">Ежелгі өркениеттер мен мемлекеттер.</p><button class="hero-count" id="heroCount"><strong>12</strong><span>тақырып</span><span class="arrow">›</span></button></div></div></div><div class="hero-art"><div class="hero-orb"></div><div class="history-silhouette"></div><img class="mascot hero-mascot" src="./assets/image-Photoroom%20-%202026-08-18T221923.934.png" alt="JUZDEREK маскоты"></div></div>
-<div class="period-grid" id="periodGrid"></div>
-<section class="progress-section"><h2>Бүгінгі прогрессің</h2><div class="progress-layout"><div class="metric-card"><span class="metric-icon" data-icon="flame"></span><div><small>Серия</small><strong id="dashStreak">0 күн</strong><span id="bestStreak">Ең ұзақ: 0 күн</span></div></div><div class="metric-card"><span class="metric-icon" data-icon="spark"></span><div><small>XP</small><strong id="dashXp">0</strong><span id="nextXp">Келесі деңгейге: 200 XP</span><div class="thin-track"><span id="xpTrack"></span></div></div></div><div class="metric-card"><span class="metric-icon" data-icon="target"></span><div><small>Күнделікті мақсат</small><strong id="dashGoal">0 / 10</strong><span id="goalNeed">Тағы 10 әрекет керек</span><div class="thin-track"><span id="goalTrack"></span></div></div></div><div class="encourage-card"><img class="mascot encourage-mascot" src="./assets/mascot-progress.webp?v=20260818-2340" alt="JUZDEREK маскоты"><div><h3>Жарайсың!</h3><p>Бүгін тағы да бір қадам алға!</p><button id="continueBtn">Оқуды жалғастыру <span>›</span></button></div></div></div></section>
-<div class="bottom-grid">
-<section class="content-card recent-card"><div class="section-head"><h2>Соңғы белсенділік</h2><button class="text-btn">Барлығын көру ›</button></div><div class="activity-row"><span class="activity-icon" aria-hidden="true"></span><div class="activity-copy"><strong>Ежелгі Парсы мемлекеті</strong><span id="recentMeta">Карточкалар: 0 / 8</span></div><div class="activity-progress"><div class="thin-track"><span id="recentTrack"></span></div><b id="recentPct">0%</b></div><button class="soft-btn" id="recentContinue">Жалғастыру ›</button></div><div class="activity-row demo-row"><span class="activity-icon" aria-hidden="true"></span><div class="activity-copy"><strong>Ежелгі Египет</strong><span>Карточкалар: 6 / 10</span></div><div class="activity-progress"><div class="thin-track"><span style="width:60%"></span></div><b>60%</b></div><button class="soft-btn">Жалғастыру ›</button></div></section>
-<section class="content-card leaderboard-card"><div class="section-head"><h2>Үздіктер тақтасы</h2><button class="text-btn">Толық рейтинг ›</button></div><div class="leaderboard-hero"><img class="leaderboard-cup" src="./assets/assets%3Aleague%3A%D1%81up.webp" alt="Үздіктер кубогы"><span class="leaderboard-kicker">Осы апта</span><h3 class="leaderboard-title">TOP оқушылар</h3><span class="leaderboard-sub">XP бойынша апталық рейтинг</span></div><div class="leaderboard-list"><div class="leader-row first"><span class="leader-rank">1</span><div><strong>Айбар</strong><span> · үздік нәтиже</span></div><b class="leader-xp">2 840 XP</b></div><div class="leader-row"><span class="leader-rank">2</span><div><strong>Аружан</strong></div><b class="leader-xp">2 610 XP</b></div><div class="leader-row"><span class="leader-rank">3</span><div><strong>Нұрасыл</strong></div><b class="leader-xp">2 430 XP</b></div></div><div class="your-rank"><strong>Сенің орның: #12</strong><span>1 250 XP ↑2</span></div><span id="leagueName" hidden>Үздіктер тақтасы</span><span id="leagueMeta" hidden>TOP 15%</span></section>
-</div>
-<section class="topics-section" id="topicsSection"><div class="section-head topics-head"><div><span class="section-kicker">ТАҢДАЛҒАН КЕЗЕҢ</span><h2 id="topicsTitle">Ежелгі заман тақырыптары</h2></div><span class="topic-count-pill" id="topicCountPill">12 тақырып</span></div><div class="topic-grid" id="topicGrid"></div></section></section>
-<section id="studyView" class="hidden"><div class="study-top"><button class="back-btn" id="backToDashboard">← Кезеңдерге оралу</button><div><span class="section-kicker">ЕЖЕЛГІ ЗАМАН</span><h1>Ежелгі Парсы мемлекеті</h1></div></div><div class="study-summary"><div><small>Тақырып прогресі</small><strong id="studyProgressText">0%</strong></div><div class="wide-track"><span id="studyProgressTrack"></span></div><div class="study-xp"><span data-icon="spark"></span><b id="studyXp">0 XP</b></div></div><div class="game-tabs" id="games"><button class="game-tab active" data-game="cards"><span data-icon="cards"></span>Карточка</button><button class="game-tab" data-game="date"><span data-icon="calendar"></span>Датаны тап</button><button class="game-tab" data-game="person"><span data-icon="user"></span>Тұлғаны тап</button><button class="game-tab" data-game="chrono"><span data-icon="list"></span>Хронология</button></div><div class="stage" id="stage"></div></section></main>
-<script src="./dashboard.js"></script>
-<script src="./reference.js"></script>
-<script>
-(function(){
-  const progressMascot='./assets/mascot-progress.webp?v=20260818-2340';
-  function restoreProgressMascot(){
-    const img=document.querySelector('.encourage-mascot');
-    if(img && img.getAttribute('src')!==progressMascot) img.src=progressMascot;
-  }
-  restoreProgressMascot();
-  window.addEventListener('load',restoreProgressMascot);
-  setTimeout(restoreProgressMascot,50);
-  setTimeout(restoreProgressMascot,300);
-})();
-</script>
-</body></html>
+<header class="home-shell home-top">
+  <div class="home-brand"><span class="brand-box">J</span><span>JUZDEREK</span></div>
+  <nav class="home-nav">
+    <a class="active" href="index.html">⌂ Басты бет</a>
+    <a href="periods.html">▣ Кезеңдер</a>
+    <a href="periods.html#topicsSection">▤ Тақырыптар</a>
+    <a href="periods.html#games">🎮 Ойындар</a>
+    <a href="periods.html#navProgress">▥ Прогресс</a>
+    <a href="periods.html">★ Үздіктер</a>
+  </nav>
+  <button class="profile">◉ Адам аты⌄</button>
+</header>
+
+<main>
+<section class="home-hero">
+  <div class="home-shell hero-layout">
+    <div class="hero-copy-home">
+      <div class="hero-tag">✦ Оқы. Ойна. Есте сақта.</div>
+      <h1>Тарих енді <span>қызықты!</span></h1>
+      <p>JUZDEREK-пен даталарды жаттамай, оқиғаларды түсініп, нақты есте сақта.</p>
+      <div class="hero-actions">
+        <button class="hero-btn primary" onclick="location.href='periods.html'">▶ Оқуды бастау</button>
+        <button class="hero-btn" onclick="location.href='periods.html'">◉ Карта</button>
+      </div>
+    </div>
+    <img class="hero-mascot-home" src="./assets/image-Photoroom%20-%202026-08-18T223037.285.png" alt="JUZDEREK маскоты">
+  </div>
+</section>
+
+<section class="home-shell home-stats">
+  <div class="home-stat"><div class="sicon">🔥</div><div><strong>12</strong><span>Күндік streak</span></div></div>
+  <div class="home-stat"><div class="sicon">📚</div><div><strong>48</strong><span>Ойналған ойын</span></div></div>
+  <div class="home-stat"><div class="sicon">🎯</div><div><strong>92%</strong><span>Дәлдік</span></div></div>
+  <div class="home-stat"><div class="sicon">🏆</div><div><strong>#12</strong><span>Үздіктер тақтасы</span></div></div>
+</section>
+
+<section class="home-shell quick-grid">
+  <article class="quick-card" onclick="location.href='periods.html#games'">
+    <div class="qicon"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="13" height="16" rx="2"/><path d="M9 7h7M9 11h7M3 7v12a2 2 0 0 0 2 2h10"/></svg></div>
+    <div><h3>Карточкалар</h3><p>Даталар мен оқиғалар</p></div><span class="qgo">→</span>
+  </article>
+  <article class="quick-card" onclick="location.href='periods.html#games'">
+    <div class="qicon"><svg viewBox="0 0 24 24"><path d="m7 12 3 3 7-8"/><rect x="4" y="3" width="16" height="18" rx="3"/></svg></div>
+    <div><h3>Тест</h3><p>Біліміңді тексер</p></div><span class="qgo">→</span>
+  </article>
+  <article class="quick-card" onclick="location.href='periods.html#games'">
+    <div class="qicon"><svg viewBox="0 0 24 24"><circle cx="5" cy="7" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="17" r="2"/><path d="M7 8.5 10.5 11M13.5 13 17 15.5"/></svg></div>
+    <div><h3>Хронология</h3><p>Реттілігін тап</p></div><span class="qgo">→</span>
+  </article>
+  <article class="quick-card" onclick="location.href='periods.html#games'">
+    <div class="qicon"><svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M3 20c1.2-4 3.5-6 7-6s5.8 2 7 6M18 15l3 3M21 15l-3 3"/></svg></div>
+    <div><h3>Кейіпкерді таны</h3><p>Бұл кім?</p></div><span class="qgo">→</span>
+  </article>
+</section>
+</main>
+</body>
+</html>
