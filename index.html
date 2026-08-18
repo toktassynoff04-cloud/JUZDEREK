@@ -10,118 +10,17 @@
 <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-
-<header class="topbar">
-  <div class="topbar-inner">
-    <button class="brand nav-home" aria-label="Басты бет"><span class="brand-symbol">J</span><span>JUZDEREK</span></button>
-    <nav class="nav">
-      <button class="nav-link active nav-home" data-view="periods"><span data-icon="temple"></span>Кезеңдер</button>
-      <button class="nav-link" id="navTopics"><span data-icon="cards"></span>Тақырыптар</button>
-      <button class="nav-link" id="navProgress"><span data-icon="chart"></span>Прогресс</button>
-      <button class="nav-link"><span data-icon="award"></span>Жетістіктер</button>
-      <button class="nav-link"><span data-icon="flame"></span>Лига</button>
-    </nav>
-    <button class="userpill"><span class="avatar-icon" data-icon="user"></span><span>Адам аты</span><span class="chev">⌄</span></button>
-  </div>
-</header>
-
+<header class="topbar"><div class="topbar-inner"><button class="brand nav-home" aria-label="Басты бет"><span class="brand-symbol">J</span><span>JUZDEREK</span></button><nav class="nav"><button class="nav-link active nav-home" data-view="periods"><span data-icon="temple"></span>Кезеңдер</button><button class="nav-link" id="navTopics"><span data-icon="cards"></span>Тақырыптар</button><button class="nav-link" id="navProgress"><span data-icon="chart"></span>Прогресс</button><button class="nav-link"><span data-icon="award"></span>Жетістіктер</button><button class="nav-link"><span data-icon="flame"></span>Лига</button></nav><button class="userpill"><span class="avatar-icon" data-icon="user"></span><span>Адам аты</span><span class="chev">⌄</span></button></div></header>
 <main class="page-shell">
-  <section id="dashboardView">
-    <div class="hero" id="periodHero">
-      <div class="hero-copy">
-        <div class="eyebrow">КЕЗЕҢ</div>
-        <div class="hero-title-row">
-          <span class="hero-icon" id="heroIcon"></span>
-          <div>
-            <h1 id="heroTitle">Ежелгі заман</h1>
-            <p id="heroDescription">Ежелгі өркениеттер мен мемлекеттер.</p>
-          </div>
-        </div>
-        <button class="hero-count" id="heroCount"><strong>12</strong><span>тақырып</span><span class="arrow">→</span></button>
-      </div>
-      <div class="hero-art">
-        <div class="hero-orb"></div>
-        <div class="history-silhouette" aria-hidden="true"></div>
-        <img class="mascot hero-mascot" alt="JUZDEREK маскоты">
-      </div>
-    </div>
-
-    <div class="period-grid" id="periodGrid"></div>
-
-    <section class="progress-section">
-      <h2>Бүгінгі прогрессің</h2>
-      <div class="progress-layout">
-        <div class="metric-card">
-          <span class="metric-icon" data-icon="flame"></span>
-          <div><small>Серия</small><strong id="dashStreak">0 күн</strong><span id="bestStreak">Ең ұзақ: 0 күн</span></div>
-        </div>
-        <div class="metric-card">
-          <span class="metric-icon" data-icon="spark"></span>
-          <div><small>XP</small><strong id="dashXp">0</strong><span id="nextXp">Келесі деңгейге: 200 XP</span><div class="thin-track"><span id="xpTrack"></span></div></div>
-        </div>
-        <div class="metric-card">
-          <span class="metric-icon" data-icon="target"></span>
-          <div><small>Күнделікті мақсат</small><strong id="dashGoal">0 / 10</strong><span id="goalNeed">тағы 10 әрекет керек</span><div class="thin-track"><span id="goalTrack"></span></div></div>
-        </div>
-        <div class="encourage-card">
-          <img class="mascot encourage-mascot" alt="">
-          <div><h3>Жарайсың!</h3><p>Бүгін тағы да бір қадам алға!</p><button id="continueBtn">Оқуды жалғастыру <span>→</span></button></div>
-        </div>
-      </div>
-    </section>
-
-    <div class="bottom-grid">
-      <section class="content-card recent-card">
-        <div class="section-head"><h2>Соңғы белсенділік</h2><button class="text-btn">Барлығын көру →</button></div>
-        <div class="activity-row">
-          <span class="activity-icon" data-icon="cards"></span>
-          <div class="activity-copy"><strong>Ежелгі Парсы мемлекеті</strong><span id="recentMeta">Карточкалар: 0 / 8</span></div>
-          <div class="activity-progress"><div class="thin-track"><span id="recentTrack"></span></div><b id="recentPct">0%</b></div>
-          <button class="soft-btn" id="recentContinue">Жалғастыру →</button>
-        </div>
-      </section>
-
-      <section class="content-card league-card">
-        <div class="section-head"><h2>Лига</h2><button class="text-btn">Барлығын көру →</button></div>
-        <div class="league-row">
-          <span class="medal-icon" data-icon="award"></span>
-          <div><strong id="leagueName">Бастапқы лига</strong><span id="leagueMeta">TOP —</span></div>
-          <span class="league-arrow">›</span>
-        </div>
-      </section>
-    </div>
-
-    <section class="topics-section" id="topicsSection">
-      <div class="section-head topics-head">
-        <div><span class="section-kicker">ТАҢДАЛҒАН КЕЗЕҢ</span><h2 id="topicsTitle">Ежелгі заман тақырыптары</h2></div>
-        <span class="topic-count-pill" id="topicCountPill">12 тақырып</span>
-      </div>
-      <div class="topic-grid" id="topicGrid"></div>
-    </section>
-  </section>
-
-  <section id="studyView" class="hidden">
-    <div class="study-top">
-      <button class="back-btn" id="backToDashboard">← Кезеңдерге оралу</button>
-      <div><span class="section-kicker">ЕЖЕЛГІ ЗАМАН</span><h1>Ежелгі Парсы мемлекеті</h1></div>
-    </div>
-
-    <div class="study-summary">
-      <div><small>Тақырып прогресі</small><strong id="studyProgressText">0%</strong></div>
-      <div class="wide-track"><span id="studyProgressTrack"></span></div>
-      <div class="study-xp"><span data-icon="spark"></span><b id="studyXp">0 XP</b></div>
-    </div>
-
-    <div class="game-tabs" id="games">
-      <button class="game-tab active" data-game="cards"><span data-icon="cards"></span>Карточка</button>
-      <button class="game-tab" data-game="date"><span data-icon="calendar"></span>Датаны тап</button>
-      <button class="game-tab" data-game="person"><span data-icon="user"></span>Тұлғаны тап</button>
-      <button class="game-tab" data-game="chrono"><span data-icon="list"></span>Хронология</button>
-    </div>
-    <div class="stage" id="stage"></div>
-  </section>
+<section id="dashboardView">
+<div class="hero" id="periodHero"><div class="hero-copy"><div class="eyebrow">КЕЗЕҢ</div><div class="hero-title-row"><span class="hero-icon" id="heroIcon"></span><div><h1 id="heroTitle">Ежелгі заман</h1><p id="heroDescription">Ежелгі өркениеттер мен мемлекеттер.</p></div></div><button class="hero-count" id="heroCount"><strong>12</strong><span>тақырып</span><span class="arrow">→</span></button></div><div class="hero-art"><div class="hero-orb"></div><div class="history-silhouette" aria-hidden="true"></div><img class="mascot hero-mascot" alt="JUZDEREK маскоты"></div></div>
+<div class="period-grid" id="periodGrid"></div>
+<section class="progress-section"><h2>Бүгінгі прогрессің</h2><div class="progress-layout"><div class="metric-card"><span class="metric-icon" data-icon="flame"></span><div><small>Серия</small><strong id="dashStreak">0 күн</strong><span id="bestStreak">Ең ұзақ: 0 күн</span></div></div><div class="metric-card"><span class="metric-icon" data-icon="spark"></span><div><small>XP</small><strong id="dashXp">0</strong><span id="nextXp">Келесі деңгейге: 200 XP</span><div class="thin-track"><span id="xpTrack"></span></div></div></div><div class="metric-card"><span class="metric-icon" data-icon="target"></span><div><small>Күнделікті мақсат</small><strong id="dashGoal">0 / 10</strong><span id="goalNeed">тағы 10 әрекет керек</span><div class="thin-track"><span id="goalTrack"></span></div></div></div><div class="encourage-card"><img class="mascot encourage-mascot" alt=""><div><h3>Жарайсың!</h3><p>Бүгін тағы да бір қадам алға!</p><button id="continueBtn">Оқуды жалғастыру <span>→</span></button></div></div></div></section>
+<div class="bottom-grid"><section class="content-card recent-card"><div class="section-head"><h2>Соңғы белсенділік</h2><button class="text-btn">Барлығын көру →</button></div><div class="activity-row"><span class="activity-icon" data-icon="cards"></span><div class="activity-copy"><strong>Ежелгі Парсы мемлекеті</strong><span id="recentMeta">Карточкалар: 0 / 8</span></div><div class="activity-progress"><div class="thin-track"><span id="recentTrack"></span></div><b id="recentPct">0%</b></div><button class="soft-btn" id="recentContinue">Жалғастыру →</button></div></section><section class="content-card league-card"><div class="section-head"><h2>Лига</h2><button class="text-btn">Барлығын көру →</button></div><div class="league-row"><span class="medal-icon" data-icon="award"></span><div><strong id="leagueName">Бастапқы лига</strong><span id="leagueMeta">TOP —</span></div><span class="league-arrow">›</span></div></section></div>
+<section class="topics-section" id="topicsSection"><div class="section-head topics-head"><div><span class="section-kicker">ТАҢДАЛҒАН КЕЗЕҢ</span><h2 id="topicsTitle">Ежелгі заман тақырыптары</h2></div><span class="topic-count-pill" id="topicCountPill">12 тақырып</span></div><div class="topic-grid" id="topicGrid"></div></section>
+</section>
+<section id="studyView" class="hidden"><div class="study-top"><button class="back-btn" id="backToDashboard">← Кезеңдерге оралу</button><div><span class="section-kicker">ЕЖЕЛГІ ЗАМАН</span><h1>Ежелгі Парсы мемлекеті</h1></div></div><div class="study-summary"><div><small>Тақырып прогресі</small><strong id="studyProgressText">0%</strong></div><div class="wide-track"><span id="studyProgressTrack"></span></div><div class="study-xp"><span data-icon="spark"></span><b id="studyXp">0 XP</b></div></div><div class="game-tabs" id="games"><button class="game-tab active" data-game="cards"><span data-icon="cards"></span>Карточка</button><button class="game-tab" data-game="date"><span data-icon="calendar"></span>Датаны тап</button><button class="game-tab" data-game="person"><span data-icon="user"></span>Тұлғаны тап</button><button class="game-tab" data-game="chrono"><span data-icon="list"></span>Хронология</button></div><div class="stage" id="stage"></div></section>
 </main>
-
-<script src="./mascot-1.js"></script><script src="./mascot-2.js"></script><script src="./mascot-3.js"></script><script src="./mascot-4.js"></script><script src="./app.js"></script>
+<script src="./dashboard.js"></script>
 </body>
 </html>
