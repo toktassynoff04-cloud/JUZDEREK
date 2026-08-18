@@ -14,7 +14,7 @@ body{font-weight:400;font-size:16px;line-height:1.55}
 /* Final reference layer */
 .page-shell{width:min(1470px,calc(100% - 52px));margin:22px auto 54px}
 .hero{height:376px!important;border-radius:30px!important;overflow:hidden!important;display:grid!important;grid-template-columns:1.02fr .98fr!important;border:1px solid #f3dfd3!important;box-shadow:none!important;position:relative!important}
-.hero.reference-ancient{background:#fff url('./assets/hero-ancient.webp') center/cover no-repeat!important}
+.hero.reference-ancient{background:#fff url('./assets/assets/hero-ancient-bg.png') center/cover no-repeat!important}
 .hero.reference-ancient:before,.hero.reference-ancient:after,.hero.reference-ancient .hero-orb,.hero.reference-ancient .history-silhouette{display:none!important}
 .hero-copy{padding:48px 0 34px 58px!important;position:relative!important;z-index:5!important}
 .hero-title-row{align-items:flex-start!important;gap:27px!important;margin-top:0!important}
