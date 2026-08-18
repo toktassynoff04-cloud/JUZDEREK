@@ -1,0 +1,59 @@
+/* Larger, more prominent 3D era icons */
+.period-grid{gap:18px!important}
+.period-card{height:190px!important;padding:20px 24px!important;justify-content:center!important}
+
+.period-card-icon{
+  width:112px!important;
+  height:96px!important;
+  margin:0 0 10px!important;
+  display:grid!important;
+  place-items:center!important;
+  position:relative!important;
+  z-index:3!important;
+  overflow:visible!important;
+}
+.period-card-icon:after{
+  width:112px!important;
+  height:96px!important;
+  background-size:contain!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  filter:drop-shadow(0 10px 14px rgba(25,32,44,.14))!important;
+  transform:scale(1.08);
+  transform-origin:center;
+}
+
+.period-card.ancient{padding-left:138px!important;align-items:flex-start!important;text-align:left!important}
+.period-card.ancient .period-card-icon{width:96px!important;height:84px!important;margin-left:2px!important}
+.period-card.ancient .period-card-icon:after{width:96px!important;height:84px!important;transform:scale(1.12)}
+.period-card.ancient:before{width:138px!important;height:174px!important;bottom:-14px!important}
+
+.period-card.medieval .period-card-icon:after{transform:scale(1.20)}
+.period-card.modern .period-card-icon:after{transform:scale(1.12)}
+.period-card.contemporary .period-card-icon:after{transform:scale(1.16)}
+
+.period-card h3{font-size:23px!important;margin-top:0!important;margin-bottom:8px!important;line-height:1.2!important}
+.period-card p{font-size:16px!important;line-height:1.35!important}
+.round-arrow{width:38px!important;height:38px!important;right:18px!important;bottom:17px!important;font-size:22px!important}
+
+/* Make the light ribbon feel intentional rather than decorative noise */
+.period-card:after{width:310px!important;height:72px!important;right:-88px!important;top:44px!important;opacity:.82!important;filter:blur(.4px)!important}
+.period-card:before{right:82px!important;top:25px!important}
+
+@media(max-width:1100px){
+  .period-card{height:180px!important}
+  .period-card-icon{width:96px!important;height:84px!important}
+  .period-card-icon:after{width:96px!important;height:84px!important}
+  .period-card.ancient{padding-left:108px!important}
+  .period-card.ancient:before{width:108px!important;height:150px!important}
+}
+
+@media(max-width:760px){
+  .period-card{height:172px!important;padding:16px!important}
+  .period-card-icon{width:82px!important;height:72px!important;margin-bottom:7px!important}
+  .period-card-icon:after{width:82px!important;height:72px!important}
+  .period-card.ancient{padding-left:88px!important}
+  .period-card.ancient:before{width:88px!important;height:130px!important}
+  .period-card h3{font-size:19px!important}
+  .period-card p{font-size:14px!important}
+}
