@@ -3,19 +3,14 @@ const svgIcons={
  shield:'<svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.7 2.8 8 7 10 4.2-2 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-5"/></svg>',
  ship:'<svg viewBox="0 0 24 24"><path d="M12 3v11M7 7h10l-5-4-5 4ZM4 15l8-3 8 3-2 5H6l-2-5Z"/><path d="M3 21c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1"/></svg>',
  globe:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>',
- cards:'<svg viewBox="0 0 24 24"><rect x="6" y="3" width="13" height="16" rx="2"/><path d="M9 7h7M9 11h7M3 7v12a2 2 0 0 0 2 2h10"/></svg>',
- chart:'<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
- award:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="m8.5 12-2 9 5.5-3 5.5 3-2-9"/></svg>',
  flame:'<svg viewBox="0 0 24 24"><path d="M13 2c1 5-3 5-1 9 1-2 3-3 5-4 2 3 3 5 3 8a8 8 0 1 1-16 0c0-4 2-7 5-10 0 3 1 5 3 6"/></svg>',
- user:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4.3 4-6.5 8-6.5s6.8 2.2 8 6.5"/></svg>',
  spark:'<svg viewBox="0 0 24 24"><path d="m12 3 2.2 4.8L19 10l-4.8 2.2L12 17l-2.2-4.8L5 10l4.8-2.2L12 3Z"/></svg>',
- target:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg>',
- calendar:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg>',
- list:'<svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>'
+ target:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg>'
 };
-function applyIcons(root=document){root.querySelectorAll('[data-icon]').forEach(el=>el.innerHTML=svgIcons[el.dataset.icon]||'')}
-applyIcons();
-document.querySelectorAll('.mascot').forEach(img=>img.src='./mascot.svg');
+
+function applyIcons(root=document){
+  root.querySelectorAll('[data-icon]').forEach(el=>{el.innerHTML=svgIcons[el.dataset.icon]||''})
+}
 
 const periods={
  ancient:{title:'Ежелгі заман',icon:'temple',className:'ancient',description:'Ежелгі өркениеттер мен мемлекеттер.',topics:['Ежелгі Египет','Ежелгі Қосөзен','Ежелгі Қытай','Ежелгі Үндістан','Ежелгі Парсы мемлекеті','Ежелгі Грекия өркениеті','Александр Македонскийдің империясы','Ежелгі Рим өркениеті','Рим империясы','Ежелгі діни нанымдар','Көне философиялық ілімдер','Әлемдік діндер мен өркениеттердің дамуы']},
@@ -23,52 +18,70 @@ const periods={
  modern:{title:'Жаңа заман',icon:'ship',className:'modern',description:'XVII–XIX ғасырлардағы революциялар мен үлкен өзгерістер.',topics:['Жаңа заман дәуірі туралы түсінік','Өнеркәсіп төңкерісі және индустриалды қоғам','Ағартушылық дәуірі','XVII ғасырдағы ағылшын революциясы','АҚШ-тың құрылуы және Тәуелсіздік үшін соғыс','Француз революциясы','Наполеон дәуірі','Ресей империясының қалыптасуы','XVII–XVIII ғасырлардағы Үндістан','Еуропалық отаршылдық саясаты','Танзимат реформалары','Қырым соғысы','Апиын соғыстары','1848 жылғы Еуропа революциялары','Германия мен Италияның бірігуі','АҚШ-тағы азамат соғысы','Жапонияның ашылуы','Сипайлар көтерілісі','Үнді Ұлттық Конгресі','XIX ғасырдағы ғылым мен мәдениет']},
  contemporary:{title:'Қазіргі заман',icon:'globe',className:'contemporary',description:'XX–XXI ғасырлардағы соғыстар, халықаралық қатынастар және технологиялар.',topics:['Қазіргі заман ұғымы және оның ерекшеліктері','Бірінші дүниежүзілік соғыс','Версаль–Вашингтон жүйесі','Мұстафа Кемал Ататүрік және Түркия','Махатма Ганди және Үндістан','XX ғасырдағы Қытай','XX ғасырдағы Жапония','1917 жылғы Ресей революциясы','КСРО-ның құрылуы','Ұлы экономикалық дағдарыс','Ф.Д. Рузвельттің Жаңа бағыты','Фашизм және тоталитарлық режимдер','Екінші дүниежүзілік соғыс','Отарсыздану үдерісі','Қырғиқабақ соғыс','Араб–израиль қақтығысы','КСРО: жылымық және тоқырау','Қытай реформалары','КСРО-ның ыдырауы және постбиполярлық әлем','Жаһандану','БҰҰ және халықаралық ұйымдар','Қазіргі халықаралық қатынастар','Ғылыми-техникалық революция','Ақпараттық технологиялар','XX–XXI ғасырлар мәдениеті және ЮНЕСКО']}
 };
-const facts=[
-{id:'p1',date:'Б.з.б. 558 жылдары',event:'Парсылардың патшасы болып ІІ Кир сайланып, Ахеменидтер династиясының негізін қалады.',person:'ІІ Кир'},
-{id:'p2',date:'Б.з.б. 547–546 жылдары',event:'ІІ Кир Армения мен Каппадокияны, Лидияны жаулап алды.',person:'ІІ Кир'},
-{id:'p3',date:'Б.з.б. 538 жылдары',event:'ІІ Кир Вавилон мемлекетін басып алып, оны Парсының құрамына қосты.',person:'ІІ Кир'},
-{id:'p4',date:'Б.з.б. 529 жылы',event:'Каспий даласында массагеттермен болған шайқаста ІІ Кир қаза тапты.',person:'ІІ Кир'},
-{id:'p5',date:'Б.з.б. 526 жылы',event:'Камбиз Египетке қарсы жорыққа аттанды.',person:'Камбиз'},
-{id:'p6',date:'Б.з.б. 525 жылы',event:'Камбиз Египет мемлекетін басып алды.',person:'Камбиз'},
-{id:'p7',date:'Б.з.б. 523 жылы',event:'Камбиз қаза болған соң империяның көптеген аймақтарында көтерілістер болды.',person:'Камбиз'},
-{id:'p8',date:'Б.з.б. 521–486 жылдары',event:'І Дарий билік құрды. Бұл кезең Парсы патшалығының ең өркендеген тұсы болды.',person:'І Дарий'}
-];
-const people=[
-{id:'kir',name:'ІІ Кир',clue:'Ахеменидтер династиясының негізін қалады; Мидияны, Лидияны және Вавилонды бағындырды.'},
-{id:'astiag',name:'Астиаг',clue:'Мидия патшасы. ІІ Кирден жеңіліп, мемлекеті талқандалды.'},
-{id:'kambiz',name:'Камбиз',clue:'ІІ Кирдің ұлы. Египетке жорық жасап, оны басып алды.'},
-{id:'darius',name:'І Дарий',clue:'Сатрапилер жүйесін күшейтіп, алым-салық жүйесін реттеп, «Дарик» алтын монетасын шығарды.'},
-{id:'ariad',name:'Ариад',clue:'Египеттің сатрапы. Өз бетінше күміс ақша жасай бастағаны үшін І Дарийдің қаһарына ұшырады.'}
-];
-const KEY='juzderek_dashboard_v1';
-const defaults={xp:0,streak:0,bestStreak:0,lastActivity:null,dailyDate:null,dailyCount:0,cardIndex:0,period:'ancient',cardsMastered:[],datesMastered:[],personsMastered:[],chronoMastered:[],correctAnswers:0};
-let state={...defaults,...(JSON.parse(localStorage.getItem(KEY)||'null')||{})};let selectedPeriod=state.period||'ancient';
-function localDay(d=new Date()){return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
-function save(){localStorage.setItem(KEY,JSON.stringify(state))}
-function initDay(){const t=localDay();if(state.dailyDate!==t){state.dailyDate=t;state.dailyCount=0;save()}}
-function registerActivity(){const t=localDay();if(state.lastActivity!==t){const y=new Date();y.setDate(y.getDate()-1);state.streak=state.lastActivity===localDay(y)?state.streak+1:1;state.bestStreak=Math.max(state.bestStreak||0,state.streak);state.lastActivity=t}state.dailyCount=Math.min(10,state.dailyCount+1);save()}
-function uniquePush(arr,id){if(arr.includes(id))return false;arr.push(id);return true}
-function league(){const levels=[['Бастапқы лига',0,200],['Қола лига',200,500],['Күміс лига',500,900],['Алтын лига',900,1500],['Платина лига',1500,2400],['Гауһар лига',2400,999999]];const l=levels.find(x=>state.xp>=x[1]&&state.xp<x[2])||levels.at(-1);return{name:l[0],min:l[1],max:l[2]}}
-function topicProgress(){const a=(state.cardsMastered.length/facts.length)*40,b=(state.datesMastered.length/facts.length)*20,c=(state.personsMastered.length/people.length)*20,d=(Math.min(state.chronoMastered.length,3)/3)*20;return Math.min(100,Math.round(a+b+c+d))}
-function award(xp){state.xp+=xp;state.correctAnswers++;registerActivity();save();syncAll()}
-function syncAll(){const pct=topicProgress(),l=league();
- document.getElementById('dashStreak').textContent=(state.streak||0)+' күн';document.getElementById('bestStreak').textContent='Ең ұзақ: '+(state.bestStreak||0)+' күн';document.getElementById('dashXp').textContent=state.xp.toLocaleString('kk-KZ');document.getElementById('dashGoal').textContent=state.dailyCount+' / 10';document.getElementById('goalNeed').textContent=state.dailyCount>=10?'Бүгінгі мақсат орындалды':'тағы '+(10-state.dailyCount)+' әрекет керек';document.getElementById('goalTrack').style.width=Math.min(100,state.dailyCount*10)+'%';
- const x=l.max>900000?100:Math.max(0,Math.min(100,(state.xp-l.min)/(l.max-l.min)*100));document.getElementById('xpTrack').style.width=x+'%';document.getElementById('nextXp').textContent=l.max>900000?'Ең жоғары деңгей':'Келесі деңгейге: '+l.max+' XP';document.getElementById('leagueName').textContent=l.name;document.getElementById('leagueMeta').textContent=state.xp<900?'Өсу үстінде':'TOP 15%';document.getElementById('recentMeta').textContent='Карточкалар: '+state.cardsMastered.length+' / '+facts.length;document.getElementById('recentPct').textContent=pct+'%';document.getElementById('recentTrack').style.width=pct+'%';document.getElementById('studyProgressText').textContent=pct+'%';document.getElementById('studyProgressTrack').style.width=pct+'%';document.getElementById('studyXp').textContent=state.xp+' XP';}
-function renderPeriods(){const grid=document.getElementById('periodGrid');grid.innerHTML=Object.entries(periods).map(([k,p])=>`<button class="period-card ${p.className} ${k===selectedPeriod?'active':''}" data-period="${k}"><span class="period-card-icon" data-icon="${p.icon}"></span><h3>${p.title}</h3><p>${p.topics.length} тақырып</p><span class="round-arrow">→</span></button>`).join('');applyIcons(grid);grid.querySelectorAll('[data-period]').forEach(b=>b.onclick=()=>selectPeriod(b.dataset.period,true))}
-function selectPeriod(key,scroll=false){selectedPeriod=key;state.period=key;save();const p=periods[key];document.getElementById('heroTitle').textContent=p.title;document.getElementById('heroDescription').textContent=p.description;document.getElementById('heroCount').innerHTML=`<strong>${p.topics.length}</strong><span>тақырып</span><span class="arrow">→</span>`;const hi=document.getElementById('heroIcon');hi.dataset.icon=p.icon;applyIcons(hi.parentElement);document.getElementById('topicsTitle').textContent=p.title+' тақырыптары';document.getElementById('topicCountPill').textContent=p.topics.length+' тақырып';const hero=document.getElementById('periodHero');hero.style.background=key==='ancient'?'linear-gradient(120deg,#fff7f1 0%,#fff 43%,#ffe8d6 100%)':key==='medieval'?'linear-gradient(120deg,#f7f2ff 0%,#fff 43%,#eee5ff 100%)':key==='modern'?'linear-gradient(120deg,#f2f7ff 0%,#fff 43%,#e1efff 100%)':'linear-gradient(120deg,#f1fbf6 0%,#fff 43%,#def5e9 100%)';renderPeriods();renderTopics();if(scroll)document.getElementById('topicsSection').scrollIntoView({behavior:'smooth'})}
-function renderTopics(){const p=periods[selectedPeriod],grid=document.getElementById('topicGrid');grid.innerHTML=p.topics.map((t,i)=>{const ready=selectedPeriod==='ancient'&&t==='Ежелгі Парсы мемлекеті';return `<button class="topic-card ${ready?'ready':''}" data-topic="${t}"><span class="topic-index">${String(i+1).padStart(2,'0')}</span><span><h3>${t}</h3><p>${ready?'Оқуды бастауға дайын':'Контент кейін қосылады'}</p></span><span class="topic-go">→</span></button>`}).join('');grid.querySelectorAll('.topic-card').forEach(btn=>btn.onclick=()=>{if(selectedPeriod==='ancient'&&btn.dataset.topic==='Ежелгі Парсы мемлекеті')openStudy();else btn.animate([{transform:'scale(1)'},{transform:'scale(.985)'},{transform:'scale(1)'}],{duration:260})})}
-function openStudy(){document.getElementById('dashboardView').classList.add('hidden');document.getElementById('studyView').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});setGame('cards');syncAll()}
-function closeStudy(){document.getElementById('studyView').classList.add('hidden');document.getElementById('dashboardView').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
-document.getElementById('backToDashboard').onclick=closeStudy;document.getElementById('continueBtn').onclick=openStudy;document.getElementById('recentContinue').onclick=openStudy;document.getElementById('heroCount').onclick=()=>document.getElementById('topicsSection').scrollIntoView({behavior:'smooth'});document.getElementById('navTopics').onclick=()=>document.getElementById('topicsSection').scrollIntoView({behavior:'smooth'});document.getElementById('navProgress').onclick=()=>document.querySelector('.progress-section').scrollIntoView({behavior:'smooth'});document.querySelectorAll('.nav-home').forEach(b=>b.onclick=()=>{closeStudy();window.scrollTo({top:0,behavior:'smooth'})});
-function markCard(id){if(uniquePush(state.cardsMastered,id)){state.xp+=5;registerActivity();save();syncAll()}}
-function renderCard(){const i=state.cardIndex%facts.length,f=facts[i],stage=document.getElementById('stage');stage.innerHTML=`<div class="paper-wrap"><div class="paper-back"></div><div class="binder"></div><article class="paper" id="paperCard"><div class="paper-head"><span>JUZDEREK • Карточка</span><span>${i+1}/${facts.length}</span></div><div class="card-bubble">${i+1}</div><h1 id="cardMain">${f.date}</h1><p id="cardSub">Датаны көріп, қандай оқиға болғанын еске түсір. Сосын карточканы аудар.</p><div class="paper-foot"><span>Алдымен өзің жауап беруге тырыс.</span><div class="paper-actions"><button class="mini-btn" id="prevCard">←</button><button class="mini-btn primary" id="flipCard">Аудару</button><button class="mini-btn" id="nextCard">→</button></div></div></article></div>`;let flipped=false;const flip=()=>{flipped=!flipped;const m=document.getElementById('cardMain'),s=document.getElementById('cardSub');m.textContent=flipped?f.event:f.date;m.className=flipped?'flip-event':'';s.textContent=flipped?f.date:'Датаны көріп, қандай оқиға болғанын еске түсір. Сосын карточканы аудар.';if(flipped)markCard(f.id)};document.getElementById('flipCard').onclick=flip;document.getElementById('paperCard').onclick=e=>{if(!e.target.closest('button'))flip()};document.getElementById('prevCard').onclick=()=>{state.cardIndex=(i-1+facts.length)%facts.length;save();renderCard()};document.getElementById('nextCard').onclick=()=>{state.cardIndex=(i+1)%facts.length;save();renderCard()}}
-function shuffled(a){return [...a].sort(()=>Math.random()-.5)}
-function gp(r,t){return `<div class="game-progress"><div class="wide-track"><span style="width:${r/t*100}%"></span></div><b>${r}/${t}</b></div>`}
-function result(score,total,replay,next){const pct=Math.round(score/total*100),msg=pct>=80?'Өте жақсы нәтиже!':pct>=60?'Жақсы! Тағы бір рет қайталап көр.':'Бұл тақырыпты тағы қайталау пайдалы болады.';document.getElementById('stage').innerHTML=`<div class="result-shell"><div class="result-ring" style="--score:${pct}"><strong>${pct}%</strong></div><h2>${score}/${total}</h2><p>${msg}</p><div class="result-actions"><button class="mini-btn" id="replayGame">Қайта ойнау</button><button class="mini-btn primary" id="nextGame">Келесі ойын →</button></div></div>`;document.getElementById('replayGame').onclick=replay;document.getElementById('nextGame').onclick=()=>setGame(next)}
-function runDate(r=1,score=0,t=10){if(r>t)return result(score,t,()=>runDate(),'person');const q=facts[Math.floor(Math.random()*facts.length)],opts=shuffled([q.date,...shuffled(facts.filter(x=>x.id!==q.id)).slice(0,3).map(x=>x.date)]),stage=document.getElementById('stage');stage.innerHTML=`<div class="quiz-shell">${gp(r,t)}<div class="quiz-title">ДАТАНЫ ТАП</div><div class="quiz-q">${q.event}</div><div class="answers">${opts.map(x=>`<button class="answer">${x}</button>`).join('')}</div><div class="feedback" id="feedback"></div></div>`;let done=false;stage.querySelectorAll('.answer').forEach(b=>b.onclick=()=>{if(done)return;done=true;const ok=b.textContent===q.date;b.classList.add(ok?'correct':'wrong');stage.querySelectorAll('.answer').forEach(x=>{if(x.textContent===q.date)x.classList.add('correct')});const fb=document.getElementById('feedback');fb.style.display='block';fb.innerHTML=ok?'Дұрыс жауап.':'Дұрыс жауап: <b>'+q.date+'</b>';if(ok&&uniquePush(state.datesMastered,q.id))award(15);else{registerActivity();save();syncAll()}setTimeout(()=>runDate(r+1,score+(ok?1:0),t),650)})}
-function runPerson(r=1,score=0,t=10){if(r>t)return result(score,t,()=>runPerson(),'chrono');const q=people[Math.floor(Math.random()*people.length)],opts=shuffled([q.name,...shuffled(people.filter(x=>x.id!==q.id)).slice(0,3).map(x=>x.name)]),stage=document.getElementById('stage');stage.innerHTML=`<div class="quiz-shell">${gp(r,t)}<div class="quiz-title">ТҰЛҒАНЫ ТАП</div><div class="quiz-q">${q.clue}</div><div class="answers">${opts.map(x=>`<button class="answer">${x}</button>`).join('')}</div><div class="feedback" id="feedback"></div></div>`;let done=false;stage.querySelectorAll('.answer').forEach(b=>b.onclick=()=>{if(done)return;done=true;const ok=b.textContent===q.name;b.classList.add(ok?'correct':'wrong');stage.querySelectorAll('.answer').forEach(x=>{if(x.textContent===q.name)x.classList.add('correct')});const fb=document.getElementById('feedback');fb.style.display='block';fb.innerHTML=ok?'Дұрыс жауап.':'Дұрыс жауап: <b>'+q.name+'</b>';if(ok&&uniquePush(state.personsMastered,q.id))award(20);else{registerActivity();save();syncAll()}setTimeout(()=>runPerson(r+1,score+(ok?1:0),t),650)})}
-function yearVal(s){const m=s.match(/(\d{3,4})/);return m?Number(m[1]):0}
-function runChrono(r=1,score=0,t=10){if(r>t)return result(score,t,()=>runChrono(),'cards');const chosen=shuffled(facts).slice(0,4),stage=document.getElementById('stage');let order=[];stage.innerHTML=`<div class="chrono-shell">${gp(r,t)}<div class="quiz-title">ХРОНОЛОГИЯ</div><div class="quiz-q">Оқиғаларды реттілігі бойынша орналастырыңыз.</div><div class="chrono-list">${chosen.map((x,i)=>`<button class="chrono-item" data-i="${i}">${x.event}</button>`).join('')}</div><div class="chosen">Таңдалған рет: <span id="chosenText">—</span></div><button class="mini-btn primary" id="checkChrono" style="margin-top:12px">Тексеру</button></div>`;stage.querySelectorAll('.chrono-item').forEach(b=>b.onclick=()=>{const i=Number(b.dataset.i);if(order.includes(i)){order=order.filter(x=>x!==i);b.classList.remove('selected')}else{order.push(i);b.classList.add('selected')}document.getElementById('chosenText').textContent=order.map((x,j)=>(j+1)+'. '+chosen[x].date).join(' → ')||'—'});document.getElementById('checkChrono').onclick=()=>{if(order.length!==chosen.length)return;const sel=order.map(i=>chosen[i]),correct=[...chosen].sort((a,b)=>yearVal(b.date)-yearVal(a.date)),ok=sel.every((x,i)=>x.id===correct[i].id);document.querySelector('.chosen').innerHTML=ok?'Дұрыс рет.':'Дұрыс рет: <b>'+correct.map(x=>x.date).join(' → ')+'</b>';const key=correct.map(x=>x.id).join('-');if(ok&&uniquePush(state.chronoMastered,key))award(25);else{registerActivity();save();syncAll()}setTimeout(()=>runChrono(r+1,score+(ok?1:0),t),850)}}
-function setGame(name){document.querySelectorAll('.game-tab').forEach(b=>b.classList.toggle('active',b.dataset.game===name));if(name==='cards')renderCard();if(name==='date')runDate();if(name==='person')runPerson();if(name==='chrono')runChrono()}
-document.querySelectorAll('.game-tab').forEach(b=>b.onclick=()=>setGame(b.dataset.game));
-initDay();renderPeriods();selectPeriod(selectedPeriod);syncAll();
+
+const dashboardKey='juzderek_dashboard_v1';
+function readDashboardState(){
+  try{return JSON.parse(localStorage.getItem(dashboardKey)||'{}')||{}}catch{return{}}
+}
+function saveSelectedPeriod(period){
+  const state=readDashboardState();state.period=period;localStorage.setItem(dashboardKey,JSON.stringify(state))
+}
+
+let selectedPeriod=periods[readDashboardState().period]?readDashboardState().period:'ancient';
+
+function renderPeriods(){
+  const grid=document.getElementById('periodGrid');if(!grid)return;
+  grid.innerHTML=Object.entries(periods).map(([key,p])=>`<button class="period-card ${p.className} ${key===selectedPeriod?'active':''}" data-period="${key}"><span class="period-card-icon" data-icon="${p.icon}"></span><h3>${p.title}</h3><p>${p.topics.length} тақырып</p><span class="round-arrow">→</span></button>`).join('');
+  applyIcons(grid);
+  grid.querySelectorAll('[data-period]').forEach(btn=>btn.addEventListener('click',()=>selectPeriod(btn.dataset.period,true)));
+}
+
+function renderTopics(){
+  const p=periods[selectedPeriod],grid=document.getElementById('topicGrid');if(!p||!grid)return;
+  grid.innerHTML=p.topics.map((name,index)=>{
+    const available=selectedPeriod==='ancient'&&(name==='Ежелгі Парсы мемлекеті'||name==='Ежелгі Грекия өркениеті');
+    return `<button class="topic-card ${available?'ready':''}" data-topic="${name}"><span class="topic-index">${String(index+1).padStart(2,'0')}</span><span><h3>${name}</h3><p>${available?'Оқуды бастауға дайын':'Контент кейін қосылады'}</p></span><span class="topic-go">→</span></button>`
+  }).join('');
+  grid.querySelectorAll('.topic-card').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const name=btn.dataset.topic;
+      if(selectedPeriod==='ancient'&&name==='Ежелгі Парсы мемлекеті'){location.href='games.html?topic=ancient-persia&mode=cards';return}
+      if(selectedPeriod==='ancient'&&name==='Ежелгі Грекия өркениеті'){location.href='games.html?topic=ancient-greece&mode=cards';return}
+      btn.animate([{transform:'scale(1)'},{transform:'scale(.985)'},{transform:'scale(1)'}],{duration:260})
+    })
+  })
+}
+
+function syncHero(){
+  const p=periods[selectedPeriod];if(!p)return;
+  const title=document.getElementById('heroTitle'),desc=document.getElementById('heroDescription'),count=document.getElementById('heroCount'),icon=document.getElementById('heroIcon');
+  if(title)title.textContent=p.title;
+  if(desc)desc.textContent=p.description;
+  if(count)count.innerHTML=`<strong>${p.topics.length}</strong><span>тақырып</span><span class="arrow">→</span>`;
+  if(icon){icon.dataset.icon=p.icon;applyIcons(icon.parentElement||document)}
+  const topicsTitle=document.getElementById('topicsTitle'),pill=document.getElementById('topicCountPill');
+  if(topicsTitle)topicsTitle.textContent=p.title+' тақырыптары';
+  if(pill)pill.textContent=p.topics.length+' тақырып';
+}
+
+function selectPeriod(key,scroll=false){
+  if(!periods[key])return;
+  selectedPeriod=key;saveSelectedPeriod(key);syncHero();renderPeriods();renderTopics();
+  if(scroll)document.getElementById('topicsSection')?.scrollIntoView({behavior:'smooth'})
+}
+
+function bindSafeNavigation(){
+  document.getElementById('heroCount')?.addEventListener('click',()=>document.getElementById('topicsSection')?.scrollIntoView({behavior:'smooth'}));
+  document.getElementById('navTopics')?.addEventListener('click',e=>{e.preventDefault();document.getElementById('topicsSection')?.scrollIntoView({behavior:'smooth'})});
+  document.getElementById('continueBtn')?.addEventListener('click',()=>{location.href='games.html?topic=ancient-persia&mode=cards'});
+  document.getElementById('recentContinue')?.addEventListener('click',()=>{location.href='games.html?topic=ancient-persia&mode=cards'});
+}
+
+function initDashboard(){
+  applyIcons();
+  bindSafeNavigation();
+  selectPeriod(selectedPeriod,false);
+  window.dispatchEvent(new CustomEvent('juzderek:dashboard-ready',{detail:{period:selectedPeriod}}));
+}
+
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initDashboard);else initDashboard();
