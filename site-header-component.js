@@ -1,4 +1,5 @@
 (()=>{
+  if(!document.querySelector('script[data-juz-achievements]')){const s=document.createElement('script');s.src='./achievements-system.js?v=20260819-2';s.defer=true;s.dataset.juzAchievements='1';document.head.appendChild(s)}
   const AVATAR='./assets/image-Photoroom%20-%202026-08-18T223037.285.png';
   const LEVELS=[{level:1,name:'Ізденуші',min:0},{level:2,name:'Ізденуші',min:500},{level:3,name:'Зерттеуші',min:1200},{level:4,name:'Зерттеуші',min:2200},{level:5,name:'Білгір',min:3500},{level:6,name:'Білгір',min:5000},{level:7,name:'Білгір',min:7000},{level:8,name:'Сарапшы',min:9500},{level:9,name:'Сарапшы',min:12500},{level:10,name:'Сарапшы',min:16000},{level:11,name:'Тарихшы',min:20000},{level:12,name:'Тарихшы',min:25000},{level:13,name:'Тарихшы',min:31000},{level:14,name:'Аңыз',min:38000},{level:15,name:'Аңыз',min:46000}];
   const RANKS=[{name:'Ізденуші',min:0},{name:'Зерттеуші',min:1200},{name:'Білгір',min:3500},{name:'Сарапшы',min:9500},{name:'Тарихшы',min:20000},{name:'Аңыз',min:38000}];

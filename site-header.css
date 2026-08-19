@@ -1,3 +1,4 @@
+@import url('./juzderek-ui-system.css?v=20260819-2');
 @font-face{font-family:'JUZ40 Medium';src:url('./assets/JUZ40 FONTS TEXT Medium.ttf') format('truetype');font-weight:500 700;font-style:normal;font-display:swap}
 @font-face{font-family:'JUZ40 Display';src:url('./assets/JUZ40 FONTS Bold.otf') format('opentype');font-weight:800;font-style:normal;font-display:swap}
 .site-header{position:sticky;top:0;z-index:1000;padding:14px 22px 8px;background:linear-gradient(180deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.82) 72%,rgba(255,255,255,0) 100%);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
