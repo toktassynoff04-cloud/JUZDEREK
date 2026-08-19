@@ -13,6 +13,7 @@
       await script('./real-stats-progress.js?v=20260819-contentv2');
       await script('./achievements-system.js?v=20260819-contentv2');
       await script('./games-engine-v2.js?v=20260819-contentv2');
+      await script('./xp-economy-v2.js?v=20260820-xp2');
       await script('./chrono-game-v2.js?v=20260819-contentv2');
       await script('./mistakes.js?v=20260819-contentv2');
       await script('./result-screen.js?v=20260819-contentv2');
