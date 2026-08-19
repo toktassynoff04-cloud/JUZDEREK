@@ -1,46 +1,21 @@
 (() => {
-  const modeMeta={
-    cards:{label:'Карточкалар',next:'quiz',nextLabel:'Тестке өту'},
-    quiz:{label:'Тест',next:'person',nextLabel:'Тұлғаны тапқа өту'},
-    person:{label:'Тұлғаны тап',next:'chrono',nextLabel:'Хронологияға өту'},
-    chrono:{label:'Хронология',next:'cards',nextLabel:'Карточкаларға оралу'}
-  };
-
-  function getModeTotal(mode,total){
-    if(total) return total;
-    if(mode==='cards' && typeof facts!=='undefined') return facts.length;
-    if(mode==='person' && typeof people!=='undefined') return people.length;
-    if(mode==='chrono') return 5;
-    return 0;
-  }
-
-  function getMistakes(mode){
-    try{return window.juzMistakes?window.juzMistakes.get(mode):[]}catch{return []}
-  }
-
+  const modeMeta={cards:{label:'Карточкалар',next:'quiz',nextLabel:'Тестке өту'},quiz:{label:'Тест',next:'person',nextLabel:'Тұлғаны тапқа өту'},person:{label:'Тұлғаны тап',next:'chrono',nextLabel:'Хронологияға өту'},chrono:{label:'Хронология',next:null,nextLabel:'Тақырыпты аяқтау'}};
+  function getModeTotal(mode,total){if(total)return total;if(mode==='cards'&&typeof facts!=='undefined')return facts.length;if(mode==='person'&&typeof people!=='undefined')return people.length;if(mode==='chrono')return 5;return 0}
+  function getMistakes(mode){try{return window.juzMistakes?window.juzMistakes.get(mode):[]}catch{return[]}}
+  function topicInfo(){try{const all=JSON.parse(localStorage.getItem('juzderek_topics_progress')||'{}');const t=all['ancient-persia']||{};const done=Array.isArray(t.completed)?t.completed:[];return{done,pct:Math.round(done.length/4*100),complete:done.length===4}}catch{return{done:[],pct:0,complete:false}}}
   window.showResult=function(title,score,total){
-    const mode=state.mode;
-    const meta=modeMeta[mode]||modeMeta.cards;
-    const realTotal=getModeTotal(mode,total);
-    const safeScore=Math.min(score||0,realTotal||score||0);
-    const pct=realTotal?Math.round((safeScore/realTotal)*100):100;
-    const gainedXp=mode==='quiz'?safeScore*20:mode==='person'?safeScore*25:mode==='cards'?safeScore*10:50;
-    const mistakes=getMistakes(mode);
-    let headline='Керемет жұмыс!';
-    let sub='Тақырып бойынша нәтижең сақталды.';
-    if(pct<50){headline='Тағы бір қайталап шығайық';sub='Негізгі ұғымдарды тағы бір рет бекітсең, нәтижең тез өседі.'}
-    else if(pct<80){headline='Жақсы нәтиже!';sub='Бірнеше сұрақты қайталап, нәтижені одан әрі жақсарта аласың.'}
-    else if(pct>=90){headline='Өте жақсы!';sub='Тақырыпты сенімді меңгеріп келе жатырсың.'}
-
-    const reviewText=mistakes.length?`${mistakes.length} сұрақта қателестің. Қате кеткен сұрақтардың барлығы төменде көрсетілді.`:'Қайталауды қажет ететін тапсырма жоқ. Осы қарқынмен жалғастыр!';
+    const mode=state.mode,meta=modeMeta[mode]||modeMeta.cards,realTotal=getModeTotal(mode,total),safeScore=Math.min(score||0,realTotal||score||0),pct=realTotal?Math.round(safeScore/realTotal*100):100,mistakes=getMistakes(mode),topic=topicInfo();
+    const gainedXp=Number(state.sessionXp||0);let headline='Керемет жұмыс!',sub='Нәтижең сақталды. Келесі бөлімге өте аласың.';
+    if(pct<50){headline='Тағы бір қайталап шығайық';sub='Қате кеткен тапсырмаларды қарап, кейін келесі бөлімге өте аласың.'}else if(pct<80){headline='Жақсы нәтиже!';sub='Бірнеше тапсырманы қайталасаң, нәтижең одан әрі жақсарады.'}else if(pct>=90){headline='Өте жақсы!';sub='Бұл бөлімді сенімді аяқтадың.'}
+    if(topic.complete){headline='Тақырып аяқталды!';sub='Ежелгі Парсы мемлекетінің барлық 4 бөлімін аяқтадың.'}
+    const reviewText=mistakes.length?`${mistakes.length} тапсырмада қателестің. Төменде дұрыс жауаптарымен бірге көрсетілді.`:'Қайталауды қажет ететін тапсырма жоқ. Осы қарқынмен жалғастыр!';
     const goodText=pct>=80?'Негізгі даталар, оқиғалар мен тұлғаларды жақсы меңгердің.':'Дұрыс жауап берген тапсырмаларың — сенің мықты жағың. Сол логиканы сақта.';
     const mistakePreview=mistakes.length?`<div class="result-mistake-preview"><div class="result-mistake-head"><div><span>ҚАТЕ КЕТКЕН СҰРАҚТАР</span><h3>Нені қайталау керек?</h3><p>Қате кеткен сұрақтарды дұрыс жауабымен бірге тағы бір қарап шық.</p></div><b>${mistakes.length}</b></div><div class="result-mistake-list">${mistakes.map((m,i)=>`<div class="result-mistake-row"><span class="result-mistake-index">${i+1}</span><div class="result-mistake-content"><strong>${m.question}</strong><small><span>✓</span> Дұрыс жауап: ${m.correctAnswer}</small></div></div>`).join('')}</div></div>`:'';
     const reviewButton=mistakes.length&&typeof window.openMistakeReview==='function'?`<button class="result-action review-action" id="reviewMistakes">Қателермен жұмыс</button>`:'';
-
-    stage.innerHTML=`<div class="result-shell"><div class="result-hero"><span class="result-badge">${meta.label} аяқталды</span><div class="result-check">✓</div><h2>${headline}</h2><p>${sub}</p></div><div class="result-summary"><div class="result-stat"><small>Дұрыс жауап</small><strong>${safeScore}/${realTotal}</strong><span class="mini">тапсырма</span></div><div class="result-stat orange"><small>Дәлдік</small><strong>${pct}%</strong><span class="mini">жалпы нәтиже</span></div><div class="result-stat"><small>Жиналған XP</small><strong>+${gainedXp}</strong><span class="mini">осы ойында</span></div></div><div class="result-insight-grid"><div class="result-insight review"><h3>Қайталау керек</h3><p>${reviewText}</p></div><div class="result-insight good"><h3>Жақсы меңгердің</h3><p>${goodText}</p></div></div>${mistakePreview}<div class="result-actions">${reviewButton}<button class="result-action secondary" id="retryResult">Қайта орындау</button><button class="result-action primary" id="nextResult">${meta.nextLabel} →</button></div></div>`;
-    const review=document.getElementById('reviewMistakes');
-    if(review)review.onclick=()=>window.openMistakeReview(mode);
+    const topicBanner=topic.complete?`<div class="topic-finish-banner"><span>✓</span><div><strong>Ежелгі Парсы мемлекеті · 100%</strong><small>4 / 4 бөлім аяқталды</small></div></div>`:`<div class="result-topic-progress"><div><span>Тақырып прогресі</span><b>${topic.pct}%</b></div><i><em style="width:${topic.pct}%"></em></i><small>${topic.done.length} / 4 бөлім аяқталды</small></div>`;
+    stage.innerHTML=`<div class="result-shell"><div class="result-hero"><span class="result-badge">${meta.label} аяқталды</span><div class="result-check">✓</div><h2>${headline}</h2><p>${sub}</p></div>${topicBanner}<div class="result-summary"><div class="result-stat"><small>Дұрыс жауап</small><strong>${safeScore}/${realTotal}</strong><span class="mini">тапсырма</span></div><div class="result-stat orange"><small>Дәлдік</small><strong>${pct}%</strong><span class="mini">жалпы нәтиже</span></div><div class="result-stat"><small>Жиналған XP</small><strong>+${gainedXp}</strong><span class="mini">осы бөлімде</span></div></div><div class="result-insight-grid"><div class="result-insight review"><h3>Қайталау керек</h3><p>${reviewText}</p></div><div class="result-insight good"><h3>Жақсы меңгердің</h3><p>${goodText}</p></div></div>${mistakePreview}<div class="result-actions">${reviewButton}<button class="result-action secondary" id="retryResult">Қайта орындау</button><button class="result-action primary" id="nextResult">${topic.complete?'Кезеңдерге оралу':meta.nextLabel+' →'}</button></div></div>`;
+    const review=document.getElementById('reviewMistakes');if(review)review.onclick=()=>window.openMistakeReview(mode);
     document.getElementById('retryResult').onclick=()=>{if(window.juzMistakes)window.juzMistakes.reset(mode);setMode(mode)};
-    document.getElementById('nextResult').onclick=()=>{if(window.juzMistakes)window.juzMistakes.reset(meta.next);setMode(meta.next)};
+    document.getElementById('nextResult').onclick=()=>{if(topic.complete){location.href='periods.html#topicsSection';return}if(meta.next){if(window.juzMistakes)window.juzMistakes.reset(meta.next);setMode(meta.next)}else location.href='periods.html#topicsSection'};
   };
 })();
