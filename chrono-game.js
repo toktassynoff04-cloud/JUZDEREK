@@ -4,21 +4,41 @@
   function makeDistractors(correct){
     const seen=new Set([correct.join(',')]);
     const out=[];
-    while(out.length<3){
+    let guard=0;
+    while(out.length<3 && guard<100){
+      guard++;
       const candidate=chronoShuffle(correct);
       const key=candidate.join(',');
       if(!seen.has(key)){seen.add(key);out.push(candidate)}
     }
     return chronoShuffle([correct,...out]);
   }
+  function getChronologySets(){
+    const configured=Array.isArray(topic.chronologySets)?topic.chronologySets:[];
+    if(configured.length){
+      return configured.map(set=>set.map(id=>facts.find(f=>f.id===id)).filter(Boolean)).filter(set=>set.length>=3);
+    }
+    return [facts.slice(0,5)];
+  }
 
   window.renderChrono=function(){
-    const base=facts.slice(0,5).map((f,idx)=>({...f,correctIndex:idx}));
+    const sets=getChronologySets();
+    const questionIndex=state.index||0;
+    if(questionIndex>=sets.length){
+      completeMode('chrono',state.score,sets.length);
+      showResult('Хронология аяқталды!',state.score,sets.length);
+      return;
+    }
+
+    const base=sets[questionIndex].map((f,idx)=>({...f,correctIndex:idx}));
     const numbered=chronoShuffle(base).map((f,i)=>({...f,sourceNum:i+1}));
     const correctNums=[...numbered].sort((a,b)=>a.correctIndex-b.correctIndex).map(x=>x.sourceNum);
     const options=makeDistractors(correctNums);
+    const total=sets.length;
+    const count=base.length;
+    const progress=Math.round((questionIndex/total)*100);
 
-    stage.innerHTML=`<div class="stage-top"><div class="stage-title"><h2>Хронология</h2><p>Оқиғаларды реттілігі бойынша орналастырыңыз.</p></div><span class="step-counter">5 оқиға</span></div><div class="progress-line"><span style="width:0%"></span></div><div class="chrono-game"><div class="chrono-help"><span class="chrono-help-icon">1–5</span><span>Оқиғаларды оқып, ең ерте оқиғадан ең кейінгісіне дейінгі дұрыс сандық реттілікті таңда.</span></div><div class="chrono-facts-card"><div class="chrono-facts-head"><span>ОҚИҒАЛАР</span><small>Әр дәйектің өз нөмірі бар</small></div><ol class="chrono-facts-list">${numbered.map(f=>`<li><span class="chrono-source-num">${f.sourceNum}</span><span class="chrono-copy">${f.event}</span></li>`).join('')}</ol></div><div class="chrono-choice-title">Дұрыс реттілікті таңда</div><div class="chrono-options">${options.map((o,i)=>`<button class="chrono-option" data-seq="${o.join(',')}"><span class="chrono-option-letter">${String.fromCharCode(65+i)}</span><span class="chrono-option-seq">${seqText(o)}</span></button>`).join('')}</div><div class="chrono-result" id="chronoResult"></div></div>`;
+    stage.innerHTML=`<div class="stage-top"><div class="stage-title"><h2>Хронология</h2><p>Оқиғаларды реттілігі бойынша орналастырыңыз.</p></div><span class="step-counter">${questionIndex+1} / ${total}</span></div><div class="progress-line"><span style="width:${progress}%"></span></div><div class="chrono-game"><div class="chrono-help"><span class="chrono-help-icon">1–${count}</span><span>Оқиғаларды оқып, ең ерте оқиғадан ең кейінгісіне дейінгі дұрыс сандық реттілікті таңда.</span></div><div class="chrono-facts-card"><div class="chrono-facts-head"><span>ОҚИҒАЛАР</span><small>Әр дәйектің өз нөмірі бар</small></div><ol class="chrono-facts-list">${numbered.map(f=>`<li><span class="chrono-source-num">${f.sourceNum}</span><span class="chrono-copy">${f.event}</span></li>`).join('')}</ol></div><div class="chrono-choice-title">Дұрыс реттілікті таңда</div><div class="chrono-options">${options.map((o,i)=>`<button class="chrono-option" data-seq="${o.join(',')}"><span class="chrono-option-letter">${String.fromCharCode(65+i)}</span><span class="chrono-option-seq">${seqText(o)}</span></button>`).join('')}</div><div class="chrono-result" id="chronoResult"></div></div>`;
 
     let answered=false;
     document.querySelectorAll('.chrono-option').forEach(btn=>btn.addEventListener('click',()=>{
@@ -32,10 +52,12 @@
         if(nums.every((n,i)=>n===correctNums[i]))b.classList.add('correct');
       });
       if(!ok)btn.classList.add('wrong');
+      if(ok){state.score++;rewardOnce(`chrono:${questionIndex}`,10,1)}
       const result=document.getElementById('chronoResult');
+      const isLast=questionIndex===total-1;
       result.className='chrono-result show '+(ok?'ok':'bad');
-      result.innerHTML=`<h3 class="chrono-result-title">${ok?'Дұрыс! Реттілікті таптың.':'Қате жауап.'}</h3><p class="chrono-correct-note"><strong>Дұрыс реттілік:</strong> ${seqText(correctNums)}</p><div class="chrono-final-actions"><button class="btn primary" id="finishChrono">${ok?'Аяқтау · +50 XP':'Аяқтау'}</button></div>`;
-      document.getElementById('finishChrono').onclick=()=>{if(ok)saveProgress(50,1);showResult('Хронология аяқталды!',ok?1:0,1)};
+      result.innerHTML=`<h3 class="chrono-result-title">${ok?'Дұрыс! Реттілікті таптың.':'Қате жауап.'}</h3><p class="chrono-correct-note"><strong>Дұрыс реттілік:</strong> ${seqText(correctNums)}</p><div class="chrono-final-actions"><button class="btn primary" id="finishChrono">${isLast?'Аяқтау':'Келесі сұрақ →'}</button></div>`;
+      document.getElementById('finishChrono').onclick=()=>{state.index++;renderChrono()};
     }));
   };
 })();
