@@ -1,0 +1,18 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"JUZDEREK Topic v2",
+  "type":"object",
+  "required":["schemaVersion","id","name","period","status","facts","people","chronologySets"],
+  "properties":{
+    "schemaVersion":{"const":2},
+    "id":{"type":"string"},
+    "name":{"type":"string"},
+    "period":{"enum":["ancient","medieval","modern","contemporary"]},
+    "periodLabel":{"type":"string"},
+    "status":{"enum":["draft","ready"]},
+    "facts":{"type":"array","minItems":4,"items":{"type":"object","required":["id","date","event","distractorIds"],"properties":{"id":{"type":"string"},"date":{"type":"string"},"event":{"type":"string"},"distractorIds":{"type":"array","minItems":3,"maxItems":3,"uniqueItems":true,"items":{"type":"string"}}},"additionalProperties":false}},
+    "people":{"type":"array","minItems":4,"items":{"type":"object","required":["id","name","clues"],"properties":{"id":{"type":"string"},"name":{"type":"string"},"years":{"type":"string"},"clues":{"type":"array","minItems":1,"items":{"type":"string"}}},"additionalProperties":false}},
+    "chronologySets":{"type":"array","minItems":5,"maxItems":10,"items":{"type":"array","minItems":4,"maxItems":4,"uniqueItems":true,"items":{"type":"string"}}}
+  },
+  "additionalProperties":false
+}

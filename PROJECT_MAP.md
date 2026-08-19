@@ -1,205 +1,113 @@
 # JUZDEREK Project Map
 
-> Repository architecture map. Update this file when navigation, state ownership, reward logic, or major components change.
-
 ## Core flow
 
 ```text
 index.html
   → periods.html
-  → period cards
-  → topic cards
-  → topic-routing.js
+  → topic card
   → games.html?topic=<id>&mode=<mode>
-  → games-engine.js
+  → topics-index.js
+  → topic-loader.js
+  → one topic JSON only
+  → games-engine-v2.js
   → result-screen.js
 ```
 
-`games.html` without a valid `topic` must return to `periods.html`.
+`games.html` without a valid topic returns to `periods.html`.
 
-## Main pages
+## Content v2
 
-### index.html
-Home/landing page. Main scripts: `site-header-component.js`, `real-stats-progress.js`.
+### File structure
 
-### periods.html
-Main learning dashboard. Owns period selection, topic selection, daily mission entry, recent activity, personal progress board, and level journey.
-
-Important files:
-- `dashboard.js`
-- `reference.js`
-- `period-progress.js`
-- `topic-card-lite.js`
-- `topic-routing.js`
-- `real-stats-progress.js`
-- `level-journey.js`
-- `ux-hotfix.js`
-
-### games.html
-Topic game shell. Modes: `cards`, `quiz`, `person`, `chrono`.
-
-Important files:
-- `data/topics.js`
-- `games-engine.js`
-- `chrono-game.js`
-- `mistakes.js`
-- `result-screen.js`
-- `achievements-system.js`
-
-## State keys
-
-### juzderek_game_progress
-```js
-{ xp, correct, games }
-```
-Global player totals.
-
-### juzderek_topics_progress
-Per-topic state:
-```js
-{
-  "<topicId>": {
-    completed: ["cards","quiz","person","chrono"],
-    scores: {},
-    rewarded: {},
-    corrected: {},
-    topicBonus: Boolean,
-    updatedAt: Number
-  }
-}
-```
-A topic is mastered when all 4 modes are in `completed`.
-
-### juzderek_learning_meta
-Streak state: `lastDay`, `streak`, `bestStreak`, `daily`.
-
-### juzderek_daily_activity
-Daily mission state:
-```js
-{ "YYYY-MM-DD": { games, xp, masteredAtStart, bonus, modes } }
+```text
+data/
+├── topics-index.js
+├── content-validator.js
+├── topic-loader.js
+└── topics/
+    ├── ancient-persia.json
+    ├── ancient-greece.json
+    └── ...
 ```
 
-### juzderek_daily_xp
-Yesterday/today and 7-day XP history.
+Each topic is a separate JSON file. The learner downloads only the opened topic JSON.
 
-### juzderek_username
-Shared username.
+### Immutable content rule
 
-### juzderek_seen_achievements
-Achievement notification state.
+**CONTENT IS IMMUTABLE.**
 
-## Reward ownership
+Author-provided historical text is never rewritten, corrected, shortened, expanded, inferred, or supplemented. The game engine may only read it and reorder authored items for gameplay.
 
-Canonical reward writer: `games-engine.js`.
+No game may invent dates, events, people, clues, distractors, or chronology sets.
+
+### 4 canonical games
+
+1. Cards — all `facts`: date → event.
+2. Date quiz — all `facts`: date + correct event + exactly 3 configured `distractorIds`.
+3. Person — all `people`: clues → person.
+4. Chronology — every configured `chronologySets` task.
+
+Content volume equals game volume:
+- N facts → N cards + N date questions
+- N people → N person questions
+- N chronologySets → N chronology tasks
+
+Chronology rules:
+- 5–10 tasks per topic
+- exactly 4 fact ids per task
+- engine only shuffles display order
+- engine never generates a new chronology set
+
+### Publish gate
+
+Every topic must pass Content Validator before becoming ready.
+
+Validation checks:
+- unique fact/person ids
+- non-empty dates/events/names/clues
+- exactly 3 valid distractorIds per fact
+- no self/duplicate distractors
+- at least 4 people
+- 5–10 chronology tasks
+- exactly 4 valid unique fact ids per chronology task
+
+CLI check:
+
+```bash
+node scripts/validate-content.mjs
+```
+
+Runtime validation remains as a safety net. Learners see a friendly unavailable state, never technical validation details.
+
+## Progress / replay
+
+Canonical reward writer: `games-engine-v2.js`.
 
 Rules:
-- No XP per correct answer.
-- XP is granted once when a mode is completed for the first time.
-- Replaying the same topic+mode gives 0 XP.
-- Current mode rewards: cards 50, quiz 100, person 80, chrono 100 XP.
-- Completing all 4 modes grants a one-time 200 XP topic bonus.
-- Correct-answer counter is separately deduplicated with `corrected` keys.
+- no XP per correct answer
+- XP once per first completed topic+mode
+- replay remains available
+- replay does not remove completion
+- replay gives no duplicate XP
+- all authored content is shown again on replay
+- all 4 modes completed = topic mastered
 
-`next-ux.js` must not calculate game rewards.
+## Ownership
 
-## Levels and ranks
+- Topic JSON = what we teach
+- Game engine = how we practice
+- UI/CSS = how it is displayed
+- Validator = whether content is publishable
 
-Ranks:
-- Ізденуші — 0 XP
-- Зерттеуші — 1,200 XP
-- Білгір — 3,500 XP
-- Сарапшы — 9,500 XP
-- Тарихшы — 20,000 XP
-- Аңыз — 38,000 XP
+## Change impact
 
-Levels: Lv.1–Lv.15. UI owner: `level-journey.js` and shared header rank logic.
+Content addition:
+1. create `data/topics/<topic-id>.json`
+2. run `node scripts/validate-content.mjs`
+3. after pass, add/update `data/topics-index.js`
+4. never modify authored text in engine/UI
 
-## Daily Mission
+Daily mission icon styling: `mission-icon-fix.css`.
 
-Owner on `periods.html`: `ux-hotfix.js`.
-
-Entry points:
-- navbar `Бүгінгі миссия`
-- mission metric card
-- `#dailyMission` hash
-
-All entry points call one `openMission()` implementation.
-
-Mascot: `assets/mascot-daily-mission.webp`.
-Missions are deterministic per local date and balanced across games / XP / mode / mastery.
-
-## Progress Board
-
-Owner: `real-stats-progress.js`.
-
-Shows:
-- yesterday XP
-- today XP
-- delta
-- 7-day graph
-- large modal on click
-
-Leaderboard is not part of active product flow.
-
-## Topic cards
-
-Files:
-- `topic-card-lite.js`
-- `period-progress.js`
-- related CSS
-- `ux-hotfix.css`
-
-Rules:
-- `.topic-go` is arrow/action only.
-- Progress is a separate `.topic-live-progress` block.
-- Never render progress twice.
-
-## Period backgrounds
-
-- Medieval: `assets/period-bg-medieval.webp`
-- Modern: `assets/period-bg-modern.webp`
-- Contemporary: `assets/period-bg-contemporary.webp`
-
-Use as hero/container backgrounds with `cover`; no overflow or distortion.
-
-## Mascots
-
-- Daily mission: `assets/mascot-daily-mission.webp`
-- Progress card: `assets/mascot-progress-card.webp`
-- Achievement: `assets/achievement-mascot.webp`
-- Main mascot: `assets/mascot-main.webp`
-
-Never globally overwrite every `.mascot` source; component-specific assets win.
-
-## Change impact guide
-
-Games / XP:
-1. `games-engine.js`
-2. `result-screen.js`
-3. `chrono-game.js`
-4. `real-stats-progress.js`
-5. `achievements-system.js`
-
-Topic cards:
-1. `topic-card-lite.js`
-2. `period-progress.js`
-3. related CSS
-4. `ux-hotfix.css`
-
-Daily mission:
-1. `ux-hotfix.js`
-2. `ux-hotfix.css`
-3. `periods.html`
-4. shared header only if nav changes
-
-Progress board:
-1. `real-stats-progress.js`
-2. `real-stats-progress.css`
-3. `periods.html`
-
-Levels / ranks:
-1. `level-journey.js`
-2. `level-journey.css`
-3. `site-header-component.js`
-
-Before changes: read this map, identify subsystem, open only affected files, check duplicate ownership, make smallest scoped change, then update this map if architecture changes.
+Before changes: read this map, identify the subsystem, validate content, then batch deploys.
