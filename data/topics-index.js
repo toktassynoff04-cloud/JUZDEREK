@@ -16,7 +16,8 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'hulagu-state':Object.freeze({id:'hulagu-state',name:'Хулагу мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/hulagu-state.json',ready:true}),
   'chagatai-state':Object.freeze({id:'chagatai-state',name:'Шағатай мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/chagatai-state.json',ready:true}),
   'genghis-conquests-eurasia-impact':Object.freeze({id:'genghis-conquests-eurasia-impact',name:'Еуразия картасының өзгеруіне Шыңғыс хан жорықтарының ықпалы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/genghis-conquests-eurasia-impact.json',ready:true}),
-  'france-england-peasant-revolts':Object.freeze({id:'france-england-peasant-revolts',name:'Франция мен Англиядағы шаруалар көтерілісі',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/france-england-peasant-revolts.json',ready:true})
+  'france-england-peasant-revolts':Object.freeze({id:'france-england-peasant-revolts',name:'Франция мен Англиядағы шаруалар көтерілісі',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/france-england-peasant-revolts.json',ready:true}),
+  'feudal-wars-jeanne-darc':Object.freeze({id:'feudal-wars-jeanne-darc',name:"Феодалдық соғыстар. Жанна д'Арк",period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/feudal-wars-jeanne-darc.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
 (()=>{
@@ -31,6 +32,20 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
       };
       mongols[2]=mongols[2].map(name=>replacements[name]||name);
       if(!mongols[2].includes('Шағатай мемлекеті')) mongols[2].push('Шағатай мемлекеті');
+    }
+    const europe=groups.find(c=>c?.[0]==='europe');
+    if(europe&&Array.isArray(europe[2])){
+      const merged="Феодалдық соғыстар. Жанна д'Арк";
+      const next=[];
+      for(const name of europe[2]){
+        if(name==='Феодалдық соғыстар'){
+          if(!next.includes(merged)) next.push(merged);
+          continue;
+        }
+        if(name==='Жанна д’Арк'||name==="Жанна д'Арк") continue;
+        next.push(name);
+      }
+      europe[2]=next;
     }
     if(typeof renderTopics==='function')renderTopics();
     if(typeof syncHero==='function')syncHero();
