@@ -1,5 +1,7 @@
 (()=>{
   const MODE_REWARD=25;
+  const TOPIC_BONUS=50;
+  const TOPIC_BONUS_KEY='topic:mastery-50';
   completeMode=function(mode,score,total){
     const daily=ensureDailyBeforeCompletion();
     const t=getTopic(),pct=total?Math.round(score/total*100):100;
@@ -13,11 +15,13 @@
     const rewardKey=`mode:${mode}`;
     if(firstCompletion&&!t.rewarded[rewardKey]){
       t.rewarded[rewardKey]=true;
-      gained=MODE_REWARD;
+      gained+=MODE_REWARD;
     }
-    // Content v2 economy: 4 modes × 25 XP = exactly 100 XP per mastered topic.
-    // Legacy topicBonus is retained only as historical metadata; no new bonus is awarded.
-    if(t.completed.length===MODES.length)t.topicBonus=true;
+    if(t.completed.length===MODES.length&&!t.rewarded[TOPIC_BONUS_KEY]){
+      t.rewarded[TOPIC_BONUS_KEY]=true;
+      t.topicBonus=true;
+      gained+=TOPIC_BONUS;
+    }
     t.updatedAt=Date.now();
     saveTopic(t);
     addProgress(gained,0,1);
