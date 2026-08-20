@@ -13,7 +13,8 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'timur-empire':Object.freeze({id:'timur-empire',name:'Әмір Темір мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/timur-empire.json',ready:true}),
   'moscow-state':Object.freeze({id:'moscow-state',name:'Мәскеу мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/moscow-state.json',ready:true}),
   'yuan-empire':Object.freeze({id:'yuan-empire',name:'Юань империясы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/yuan-empire.json',ready:true}),
-  'hulagu-state':Object.freeze({id:'hulagu-state',name:'Хулагу мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/hulagu-state.json',ready:true})
+  'hulagu-state':Object.freeze({id:'hulagu-state',name:'Хулагу мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/hulagu-state.json',ready:true}),
+  'chagatai-state':Object.freeze({id:'chagatai-state',name:'Шағатай мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/chagatai-state.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
 (()=>{
@@ -27,6 +28,7 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
         'Моңғол шапқыншылығының Еуразия картасына әсері':'Хулагу мемлекеті'
       };
       mongols[2]=mongols[2].map(name=>replacements[name]||name);
+      if(!mongols[2].includes('Шағатай мемлекеті')) mongols[2].push('Шағатай мемлекеті');
     }
     if(typeof renderTopics==='function')renderTopics();
     if(typeof syncHero==='function')syncHero();
