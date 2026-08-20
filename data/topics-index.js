@@ -17,7 +17,8 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'chagatai-state':Object.freeze({id:'chagatai-state',name:'Шағатай мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/chagatai-state.json',ready:true}),
   'genghis-conquests-eurasia-impact':Object.freeze({id:'genghis-conquests-eurasia-impact',name:'Еуразия картасының өзгеруіне Шыңғыс хан жорықтарының ықпалы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/genghis-conquests-eurasia-impact.json',ready:true}),
   'france-england-peasant-revolts':Object.freeze({id:'france-england-peasant-revolts',name:'Франция мен Англиядағы шаруалар көтерілісі',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/france-england-peasant-revolts.json',ready:true}),
-  'feudal-wars-jeanne-darc':Object.freeze({id:'feudal-wars-jeanne-darc',name:"Феодалдық соғыстар. Жанна д'Арк",period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/feudal-wars-jeanne-darc.json',ready:true})
+  'feudal-wars-jeanne-darc':Object.freeze({id:'feudal-wars-jeanne-darc',name:"Феодалдық соғыстар. Жанна д'Арк",period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/feudal-wars-jeanne-darc.json',ready:true}),
+  'europe-centralized-states':Object.freeze({id:'europe-centralized-states',name:'Еуропадағы орталықтанған мемлекеттердің қалыптасуы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/europe-centralized-states.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
 (()=>{
