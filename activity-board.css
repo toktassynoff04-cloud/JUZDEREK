@@ -1,0 +1,61 @@
+/* JUZDEREK — approved era hero icons + recent activity board */
+.hero .hero-icon{
+  background-color:rgba(255,255,255,.96)!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  background-size:68px auto!important;
+}
+.hero .hero-icon svg{display:none!important}
+.hero.reference-ancient .hero-icon{background-image:url('./assets/ancient.webp')!important}
+.hero.reference-medieval .hero-icon{background-image:url('./assets/medieval.webp')!important}
+.hero.reference-modern .hero-icon{background-image:url('./assets/modern.webp')!important}
+.hero.reference-contemporary .hero-icon{background-image:url('./assets/contemporary.webp')!important}
+
+.recent-card{min-width:0!important}
+.recent-card .activity-row{grid-template-columns:minmax(0,1fr) minmax(150px,190px) auto!important}
+.recent-card .activity-copy strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.recent-card .activity-copy .activity-mode{display:inline-flex;align-items:center;gap:6px;margin-top:2px;color:#7f8792!important}
+.recent-card .activity-copy .activity-mode b{font-size:11px;color:#ff5b16;background:#fff1e8;border:1px solid #ffe0ce;border-radius:999px;padding:3px 7px}
+.recent-card .activity-icon{background-image:none!important;display:grid!important;place-items:center!important}
+.recent-card .activity-icon img{width:70px;height:70px;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(181,86,31,.13))}
+.recent-empty{margin-top:14px;padding:28px 18px;border:1px dashed #eadfd8;border-radius:18px;text-align:center;background:#fffdfa;color:#8a919b;font-size:13px}
+
+.activity-history-overlay{position:fixed;inset:0;z-index:8200;display:none;place-items:center;padding:22px;background:rgba(18,23,32,.48);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.activity-history-overlay.show{display:grid}
+.activity-history-modal{position:relative;width:min(940px,100%);max-height:88vh;overflow:auto;border:1px solid #eadfd7;border-radius:30px;background:#fff;box-shadow:0 35px 110px rgba(25,30,40,.25);padding:28px}
+.activity-history-close{position:absolute;right:20px;top:20px;width:42px;height:42px;border-radius:50%;border:1px solid #ece6e1;background:#fff;color:#343c48;font-size:24px;cursor:pointer}
+.activity-history-head{padding-right:58px}
+.activity-history-kicker{display:block;color:#ff5b16;font-size:11px;font-weight:800;letter-spacing:.11em}
+.activity-history-head h2{margin:7px 0 5px;font-family:'JUZ40 Display','JUZ40 Text',sans-serif;font-size:30px;color:#171d29}
+.activity-history-head p{margin:0;color:#7e8792;font-size:14px}
+.activity-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:20px}
+.activity-summary>div{padding:15px 16px;border:1px solid #eee7e2;border-radius:18px;background:#fffdfa}
+.activity-summary span{display:block;color:#8a919b;font-size:11px}
+.activity-summary strong{display:block;margin-top:5px;font-family:'JUZ40 Display','JUZ40 Text',sans-serif;font-size:21px;color:#1b2330}
+.activity-summary>div:nth-child(2) strong{color:#ff5b16}
+.activity-filter-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px;padding-bottom:14px;border-bottom:1px solid #f0ece8}
+.activity-filter{border:1px solid #ebe6e2;background:#fff;color:#646d79;border-radius:999px;padding:8px 11px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.activity-filter.active{border-color:#ffcfb5;background:#fff0e7;color:#ff5b16}
+.activity-history-list{display:grid;gap:16px;margin-top:16px}
+.activity-day-group h3{margin:0 0 8px;color:#8a919b;font-size:12px;font-weight:700}
+.activity-history-item{display:grid;grid-template-columns:54px minmax(0,1fr) auto;align-items:center;gap:13px;padding:12px 13px;border:1px solid #eee9e5;border-radius:18px;background:#fff;transition:.18s ease;cursor:pointer}
+.activity-history-item:hover{transform:translateY(-1px);border-color:#ffd4bc;box-shadow:0 9px 22px rgba(50,43,38,.05)}
+.activity-history-icon{width:50px;height:50px;display:grid;place-items:center;border-radius:14px;background:#fff6f0}
+.activity-history-icon img{width:42px;height:42px;object-fit:contain}
+.activity-history-copy{min-width:0}
+.activity-history-copy strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#202734;font-size:14px}
+.activity-history-copy span{display:block;margin-top:4px;color:#8b929c;font-size:12px}
+.activity-history-side{text-align:right;white-space:nowrap}
+.activity-history-side strong{display:block;color:#ff5b16;font-size:13px}
+.activity-history-side span{display:block;margin-top:3px;color:#8d949d;font-size:11px}
+.activity-history-empty{padding:34px 16px;text-align:center;color:#9299a3;font-size:13px}
+
+@media(max-width:760px){
+  .hero .hero-icon{background-size:48px auto!important}
+  .recent-card .activity-row{grid-template-columns:1fr!important}
+  .activity-summary{grid-template-columns:1fr!important}
+  .activity-history-modal{padding:22px;border-radius:24px}
+  .activity-history-item{grid-template-columns:46px minmax(0,1fr)}
+  .activity-history-icon{width:44px;height:44px}.activity-history-icon img{width:37px;height:37px}
+  .activity-history-side{grid-column:2;text-align:left;display:flex;gap:8px;align-items:center}
+}
