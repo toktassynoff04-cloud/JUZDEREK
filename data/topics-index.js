@@ -47,7 +47,7 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
           if(!next.includes(merged)) next.push(merged);
           continue;
         }
-        if(name==='Жанна д’Арк'||name==="Жанна d'Арк") continue;
+        if(name==='Жанна д’Арк'||name==="Жанна д'Арк") continue;
         next.push(name);
       }
       europe[2]=next;
@@ -58,6 +58,7 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
       for(const name of absolutism[2]){
         if(name==='Феодалдық мемлекеттің даму кезеңдері'){ next.push('Феодалдық мемлекеттердің даму кезеңдері'); continue; }
         if(name==='Англия мен Ресейдегі абсолютизм'){ next.push('Англиядағы абсолютизм','Ресейдегі абсолютизм'); continue; }
+        if(name==='Қытай мен Жапонияның саяси жүйесіндегі ерекшеліктер'){ next.push('Қытай саяси жүйесіндегі ерекшеліктер','Жапониядағы абсолютизм'); continue; }
         next.push(name);
       }
       absolutism[2]=next;
