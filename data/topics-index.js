@@ -11,7 +11,8 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'genghis-khan':Object.freeze({id:'genghis-khan',name:'Шыңғыс хан',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/genghis-khan.json',ready:true}),
   'golden-horde':Object.freeze({id:'golden-horde',name:'Алтын Орда',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/golden-horde.json',ready:true}),
   'timur-empire':Object.freeze({id:'timur-empire',name:'Әмір Темір мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/timur-empire.json',ready:true}),
-  'moscow-state':Object.freeze({id:'moscow-state',name:'Мәскеу мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/moscow-state.json',ready:true})
+  'moscow-state':Object.freeze({id:'moscow-state',name:'Мәскеу мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/moscow-state.json',ready:true}),
+  'yuan-empire':Object.freeze({id:'yuan-empire',name:'Юань империясы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/yuan-empire.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
 (()=>{
@@ -19,8 +20,11 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
     const groups=window.JUZDEREK_CHAPTER_MAP?.medieval||[];
     const mongols=groups.find(c=>c?.[0]==='mongols');
     if(mongols&&Array.isArray(mongols[2])){
-      const i=mongols[2].indexOf('Моңғол империясының құрылуы');
-      if(i>=0)mongols[2][i]='Алтын Орда';
+      const replacements={
+        'Моңғол империясының құрылуы':'Алтын Орда',
+        'Моңғолдардың әскери өнері':'Юань империясы'
+      };
+      mongols[2]=mongols[2].map(name=>replacements[name]||name);
     }
     if(typeof renderTopics==='function')renderTopics();
     if(typeof syncHero==='function')syncHero();
