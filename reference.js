@@ -3,7 +3,7 @@
   const heroImg=document.querySelector('.hero-mascot');
   if(heroImg){heroImg.decoding='async';heroImg.loading='eager';heroImg.onerror=null;heroImg.src=heroMascot}
 
-  const VERSION='20260819-flow-2';
+  const VERSION='20260820-board-final';
   const oldProfileCss=document.querySelector('link[href*="profile-menu.css"]');
   if(oldProfileCss) oldProfileCss.href=`./profile-menu.css?v=${VERSION}`;
   else {const css=document.createElement('link');css.rel='stylesheet';css.href=`./profile-menu.css?v=${VERSION}`;document.head.appendChild(css)}
@@ -14,6 +14,11 @@
   script.src=`./site-header-component.js?v=${VERSION}`;
   script.onload=()=>{document.documentElement.classList.add('shared-header-ready');ensureUsernameEdit()};
   document.body.appendChild(script);
+
+  const activityScript=document.createElement('script');
+  activityScript.src=`./activity-board.js?v=${VERSION}`;
+  activityScript.defer=true;
+  document.body.appendChild(activityScript);
 
   function ensureUsernameEdit(){
     const links=document.querySelector('.profile-menu-links');
