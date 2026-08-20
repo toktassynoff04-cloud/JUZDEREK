@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JUZDEREK — Тақырып трекері</title>
+<link rel="stylesheet" href="./site-header.css?v=20260820-tracker-1"><link rel="stylesheet" href="./profile-menu.css?v=20260819-username-2"><link rel="stylesheet" href="./tracker.css?v=20260820-tracker-1">
+</head>
+<body>
+<header class="site-header" data-site-header></header>
+<main class="tracker-shell">
+  <section class="tracker-head">
+    <div><h1>Тақырып трекері</h1><p>Оқу прогресіңді бақылап, мақсатқа жақында!</p></div>
+    <label class="tracker-search"><span>⌕</span><input id="topicSearch" type="search" placeholder="Тақырыпты іздеу..." autocomplete="off"></label>
+  </section>
+  <section class="tracker-stats" id="trackerStats"></section>
+  <section class="tracker-filters" id="trackerFilters">
+    <button class="active" data-filter="all">Барлығы</button><button data-filter="unread">Оқылмаған</button><button data-filter="read">Оқылды</button><button data-filter="reinforced">Бекітілді</button><button data-filter="mastered">Меңгерілді</button>
+  </section>
+  <div class="tracker-layout">
+    <section class="tracker-main"><div id="trackerGroups"></div></section>
+    <aside class="tracker-side">
+      <section class="tracker-panel"><div class="panel-title"><h3>Қайталау ұсыныстары</h3></div><div id="reviewSuggestions"></div></section>
+      <section class="tracker-panel"><div class="panel-title"><h3>Апталық прогресс</h3><span>Осы апта</span></div><div class="week-total"><strong id="weekTotal">0</strong><span>тақырып оқыдың</span></div><div class="week-bars" id="weekBars"></div></section>
+      <section class="tracker-panel"><div class="panel-title"><h3>Жалпы прогресс</h3></div><div id="overallProgress"></div></section>
+    </aside>
+  </div>
+</main>
+<div class="tracker-modal" id="trackerModal" hidden></div>
+<script src="./chapter-navigation.js?v=20260820-chapters-v1"></script><script src="./data/topics-index.js?v=20260820-content-batch2"></script><script src="./site-header-component.js?v=20260820-tracker-1"></script><script src="./tracker.js?v=20260820-tracker-1"></script>
+</body></html>
