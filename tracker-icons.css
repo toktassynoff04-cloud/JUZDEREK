@@ -1,0 +1,20 @@
+/* Tracker-only status artwork. Kept separate so no other page is affected. */
+.tracker-stats .tracker-stat .ico{
+  width:52px;
+  height:52px;
+  flex:0 0 52px;
+  border-radius:16px;
+  font-size:0;
+  background-color:#fff!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:44px 44px!important;
+  box-shadow:0 8px 20px rgba(23,32,51,.07),inset 0 0 0 1px rgba(23,32,51,.035);
+}
+.tracker-stats .tracker-stat:nth-child(1) .ico{background-image:url('./assets/tracker-unread.webp')!important;background-color:#f7f3ff!important}
+.tracker-stats .tracker-stat:nth-child(2) .ico{background-image:url('./assets/tracker-read.webp')!important;background-color:#f1f8ff!important}
+.tracker-stats .tracker-stat:nth-child(3) .ico{background-image:url('./assets/tracker-confirmed.webp')!important;background-color:#f0fbf5!important}
+.tracker-stats .tracker-stat:nth-child(4) .ico{background-image:url('./assets/tracker-mastered.webp')!important;background-color:#fff8e9!important}
+.tracker-stats .tracker-stat{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+@media (hover:hover){.tracker-stats .tracker-stat:hover{transform:translateY(-2px);box-shadow:0 13px 30px rgba(18,30,45,.07);border-color:#e5e8ed}}
+@media(max-width:560px){.tracker-stats .tracker-stat .ico{width:44px;height:44px;flex-basis:44px;border-radius:13px;background-size:37px 37px!important}}
