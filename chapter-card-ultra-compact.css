@@ -1,15 +1,93 @@
-.chapter-grid{grid-template-columns:repeat(2,minmax(0,680px))!important;justify-content:center!important;gap:12px!important}
-.chapter-card{min-height:76px!important;height:auto!important;grid-template-columns:32px minmax(0,1fr) 18px!important;gap:10px!important;padding:11px 13px!important;border:1px solid #ece9e5!important;border-radius:16px!important;background:#fffdfa!important;box-shadow:none!important;align-items:center!important;width:100%!important;max-width:680px!important}
-.chapter-card:hover{transform:translateY(-1px)!important;border-color:#ffc9aa!important;box-shadow:0 8px 20px rgba(31,27,22,.05)!important}
-.chapter-index{width:30px!important;height:30px!important;border-radius:9px!important;font-size:10px!important}
-.chapter-card h3{margin:0 0 2px!important;font-size:14px!important;line-height:1.22!important;font-weight:750!important}
-.chapter-card p{margin:0!important;font-size:11px!important;line-height:1.15!important}
-.chapter-go{font-size:18px!important;line-height:1!important;align-self:center!important}
-.chapter-progress{height:3px!important;margin-top:6px!important;background:#f0efed!important}
+.chapter-grid{
+  grid-template-columns:repeat(2,minmax(0,560px))!important;
+  justify-content:center!important;
+  gap:12px 14px!important;
+  width:100%!important;
+  margin-inline:auto!important;
+}
+
+.chapter-card{
+  min-height:74px!important;
+  height:auto!important;
+  grid-template-columns:32px minmax(0,1fr) 18px!important;
+  gap:10px!important;
+  padding:11px 13px!important;
+  border:1px solid #ece9e5!important;
+  border-radius:16px!important;
+  background:#fffdfa!important;
+  box-shadow:none!important;
+  align-items:center!important;
+  width:100%!important;
+  max-width:560px!important;
+}
+
+.chapter-card:hover{
+  transform:translateY(-1px)!important;
+  border-color:#ffc9aa!important;
+  box-shadow:0 8px 20px rgba(31,27,22,.05)!important;
+}
+
+.chapter-index{
+  width:30px!important;
+  height:30px!important;
+  border-radius:9px!important;
+  font-size:10px!important;
+}
+
+.chapter-card h3{
+  margin:0 0 2px!important;
+  font-size:14px!important;
+  line-height:1.22!important;
+  font-weight:750!important;
+}
+
+.chapter-card p{
+  margin:0!important;
+  font-size:11px!important;
+  line-height:1.15!important;
+}
+
+.chapter-go{
+  font-size:18px!important;
+  line-height:1!important;
+  align-self:center!important;
+}
+
+.chapter-progress{
+  height:3px!important;
+  margin-top:6px!important;
+  background:#f0efed!important;
+}
 
 /* Topic cards stay clean: no decorative paperclip. */
-.chapter-topics-grid .topic-card::before{content:none!important;display:none!important;background:none!important}
+.chapter-topics-grid .topic-card::before{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+}
 
-@media(max-width:1100px){.chapter-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
-@media(max-width:900px){.chapter-grid{grid-template-columns:1fr!important;gap:9px!important}.chapter-card{max-width:none!important}}
-@media(max-width:620px){.chapter-grid{gap:8px!important}.chapter-card{min-height:70px!important;grid-template-columns:30px minmax(0,1fr) 17px!important;padding:10px 11px!important;border-radius:14px!important;gap:9px!important}.chapter-index{width:28px!important;height:28px!important;border-radius:8px!important}.chapter-card h3{font-size:13px!important}.chapter-card p{font-size:10px!important}.chapter-progress{margin-top:5px!important;height:3px!important}.chapter-go{font-size:17px!important}}
+@media(max-width:1200px){
+  .chapter-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;max-width:1040px!important}
+  .chapter-card{max-width:none!important}
+}
+
+@media(max-width:900px){
+  .chapter-grid{grid-template-columns:1fr!important;gap:9px!important;max-width:680px!important}
+  .chapter-card{max-width:none!important}
+}
+
+@media(max-width:620px){
+  .chapter-grid{gap:8px!important;max-width:none!important}
+  .chapter-card{
+    min-height:70px!important;
+    grid-template-columns:30px minmax(0,1fr) 17px!important;
+    padding:10px 11px!important;
+    border-radius:14px!important;
+    gap:9px!important;
+  }
+  .chapter-index{width:28px!important;height:28px!important;border-radius:8px!important}
+  .chapter-card h3{font-size:13px!important}
+  .chapter-card p{font-size:10px!important}
+  .chapter-progress{margin-top:5px!important;height:3px!important}
+  .chapter-go{font-size:17px!important}
+}
