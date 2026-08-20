@@ -52,7 +52,13 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
     }
     const absolutism=groups.find(c=>c?.[0]==='absolutism');
     if(absolutism&&Array.isArray(absolutism[2])){
-      absolutism[2]=absolutism[2].map(name=>name==='Феодалдық мемлекеттің даму кезеңдері'?'Феодалдық мемлекеттердің даму кезеңдері':name);
+      const next=[];
+      for(const name of absolutism[2]){
+        if(name==='Феодалдық мемлекеттің даму кезеңдері'){ next.push('Феодалдық мемлекеттердің даму кезеңдері'); continue; }
+        if(name==='Англия мен Ресейдегі абсолютизм'){ next.push('Англиядағы абсолютизм','Ресейдегі абсолютизм'); continue; }
+        next.push(name);
+      }
+      absolutism[2]=next;
     }
     if(typeof renderTopics==='function')renderTopics();
     if(typeof syncHero==='function')syncHero();
