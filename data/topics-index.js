@@ -9,7 +9,8 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'crusades-causes-course-results':Object.freeze({id:'crusades-causes-course-results',name:'Крест жорықтарының себептері, барысы мен салдары',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/crusades-causes-course-results.json',ready:true}),
   'post-crusades-world':Object.freeze({id:'post-crusades-world',name:'Крест жорықтарынан кейінгі христиандық Еуропа мен мұсылман әлемі',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/post-crusades-world.json',ready:true}),
   'genghis-khan':Object.freeze({id:'genghis-khan',name:'Шыңғыс хан',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/genghis-khan.json',ready:true}),
-  'golden-horde':Object.freeze({id:'golden-horde',name:'Алтын Орда',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/golden-horde.json',ready:true})
+  'golden-horde':Object.freeze({id:'golden-horde',name:'Алтын Орда',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/golden-horde.json',ready:true}),
+  'timur-empire':Object.freeze({id:'timur-empire',name:'Әмір Темір мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/timur-empire.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
 (()=>{
