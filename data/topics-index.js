@@ -15,7 +15,8 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'yuan-empire':Object.freeze({id:'yuan-empire',name:'Юань империясы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/yuan-empire.json',ready:true}),
   'hulagu-state':Object.freeze({id:'hulagu-state',name:'Хулагу мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/hulagu-state.json',ready:true}),
   'chagatai-state':Object.freeze({id:'chagatai-state',name:'Шағатай мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/chagatai-state.json',ready:true}),
-  'genghis-conquests-eurasia-impact':Object.freeze({id:'genghis-conquests-eurasia-impact',name:'Еуразия картасының өзгеруіне Шыңғыс хан жорықтарының ықпалы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/genghis-conquests-eurasia-impact.json',ready:true})
+  'genghis-conquests-eurasia-impact':Object.freeze({id:'genghis-conquests-eurasia-impact',name:'Еуразия картасының өзгеруіне Шыңғыс хан жорықтарының ықпалы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/genghis-conquests-eurasia-impact.json',ready:true}),
+  'france-england-peasant-revolts':Object.freeze({id:'france-england-peasant-revolts',name:'Франция мен Англиядағы шаруалар көтерілісі',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/france-england-peasant-revolts.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
 (()=>{
