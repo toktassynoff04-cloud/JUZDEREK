@@ -17,7 +17,15 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'chagatai-state':Object.freeze({id:'chagatai-state',name:'Шағатай мемлекеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/chagatai-state.json',ready:true}),
   'genghis-conquests-eurasia-impact':Object.freeze({id:'genghis-conquests-eurasia-impact',name:'Еуразия картасының өзгеруіне Шыңғыс хан жорықтарының ықпалы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/genghis-conquests-eurasia-impact.json',ready:true}),
   'france-england-peasant-revolts':Object.freeze({id:'france-england-peasant-revolts',name:'Франция мен Англиядағы шаруалар көтерілісі',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/france-england-peasant-revolts.json',ready:true}),
-  'feudal-wars-jeanne-darc':Object.freeze({id:'feudal-wars-jeanne-darc',name:"Феодалдық соғыстар. Жанна д'Арк",period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/feudal-wars-jeanne-darc.json',ready:true})
+  'feudal-wars-jeanne-darc':Object.freeze({id:'feudal-wars-jeanne-darc',name:"Феодалдық соғыстар. Жанна д'Арк",period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/feudal-wars-jeanne-darc.json',ready:true}),
+  'europe-centralized-states':Object.freeze({id:'europe-centralized-states',name:'Еуропадағы орталықтанған мемлекеттердің қалыптасуы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/europe-centralized-states.json',ready:true}),
+  'feudal-state-development-stages':Object.freeze({id:'feudal-state-development-stages',name:'Феодалдық мемлекеттердің даму кезеңдері',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/feudal-state-development-stages.json',ready:true}),
+  'france-absolutism':Object.freeze({id:'france-absolutism',name:'Франциядағы абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/france-absolutism.json',ready:true}),
+  'england-absolutism':Object.freeze({id:'england-absolutism',name:'Англиядағы абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/england-absolutism.json',ready:true}),
+  'russia-absolutism':Object.freeze({id:'russia-absolutism',name:'Ресейдегі абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/russia-absolutism.json',ready:true}),
+  'china-political-system':Object.freeze({id:'china-political-system',name:'Қытай саяси жүйесіндегі ерекшеліктер',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/china-political-system.json',ready:true}),
+  'japan-absolutism':Object.freeze({id:'japan-absolutism',name:'Жапониядағы абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/japan-absolutism.json',ready:true}),
+  'ottoman-empire':Object.freeze({id:'ottoman-empire',name:'Осман империясы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/ottoman-empire.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
 (()=>{
@@ -46,6 +54,17 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
         next.push(name);
       }
       europe[2]=next;
+    }
+    const absolutism=groups.find(c=>c?.[0]==='absolutism');
+    if(absolutism&&Array.isArray(absolutism[2])){
+      const next=[];
+      for(const name of absolutism[2]){
+        if(name==='Феодалдық мемлекеттің даму кезеңдері'){ next.push('Феодалдық мемлекеттердің даму кезеңдері'); continue; }
+        if(name==='Англия мен Ресейдегі абсолютизм'){ next.push('Англиядағы абсолютизм','Ресейдегі абсолютизм'); continue; }
+        if(name==='Қытай мен Жапонияның саяси жүйесіндегі ерекшеліктер'){ next.push('Қытай саяси жүйесіндегі ерекшеліктер','Жапониядағы абсолютизм'); continue; }
+        next.push(name);
+      }
+      absolutism[2]=next;
     }
     if(typeof renderTopics==='function')renderTopics();
     if(typeof syncHero==='function')syncHero();
