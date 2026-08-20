@@ -7,7 +7,7 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'origin-of-islam':Object.freeze({id:'origin-of-islam',name:'Ислам дінінің пайда болуы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/origin-of-islam.json',ready:true}),
   'islamic-golden-age':Object.freeze({id:'islamic-golden-age',name:'Араб халифаты және мұсылман әлемі мәдениетінің дамуы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/islamic-golden-age.json',ready:true}),
   'crusades-causes-course-results':Object.freeze({id:'crusades-causes-course-results',name:'Крест жорықтарының себептері, барысы мен салдары',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/crusades-causes-course-results.json',ready:true}),
-  'post-crusades-world':Object.freeze({id:'post-crusades-world',name:'КРЕСТ ЖОРЫҚТАРЫНАН КЕЙІНГІ ӘЛЕМ',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/post-crusades-world.json',ready:true})
+  'post-crusades-world':Object.freeze({id:'post-crusades-world',name:'Крест жорықтарынан кейінгі христиандық Еуропа мен мұсылман әлемі',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/post-crusades-world.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
 (()=>{if(document.querySelector('script[data-juz-chapters]'))return;const s=document.createElement('script');s.src='./chapter-navigation.js?v=20260820-chapters-v1';s.dataset.juzChapters='1';document.head.appendChild(s)})();
