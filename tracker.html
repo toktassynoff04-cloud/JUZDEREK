@@ -2,7 +2,7 @@
 <html lang="kk">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JUZDEREK — Тақырып трекері</title>
-<link rel="stylesheet" href="./site-header.css?v=20260820-tracker-1"><link rel="stylesheet" href="./profile-menu.css?v=20260819-username-2"><link rel="stylesheet" href="./tracker.css?v=20260820-tracker-1">
+<link rel="stylesheet" href="./site-header.css?v=20260820-tracker-1"><link rel="stylesheet" href="./profile-menu.css?v=20260819-username-2"><link rel="stylesheet" href="./tracker.css?v=20260820-tracker-2">
 </head>
 <body>
 <header class="site-header" data-site-header></header>
@@ -18,12 +18,14 @@
   <div class="tracker-layout">
     <section class="tracker-main"><div id="trackerGroups"></div></section>
     <aside class="tracker-side">
+      <section class="tracker-panel mission-panel" id="trackerMission"></section>
       <section class="tracker-panel"><div class="panel-title"><h3>Қайталау ұсыныстары</h3></div><div id="reviewSuggestions"></div></section>
-      <section class="tracker-panel"><div class="panel-title"><h3>Апталық прогресс</h3><span>Осы апта</span></div><div class="week-total"><strong id="weekTotal">0</strong><span>тақырып оқыдың</span></div><div class="week-bars" id="weekBars"></div></section>
-      <section class="tracker-panel"><div class="panel-title"><h3>Жалпы прогресс</h3></div><div id="overallProgress"></div></section>
+      <section class="tracker-panel"><div class="panel-title"><h3>Апталық прогресс</h3><span>Осы апта</span></div><div class="week-total"><strong id="weekTotal">0</strong><span>тақырып оқыдың</span></div><div class="week-bars" id="weekBars"></div><button class="full-stats-btn" type="button" data-scroll-stats>Толық статистика</button></section>
+      <section class="tracker-panel" id="overallPanel"><div class="panel-title"><h3>Жалпы прогресс</h3></div><div id="overallProgress"></div></section>
     </aside>
   </div>
 </main>
+<nav class="tracker-mobile-nav"><a href="index.html">⌂<span>Басты</span></a><a href="periods.html">▤<span>Кезеңдер</span></a><a href="periods.html#topicsSection">⌘<span>Ойындар</span></a><a class="active" href="tracker.html">✓<span>Трекер</span></a><a href="achievements.html">◎<span>Профиль</span></a></nav>
 <div class="tracker-modal" id="trackerModal" hidden></div>
-<script src="./chapter-navigation.js?v=20260820-chapters-v1"></script><script src="./data/topics-index.js?v=20260820-content-batch2"></script><script src="./site-header-component.js?v=20260820-tracker-1"></script><script src="./tracker.js?v=20260820-tracker-1"></script>
+<script data-juz-chapters src="./chapter-navigation.js?v=20260820-chapters-v1"></script><script src="./data/topics-index.js?v=20260820-content-batch2"></script><script src="./site-header-component.js?v=20260820-tracker-1"></script><script src="./tracker.js?v=20260820-tracker-2"></script>
 </body></html>
