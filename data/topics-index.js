@@ -30,7 +30,7 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
         'Моңғолдардың әскери өнері':'Юань империясы',
         'Моңғол шапқыншылығының Еуразия картасына әсері':'Хулагу мемлекеті'
       };
-      mongols[2]=mongols[2].map(name=>replacements[name]||name);
+      mongols[2]=mongols[2].map(name=>replacements[name]||name).filter(name=>name!=='Құбылай мемлекеті, Ильханат');
       if(!mongols[2].includes('Шағатай мемлекеті')) mongols[2].push('Шағатай мемлекеті');
     }
     const europe=groups.find(c=>c?.[0]==='europe');
