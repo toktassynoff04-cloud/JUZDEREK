@@ -19,7 +19,8 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'france-england-peasant-revolts':Object.freeze({id:'france-england-peasant-revolts',name:'Франция мен Англиядағы шаруалар көтерілісі',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/france-england-peasant-revolts.json',ready:true}),
   'feudal-wars-jeanne-darc':Object.freeze({id:'feudal-wars-jeanne-darc',name:"Феодалдық соғыстар. Жанна д'Арк",period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/feudal-wars-jeanne-darc.json',ready:true}),
   'europe-centralized-states':Object.freeze({id:'europe-centralized-states',name:'Еуропадағы орталықтанған мемлекеттердің қалыптасуы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/europe-centralized-states.json',ready:true}),
-  'feudal-state-development-stages':Object.freeze({id:'feudal-state-development-stages',name:'Феодалдық мемлекеттердің даму кезеңдері',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/feudal-state-development-stages.json',ready:true})
+  'feudal-state-development-stages':Object.freeze({id:'feudal-state-development-stages',name:'Феодалдық мемлекеттердің даму кезеңдері',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/feudal-state-development-stages.json',ready:true}),
+  'france-absolutism':Object.freeze({id:'france-absolutism',name:'Франциядағы абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/france-absolutism.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
 (()=>{
