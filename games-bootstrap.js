@@ -16,7 +16,7 @@
       await script('./xp-economy-v2.js?v=20260820-xp3');
       await script('./chrono-game-v2.js?v=20260819-contentv2');
       await script('./mistakes.js?v=20260819-contentv2');
-      await script('./result-screen.js?v=20260819-contentv2');
+      await script('./result-screen.js?v=20260820-board-final');
       await script('./site-header-component.js?v=20260819-contentv2');
       const mode=params.get('mode');
       if(['cards','quiz','person','chrono'].includes(mode)&&typeof window.setMode==='function')window.setMode(mode);
