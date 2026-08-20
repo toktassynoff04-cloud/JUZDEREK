@@ -22,7 +22,9 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'feudal-state-development-stages':Object.freeze({id:'feudal-state-development-stages',name:'Феодалдық мемлекеттердің даму кезеңдері',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/feudal-state-development-stages.json',ready:true}),
   'france-absolutism':Object.freeze({id:'france-absolutism',name:'Франциядағы абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/france-absolutism.json',ready:true}),
   'england-absolutism':Object.freeze({id:'england-absolutism',name:'Англиядағы абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/england-absolutism.json',ready:true}),
-  'russia-absolutism':Object.freeze({id:'russia-absolutism',name:'Ресейдегі абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/russia-absolutism.json',ready:true})
+  'russia-absolutism':Object.freeze({id:'russia-absolutism',name:'Ресейдегі абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/russia-absolutism.json',ready:true}),
+  'china-political-system':Object.freeze({id:'china-political-system',name:'Қытай саяси жүйесіндегі ерекшеліктер',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/china-political-system.json',ready:true}),
+  'japan-absolutism':Object.freeze({id:'japan-absolutism',name:'Жапониядағы абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/japan-absolutism.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
 (()=>{
@@ -40,7 +42,7 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
     }
     const europe=groups.find(c=>c?.[0]==='europe');
     if(europe&&Array.isArray(europe[2])){
-      const merged="Феодалдық соғыстар. Жанна д'Арк";
+      const merged="Феодалдық соғыстар. Жанна d'Арк";
       const next=[];
       for(const name of europe[2]){
         if(name==='Феодалдық соғыстар'){
