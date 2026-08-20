@@ -12,4 +12,26 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'golden-horde':Object.freeze({id:'golden-horde',name:'Алтын Орда',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/golden-horde.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
-(()=>{if(document.querySelector('script[data-juz-chapters]'))return;const s=document.createElement('script');s.src='./chapter-navigation.js?v=20260820-chapters-v1';s.dataset.juzChapters='1';document.head.appendChild(s)})();
+(()=>{
+  const patchChapterMap=()=>{
+    const groups=window.JUZDEREK_CHAPTER_MAP?.medieval||[];
+    const mongols=groups.find(c=>c?.[0]==='mongols');
+    if(mongols&&Array.isArray(mongols[2])){
+      const i=mongols[2].indexOf('Моңғол империясының құрылуы');
+      if(i>=0)mongols[2][i]='Алтын Орда';
+    }
+    if(typeof renderTopics==='function')renderTopics();
+    if(typeof syncHero==='function')syncHero();
+  };
+  const existing=document.querySelector('script[data-juz-chapters]');
+  if(existing){
+    if(window.JUZDEREK_CHAPTER_MAP)patchChapterMap();
+    else existing.addEventListener('load',patchChapterMap,{once:true});
+    return;
+  }
+  const s=document.createElement('script');
+  s.src='./chapter-navigation.js?v=20260820-chapters-v1';
+  s.dataset.juzChapters='1';
+  s.addEventListener('load',patchChapterMap,{once:true});
+  document.head.appendChild(s);
+})();
