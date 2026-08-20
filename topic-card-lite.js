@@ -1,110 +1,16 @@
 (()=>{
-  const ERA_ASSETS={
-    ancient:'./assets/ancient-topic.webp',
-    medieval:'./assets/medieval-topic.webp',
-    modern:'./assets/modern-topic.webp',
-    contemporary:'./assets/contemporary-topic.webp'
-  };
-  const TOPICS=window.JUZDEREK_TOPIC_ALIASES||{};
-  const MODES=['cards','quiz','person','chrono'];
-
-  function getEra(){
-    const active=document.querySelector('.period-card.active');
-    if(active){
-      for(const era of Object.keys(ERA_ASSETS)) if(active.classList.contains(era)) return era;
-    }
-    const t=(document.getElementById('topicsTitle')?.textContent||'').toLowerCase();
-    if(t.includes('орта ғасыр')) return 'medieval';
-    if(t.includes('жаңа заман')) return 'modern';
-    if(t.includes('қазіргі заман')) return 'contemporary';
-    return 'ancient';
-  }
-
-  function progress(id){
-    try{
-      const all=JSON.parse(localStorage.getItem('juzderek_topics_progress')||'{}');
-      const t=all[id]||{};
-      const completed=Array.isArray(t.completed)?[...new Set(t.completed)]:[];
-      const done=MODES.filter(m=>completed.includes(m));
-      return Math.round(done.length/MODES.length*100);
-    }catch{return 0}
-  }
-
-  function setTextIfChanged(el,value){
-    if(el && el.textContent!==value) el.textContent=value;
-  }
-
-  function decorate(){
-    const grid=document.getElementById('topicGrid');
-    if(!grid) return;
-    const era=getEra();
-    const asset=ERA_ASSETS[era]||ERA_ASSETS.ancient;
-
-    grid.querySelectorAll('.topic-card').forEach(card=>{
-      card.classList.add('jz-topic-card');
-      if(card.dataset.era!==era) card.dataset.era=era;
-
-      const idx=card.querySelector('.topic-index');
-      if(idx){
-        idx.classList.add('jz-era-thumb');
-        const bg=`url("${asset}")`;
-        if(idx.style.getPropertyValue('background-image')!==bg) idx.style.setProperty('background-image',bg,'important');
-        idx.style.setProperty('background-size','78% auto','important');
-        idx.style.setProperty('background-position','center','important');
-        idx.style.setProperty('background-repeat','no-repeat','important');
-        idx.style.setProperty('font-size','0','important');
-        if(idx.textContent!=='') idx.textContent='';
-      }
-
-      const text=(card.textContent||'').trim();
-      const name=Object.keys(TOPICS).find(n=>text.includes(n));
-      const go=card.querySelector('.topic-go');
-      const desc=card.querySelector('p');
-      const meta=name?window.JUZDEREK_TOPIC_INDEX?.[TOPICS[name]]:null;
-
-      if(name&&meta?.ready===true){
-        card.classList.add('jz-available','ready');
-        const pct=progress(TOPICS[name]);
-        const label=pct===100?'Тақырып толық аяқталды':pct>0?`Оқу жалғасып жатыр · ${pct}%`:'Оқуды бастауға дайын';
-        setTextIfChanged(desc,label);
-        if(go && go.getAttribute('aria-label')!=='Тақырыпты ашу') go.setAttribute('aria-label','Тақырыпты ашу');
-      }else{
-        card.classList.remove('jz-available','ready');
-      }
-    });
-  }
-
-  let raf=0;
-  function schedule(){
-    if(raf) return;
-    raf=requestAnimationFrame(()=>{
-      raf=0;
-      decorate();
-    });
-  }
-
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',schedule);
-  else schedule();
-  window.addEventListener('storage',schedule);
-  window.addEventListener('pageshow',schedule);
-  window.addEventListener('juzderek:progress',schedule);
-
-  const grid=document.getElementById('topicGrid');
-  if(grid){
-    // Only watch cards being replaced/added. Do not observe subtree text updates,
-    // otherwise decorate() can trigger itself forever and freeze the page.
-    new MutationObserver(schedule).observe(grid,{childList:true});
-  }
-
-  if(!document.querySelector('link[href*="real-stats-progress.css"]')){
-    const l=document.createElement('link');
-    l.rel='stylesheet';
-    l.href='./real-stats-progress.css?v=20260819-release';
-    document.head.appendChild(l);
-  }
-  if(!document.querySelector('script[src*="real-stats-progress.js"]')){
-    const s=document.createElement('script');
-    s.src='./real-stats-progress.js?v=20260819-release';
-    document.body.appendChild(s);
-  }
+  const ERA_ASSETS={ancient:'./assets/ancient-topic.webp',medieval:'./assets/medieval-topic.webp',modern:'./assets/modern-topic.webp',contemporary:'./assets/contemporary-topic.webp'};
+  const TOPICS=window.JUZDEREK_TOPIC_ALIASES||{},MODES=['cards','quiz','person','chrono'],TRACKER='juzderek_topic_tracker_v1';
+  const slug=s=>String(s).toLowerCase().replace(/[^a-zа-яәіңғүұқөһ0-9]+/gi,'-').replace(/^-|-$/g,'').slice(0,90);
+  function getEra(){const active=document.querySelector('.period-card.active');if(active){for(const era of Object.keys(ERA_ASSETS))if(active.classList.contains(era))return era}const t=(document.getElementById('topicsTitle')?.textContent||'').toLowerCase();if(t.includes('орта ғасыр'))return'medieval';if(t.includes('жаңа заман'))return'modern';if(t.includes('қазіргі заман'))return'contemporary';return'ancient'}
+  function progress(id){try{const all=JSON.parse(localStorage.getItem('juzderek_topics_progress')||'{}'),t=all[id]||{},completed=Array.isArray(t.completed)?[...new Set(t.completed)]:[];return Math.round(MODES.filter(m=>completed.includes(m)).length/MODES.length*100)}catch{return 0}}
+  function tracker(){try{return JSON.parse(localStorage.getItem(TRACKER)||'{}')}catch{return{}}}
+  function topicIdentity(card){const title=(card.querySelector('h3')?.textContent||'').trim();return{name:title,id:TOPICS[title]||`plan-${slug(title)}`}}
+  function isRead(id){const r=tracker()[id]||{};return!!(r.readAt||r.manualStatus)}
+  function mark(id){const all=tracker(),r=all[id]||{},now=new Date().toISOString();if(!r.readAt)r.readAt=now;else{r.lastReviewAt=now;r.reviewCount=(Number(r.reviewCount)||0)+1}all[id]=r;localStorage.setItem(TRACKER,JSON.stringify(all));window.dispatchEvent(new CustomEvent('juzderek:tracker'))}
+  function decorate(){const grid=document.getElementById('topicGrid');if(!grid)return;const era=getEra(),asset=ERA_ASSETS[era]||ERA_ASSETS.ancient;grid.querySelectorAll('.topic-card').forEach(card=>{card.classList.add('jz-topic-card');card.dataset.era=era;const idx=card.querySelector('.topic-index');if(idx){idx.classList.add('jz-era-thumb');idx.style.setProperty('background-image',`url("${asset}")`,'important');idx.style.setProperty('background-size','78% auto','important');idx.style.setProperty('background-position','center','important');idx.style.setProperty('background-repeat','no-repeat','important');idx.style.setProperty('font-size','0','important');if(idx.textContent!=='')idx.textContent=''}const {name,id}=topicIdentity(card),go=card.querySelector('.topic-go'),desc=card.querySelector('p'),meta=window.JUZDEREK_TOPIC_INDEX?.[id];if(name&&meta?.ready===true){card.classList.add('jz-available','ready');const pct=progress(id),label=pct===100?'Тақырып толық аяқталды':pct>0?`Оқу жалғасып жатыр · ${pct}%`:'Оқуды бастауға дайын';if(desc&&desc.textContent!==label)desc.textContent=label;if(go)go.setAttribute('aria-label','Тақырыпты ашу')}else card.classList.remove('jz-available','ready');let btn=card.querySelector('[data-tracker-read]');if(!btn){btn=document.createElement('button');btn.type='button';btn.className='jz-read-btn';btn.dataset.trackerRead=id;if(go)card.insertBefore(btn,go);else card.appendChild(btn)}btn.dataset.trackerRead=id;btn.textContent=isRead(id)?'Қайталадым':'Оқып шықтым';btn.classList.toggle('is-read',isRead(id))})}
+  let raf=0;function schedule(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;decorate()})}
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-tracker-read]');if(!b)return;e.preventDefault();e.stopPropagation();mark(b.dataset.trackerRead);schedule()},true);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',schedule);else schedule();window.addEventListener('storage',schedule);window.addEventListener('pageshow',schedule);window.addEventListener('juzderek:progress',schedule);window.addEventListener('juzderek:tracker',schedule);const grid=document.getElementById('topicGrid');if(grid)new MutationObserver(schedule).observe(grid,{childList:true});
+  if(!document.querySelector('link[href*="real-stats-progress.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./real-stats-progress.css?v=20260819-release';document.head.appendChild(l)}if(!document.querySelector('script[src*="real-stats-progress.js"]')){const s=document.createElement('script');s.src='./real-stats-progress.js?v=20260819-release';document.body.appendChild(s)}
 })();
