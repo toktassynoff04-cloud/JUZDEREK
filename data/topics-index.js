@@ -50,7 +50,7 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
           if(!next.includes(merged)) next.push(merged);
           continue;
         }
-        if(name==='Жанна д’Арк'||name==="Жанна д'Арк") continue;
+        if(name==='Жанна д’Арк'||name==="Жанна д'Арк"||name==='Еуропадағы орталықтанған мемлекеттердің қалыптасуы') continue;
         next.push(name);
       }
       europe[2]=next;
@@ -64,6 +64,8 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
         if(name==='Қытай мен Жапонияның саяси жүйесіндегі ерекшеліктер'){ next.push('Қытай саяси жүйесіндегі ерекшеліктер','Жапониядағы абсолютизм'); continue; }
         next.push(name);
       }
+      const centralized='Еуропадағы орталықтанған мемлекеттердің қалыптасуы';
+      if(!next.includes(centralized)) next.unshift(centralized);
       absolutism[2]=next;
     }
     if(typeof renderTopics==='function')renderTopics();
