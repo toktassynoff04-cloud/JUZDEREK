@@ -1,43 +1,41 @@
 .metric-card.mission-metric .metric-icon{
-  position:relative!important;
-  inset:auto!important;
-  flex:0 0 52px!important;
-  width:52px!important;
-  height:52px!important;
-  min-width:52px!important;
-  min-height:52px!important;
-  display:grid!important;
-  place-items:center!important;
+  position:absolute!important;
+  left:18px!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+  right:auto!important;
+  bottom:auto!important;
+  flex:none!important;
+  width:72px!important;
+  height:72px!important;
+  min-width:72px!important;
+  min-height:72px!important;
+  display:block!important;
   padding:0!important;
   margin:0!important;
-  overflow:hidden!important;
-  border-radius:14px!important;
-  background:#fff7f2!important;
-  color:#ff5b16!important;
+  overflow:visible!important;
+  border-radius:0!important;
+  background:transparent url('./assets/target.webp') center/contain no-repeat!important;
+  color:transparent!important;
   font-size:0!important;
   line-height:0!important;
-}
-
-/* Board fix: use the dedicated target artwork instead of the mascot. */
-.progress-layout .metric-card.mission-metric:nth-child(3) .metric-icon{
-  background:#fff7f2 url('./assets/target.webp') center center/72% auto no-repeat!important;
+  filter:drop-shadow(0 8px 10px rgba(255,110,24,.13))!important;
+  z-index:2!important;
 }
 
 .metric-card.mission-metric .metric-icon::before,
-.metric-card.mission-metric .metric-icon::after{content:none!important;display:none!important}
+.metric-card.mission-metric .metric-icon::after,
 .metric-card.mission-metric .metric-icon svg{
+  content:none!important;
   display:none!important;
 }
 
-@media(max-width:760px){
+@media(max-width:820px){
   .metric-card.mission-metric .metric-icon{
-    flex-basis:48px!important;
-    width:48px!important;
-    height:48px!important;
-    min-width:48px!important;
-    min-height:48px!important;
-  }
-  .progress-layout .metric-card.mission-metric:nth-child(3) .metric-icon{
-    background-size:70% auto!important;
+    left:18px!important;
+    width:68px!important;
+    height:68px!important;
+    min-width:68px!important;
+    min-height:68px!important;
   }
 }
