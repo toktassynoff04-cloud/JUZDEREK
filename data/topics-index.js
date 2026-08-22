@@ -28,6 +28,7 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'ottoman-empire':Object.freeze({id:'ottoman-empire',name:'Осман империясы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/ottoman-empire.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
+// === GENERATED INDEX END / STATIC NAVIGATION PATCH BELOW ===
 (()=>{
   const patchChapterMap=()=>{
     const groups=window.JUZDEREK_CHAPTER_MAP?.medieval||[];
