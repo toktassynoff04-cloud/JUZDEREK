@@ -1,0 +1,56 @@
+/* JUZDEREK achievements mobile — scoped overrides */
+@media (max-width:640px){
+  .ach-shell{width:calc(100% - 18px)!important;margin:14px auto 44px!important}
+
+  /* Override generic .hero-copy mobile rule from juzderek-ui-system.css. */
+  .ach-hero{display:block!important;width:100%!important;min-height:0!important;aspect-ratio:auto!important;padding:22px 18px 18px!important;border-radius:24px!important;background-image:linear-gradient(90deg,rgba(255,255,255,.94) 0%,rgba(255,255,255,.86) 58%,rgba(255,255,255,.58) 100%),url('./assets/achievements-hero-bg.png')!important;background-size:auto 100%!important;background-position:right center!important;background-repeat:no-repeat!important;overflow:hidden!important}
+  .ach-hero .hero-copy{max-width:100%!important;padding:0!important;margin:0!important;min-height:0!important}
+  .ach-kicker{font-size:10px!important;letter-spacing:.11em!important}
+  .ach-hero h1{font-size:34px!important;line-height:1.04!important;margin:8px 0 9px!important}
+  .ach-hero p{max-width:76%!important;font-size:12px!important;line-height:1.45!important;margin:0!important}
+
+  .ach-hero .hero-progress{max-width:100%!important;padding:13px!important;margin-top:20px!important;border:1px solid rgba(236,224,215,.92)!important;border-radius:17px!important;background:rgba(255,255,255,.86)!important;backdrop-filter:blur(7px)!important;-webkit-backdrop-filter:blur(7px)!important}
+  .hero-count strong{font-size:24px!important}.hero-count span{font-size:11px!important}
+  .collection-track{height:10px!important;margin-top:10px!important}
+  .collection-track>img{width:26px!important;height:26px!important;max-width:26px!important;max-height:26px!important}
+  .milestone-row{font-size:9px!important;gap:8px!important;margin-top:8px!important}
+  .milestone-row small:first-child{max-width:70%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+
+  .hero-stats{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;min-height:0!important;margin-top:12px!important;border-radius:13px!important}
+  .hero-stats>div{min-width:0!important;padding:8px 6px!important;gap:6px!important}
+  .hero-stats>div+div{border-left:1px solid #eee2da!important;border-top:0!important}
+  .hero-stats img,.ach-hero .hero-stats img{width:18px!important;height:18px!important;min-width:18px!important;min-height:18px!important;max-width:18px!important;max-height:18px!important;flex-basis:18px!important}
+  .hero-stats span{font-size:8px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+  .hero-stats b{font-size:12px!important;margin-top:2px!important}
+
+  .toolbar{display:block!important;margin:14px 0 12px!important}
+  .filters{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;width:100%!important}
+  .filters button{height:36px!important;min-width:0!important;padding:0 5px!important;border:1px solid #ece7e2!important;border-radius:12px!important;background:#fff!important;font-size:11px!important;white-space:nowrap!important}
+  .filters button.active{border-color:#20242d!important;background:#20242d!important;color:#fff!important}
+  .dot{width:6px!important;height:6px!important;margin-right:4px!important}
+  .toolbar-right{display:grid!important;grid-template-columns:1fr auto!important;gap:8px!important;width:100%!important;margin-top:9px!important}
+  .toolbar select{width:100%!important;height:40px!important;padding:0 30px 0 11px!important;border-radius:12px!important;font-size:12px!important}
+  .view-switch{height:40px!important;border-radius:12px!important}
+  .view-switch button{width:34px!important;height:32px!important}
+
+  .badge-grid{grid-template-columns:1fr!important;gap:10px!important}
+  .badge,.badge-grid.list-view .badge{grid-template-columns:108px minmax(0,1fr)!important;min-height:132px!important;padding:12px 13px 12px 8px!important;gap:9px!important;border-radius:20px!important}
+  .badge-art,.badge-grid.list-view .badge-art{height:112px!important}
+  .badge-art img,.badge-grid.list-view .badge-art img{width:104px!important;height:112px!important}
+  .badge h3{font-size:16px!important;line-height:1.2!important;margin:0 0 5px!important;padding-right:38px!important}
+  .badge p{font-size:11px!important;line-height:1.35!important;padding-right:3px!important}
+  .rarity{top:10px!important;right:10px!important;padding:5px 7px!important;font-size:7px!important}
+  .badge-progress{margin-top:9px!important}.mini-track{height:6px!important}.badge-progress b{font-size:10px!important;margin-top:5px!important}
+  .earned{margin-top:8px!important;padding:4px 7px!important;font-size:9px!important}
+  .lock-mark{left:10px!important;bottom:9px!important;width:21px!important;height:21px!important;border-radius:7px!important;font-size:11px!important}
+  .ach-footer{margin-top:20px!important;padding:0 12px!important;font-size:12px!important;line-height:1.45!important}
+
+  .detail-backdrop{padding:12px!important}.detail-card{width:100%!important;padding:24px 18px 20px!important;border-radius:24px!important}.detail-card>img{width:140px!important;height:148px!important}.detail-card h2{font-size:23px!important}.detail-card p{font-size:13px!important}.detail-close{top:11px!important;right:11px!important}
+}
+
+@media (max-width:380px){
+  .ach-hero p{max-width:88%!important}
+  .filters{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .badge,.badge-grid.list-view .badge{grid-template-columns:96px minmax(0,1fr)!important}
+  .badge-art,.badge-grid.list-view .badge-art{height:102px!important}.badge-art img,.badge-grid.list-view .badge-art img{width:94px!important;height:102px!important}
+}
