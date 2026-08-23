@@ -1,0 +1,43 @@
+/* Compact mobile profile sheet: keep all actions visible without hidden scrolling. */
+@media (max-width:560px){
+  .profile-menu{
+    left:10px!important;
+    right:10px!important;
+    bottom:max(10px,env(safe-area-inset-bottom))!important;
+    max-height:calc(100dvh - 20px - env(safe-area-inset-bottom))!important;
+    padding:10px 12px 12px!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain!important;
+    scrollbar-width:none!important;
+  }
+  .profile-menu::-webkit-scrollbar{display:none!important}
+  .profile-menu:before{margin-bottom:7px!important}
+  .profile-menu-head{grid-template-columns:48px 1fr!important;gap:11px!important;padding:5px 8px 9px!important}
+  .profile-menu-avatar{width:48px!important;height:48px!important;border-radius:15px!important}
+  .profile-menu-name{font-size:18px!important}
+  .profile-level-line{margin-top:5px!important;gap:6px!important}
+  .profile-rank-badge{padding:5px 8px!important;font-size:11px!important}
+  .profile-rank-level{font-size:12px!important}
+  .profile-level-card{margin:0 3px 7px!important;padding:12px 12px 10px!important;border-radius:16px!important}
+  .profile-level-top small{font-size:10px!important;margin-bottom:2px!important}
+  .profile-level-top strong{font-size:19px!important}
+  .profile-level-top>span{font-size:11px!important}
+  .profile-level-track{height:7px!important;margin-top:8px!important}
+  .profile-level-next{margin-top:7px!important;font-size:11px!important}
+  .profile-level-target{margin-top:3px!important;font-size:10px!important}
+  .profile-mini-stats{gap:6px!important;padding:0 3px 7px!important}
+  .profile-mini-stat{padding:9px 10px!important;border-radius:13px!important}
+  .profile-mini-stat b{font-size:17px!important}
+  .profile-mini-stat span{margin-top:2px!important;font-size:10px!important;line-height:1.25!important}
+  .profile-menu-divider{margin:0 3px 5px!important}
+  .profile-menu-links{gap:2px!important}
+  .profile-menu-link{min-height:45px!important;padding:0 8px!important;border-radius:12px!important;font-size:14px!important;gap:10px!important}
+  .profile-menu-icon{width:32px!important;height:32px!important;flex-basis:32px!important;border-radius:10px!important}
+  .profile-menu-icon svg{width:18px!important;height:18px!important}
+}
+@media (max-height:700px) and (max-width:560px){
+  .profile-menu-head{display:none!important}
+  .profile-level-card{padding:10px!important}
+  .profile-mini-stats{display:none!important}
+  .profile-menu-link{min-height:43px!important}
+}
