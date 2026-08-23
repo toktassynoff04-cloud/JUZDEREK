@@ -14,12 +14,16 @@
   const weekStats=()=>{const weekAgo=Date.now()-7*86400000,items=log().filter(x=>x.ts>=weekAgo);return{games:items.length,xp:items.reduce((s,x)=>s+(Number(x.xp)||0),0),mastered:masteredThisWeek()}};
   function loadCss(){if(q('link[data-activity-board]'))return;const l=document.createElement('link');l.rel='stylesheet';l.href='./activity-board.css?v=20260820-final';l.dataset.activityBoard='1';document.head.appendChild(l)}
   function latest(){return log().sort((a,b)=>(b.ts||0)-(a.ts||0))[0]||null}
+  function emptyRecentMarkup(){return '<div class="recent-empty">Әзірге белсенділік жоқ. Бір ойын аяқтағаннан кейін осы жерде көрінеді.</div>'}
+  function recentRowMarkup(){return '<div class="activity-row"><span class="activity-icon"></span><div class="activity-copy"><strong>Тақырып</strong><span></span></div><div class="activity-progress"><div class="thin-track"><span id="recentTrack"></span></div><b id="recentPct">0%</b></div><button class="soft-btn" id="recentContinue">Бастау ›</button></div>'}
   function renderRecent(){
     const card=q('.recent-card');if(!card)return;
-    const item=latest(),row=q('.activity-row',card),btn=q('#recentViewAll',card);
+    const item=latest(),btn=q('#recentViewAll',card);
     if(btn){btn.textContent='Барлығын көру ›';btn.onclick=e=>{e.preventDefault();openHistory()}}
-    if(!item){if(row)row.outerHTML='<div class="recent-empty">Әзірге белсенділік жоқ. Бір ойын аяқтағаннан кейін осы жерде көрінеді.</div>';return}
-    if(!row)return;
+    let row=q('.activity-row',card),empty=q('.recent-empty',card);
+    if(!item){if(row){row.outerHTML=emptyRecentMarkup()}else if(!empty){card.insertAdjacentHTML('beforeend',emptyRecentMarkup())}return}
+    if(empty){empty.outerHTML=recentRowMarkup();row=q('.activity-row',card)}
+    if(!row){card.insertAdjacentHTML('beforeend',recentRowMarkup());row=q('.activity-row',card)}
     const meta=MODE_META[item.mode]||MODE_META.cards,prog=topicProgress(item.topicId),icon=q('.activity-icon',row),copy=q('.activity-copy',row),pct=q('#recentPct',row),track=q('#recentTrack',row),cont=q('#recentContinue',row);
     if(icon)icon.innerHTML=`<img src="./assets/${meta.icon}" alt="">`;
     if(copy)copy.innerHTML=`<strong>${item.topicName||'Тақырып'}</strong><span class="activity-mode"><b>${meta.label}</b>${fmtTime(item.ts)} · ${item.score??0}/${item.total??0}</span>`;
