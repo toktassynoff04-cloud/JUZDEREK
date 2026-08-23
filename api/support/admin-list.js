@@ -1,0 +1,2 @@
+const {supabase,sendError,requireAdmin}=require('./_lib');
+module.exports=async(req,res)=>{if(req.method!=='GET')return res.status(405).json({error:'Method not allowed'});try{requireAdmin(req);const items=await supabase('support_tickets?select=id,student_id,username,kind,message,page,reply,status,created_at,answered_at&order=created_at.desc&limit=200');res.setHeader('Cache-Control','no-store');return res.status(200).json({items:Array.isArray(items)?items:[]})}catch(err){sendError(res,err)}};
