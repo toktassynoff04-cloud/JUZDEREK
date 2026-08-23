@@ -1,58 +1,60 @@
-/* JUZDEREK mobile header: keep only the two essential study shortcuts visible. */
+/* JUZDEREK mobile header: keep the main student destinations visible. */
 @media (max-width:1040px){
   .site-header[data-shared-header="true"] .site-nav{
-    display:flex!important;
+    display:grid!important;
     grid-area:nav!important;
-    justify-content:flex-end!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
     align-items:center!important;
     gap:8px!important;
+    width:100%!important;
     overflow:visible!important;
     padding:0!important;
     margin:0!important;
   }
-  .site-header[data-shared-header="true"] .site-nav-link{
-    display:none!important;
-  }
+  .site-header[data-shared-header="true"] .site-nav-link{display:none!important}
+  .site-header[data-shared-header="true"] .site-nav-link[href="periods.html"],
   .site-header[data-shared-header="true"] .site-nav-link[href="tracker.html"],
-  .site-header[data-shared-header="true"] .site-nav-link[href="achievements.html"]{
+  .site-header[data-shared-header="true"] .site-nav-link[href="achievements.html"],
+  .site-header[data-shared-header="true"] .site-nav-link[href="collection.html"]{
     display:inline-flex!important;
-    flex:0 0 auto!important;
+    justify-content:center!important;
+    min-width:0!important;
+    width:100%!important;
     min-height:40px!important;
-    padding:0 13px!important;
+    padding:0 8px!important;
     border:1px solid #f0e8e2!important;
     border-radius:13px!important;
     background:#fff!important;
     color:#596273!important;
-    font-size:13px!important;
+    font-size:12px!important;
+    white-space:nowrap!important;
     box-shadow:0 5px 16px rgba(36,42,51,.035)!important;
   }
-  .site-header[data-shared-header="true"] .site-nav-link[href="tracker.html"].active,
-  .site-header[data-shared-header="true"] .site-nav-link[href="achievements.html"].active{
+  .site-header[data-shared-header="true"] .site-nav-link.active{
     border-color:#ffd7bf!important;
     background:#fff5ee!important;
     color:#ff5b16!important;
   }
-  .site-header[data-shared-header="true"] .site-nav-link.active:after{
-    display:none!important;
-  }
+  .site-header[data-shared-header="true"] .site-nav-link.active:after{display:none!important}
 }
 @media (max-width:560px){
-  .site-header[data-shared-header="true"] .site-header-inner{
-    row-gap:9px!important;
-  }
-  .site-header[data-shared-header="true"] .site-nav{
-    justify-content:stretch!important;
-    display:grid!important;
-    grid-template-columns:1fr 1fr!important;
-    width:100%!important;
-  }
+  .site-header[data-shared-header="true"] .site-header-inner{row-gap:9px!important}
+  .site-header[data-shared-header="true"] .site-nav{gap:6px!important}
+  .site-header[data-shared-header="true"] .site-nav-link[href="periods.html"],
   .site-header[data-shared-header="true"] .site-nav-link[href="tracker.html"],
-  .site-header[data-shared-header="true"] .site-nav-link[href="achievements.html"]{
-    justify-content:center!important;
-    min-width:0!important;
-    width:100%!important;
+  .site-header[data-shared-header="true"] .site-nav-link[href="achievements.html"],
+  .site-header[data-shared-header="true"] .site-nav-link[href="collection.html"]{
     min-height:38px!important;
-    padding:0 10px!important;
-    font-size:12px!important;
+    padding:0 5px!important;
+    border-radius:12px!important;
+    font-size:10.5px!important;
+    letter-spacing:-.01em!important;
   }
+}
+@media (max-width:390px){
+  .site-header[data-shared-header="true"] .site-nav{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .site-header[data-shared-header="true"] .site-nav-link[href="periods.html"],
+  .site-header[data-shared-header="true"] .site-nav-link[href="tracker.html"],
+  .site-header[data-shared-header="true"] .site-nav-link[href="achievements.html"],
+  .site-header[data-shared-header="true"] .site-nav-link[href="collection.html"]{font-size:11px!important}
 }
