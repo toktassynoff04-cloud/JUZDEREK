@@ -12,5 +12,4 @@
   let raf=0;function schedule(){if(raf)return;raf=requestAnimationFrame(()=>{raf=0;decorate()})}
   document.addEventListener('click',e=>{const b=e.target.closest('[data-tracker-read]');if(!b)return;e.preventDefault();e.stopPropagation();mark(b.dataset.trackerRead);schedule()},true);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',schedule);else schedule();window.addEventListener('storage',schedule);window.addEventListener('pageshow',schedule);window.addEventListener('juzderek:progress',schedule);window.addEventListener('juzderek:tracker',schedule);const grid=document.getElementById('topicGrid');if(grid)new MutationObserver(schedule).observe(grid,{childList:true});
-  if(!document.querySelector('link[href*="real-stats-progress.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./real-stats-progress.css?v=20260819-release';document.head.appendChild(l)}if(!document.querySelector('script[src*="real-stats-progress.js"]')){const s=document.createElement('script');s.src='./real-stats-progress.js?v=20260819-release';document.body.appendChild(s)}
 })();
