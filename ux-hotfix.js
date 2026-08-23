@@ -1,4 +1,5 @@
 (()=>{
+  if(!document.querySelector('link[data-juz-mobile-fixes]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./mobile-fixes.css?v=20260823-1';l.dataset.juzMobileFixes='1';document.head.appendChild(l)}
   const q=(s,r=document)=>r.querySelector(s),qa=(s,r=document)=>[...r.querySelectorAll(s)];
   const json=(k,f={})=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(f))}catch{return f}};
   const localDay=(d=new Date())=>{const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`};
