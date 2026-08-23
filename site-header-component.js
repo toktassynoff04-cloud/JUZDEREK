@@ -1,5 +1,4 @@
 (()=>{
-  if(!document.querySelector('script[data-juz-achievements]')){const s=document.createElement('script');s.src='./achievements-system.js?v=20260819-2';s.defer=true;s.dataset.juzAchievements='1';document.head.appendChild(s)}
   if(!document.querySelector('link[data-juz-next-ux]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./next-ux.css?v=20260819-01';l.dataset.juzNextUx='1';document.head.appendChild(l)}
   const AVATAR='./assets/profile-avatar-glasses.webp';
   const LEVELS=[{level:1,name:'Ізденуші',min:0},{level:2,name:'Ізденуші',min:500},{level:3,name:'Зерттеуші',min:1200},{level:4,name:'Зерттеуші',min:2200},{level:5,name:'Білгір',min:3500},{level:6,name:'Білгір',min:5000},{level:7,name:'Білгір',min:7000},{level:8,name:'Сарапшы',min:9500},{level:9,name:'Сарапшы',min:12500},{level:10,name:'Сарапшы',min:16000},{level:11,name:'Тарихшы',min:20000},{level:12,name:'Тарихшы',min:25000},{level:13,name:'Тарихшы',min:31000},{level:14,name:'Аңыз',min:38000},{level:15,name:'Аңыз',min:46000}];
