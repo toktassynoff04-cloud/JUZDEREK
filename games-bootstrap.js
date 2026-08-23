@@ -17,7 +17,7 @@
       await script('./chrono-game-v2.js?v=20260821-absolutism-fix1');
       await script('./mistakes.js?v=20260821-absolutism-fix1');
       await script('./result-screen.js?v=20260820-board-final');
-      await script('./site-header-component.js?v=20260821-absolutism-fix1');
+      await script('./site-header-component.js?v=20260823-mobile-1');
       const mode=params.get('mode');
       if(['cards','quiz','person','chrono'].includes(mode)&&typeof window.setMode==='function')window.setMode(mode);
     }catch(error){
