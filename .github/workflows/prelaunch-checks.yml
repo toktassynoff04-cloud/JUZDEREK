@@ -1,0 +1,30 @@
+name: Prelaunch checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [prelaunch-audit-20260823, security-hardening-20260823]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: JavaScript syntax check
+        shell: bash
+        run: |
+          find . -type f \( -name '*.js' -o -name '*.mjs' \) -not -path './node_modules/*' -print0 | xargs -0 -n1 node --check
+      - name: Content validation
+        run: node scripts/validate-content.mjs
+      - name: Security audit
+        run: node scripts/security-audit.mjs
