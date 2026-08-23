@@ -1,0 +1,66 @@
+/* JUZDEREK mobile profile dropdown — slides down from the avatar */
+@media (max-width:560px){
+  .site-header[data-shared-header="true"] .site-profile-wrap{position:relative!important}
+  .site-header[data-shared-header="true"] .profile-menu{
+    position:absolute!important;
+    top:calc(100% + 58px)!important;
+    right:0!important;
+    left:auto!important;
+    bottom:auto!important;
+    width:min(360px,calc(100vw - 20px))!important;
+    max-height:min(72dvh,620px)!important;
+    overflow-y:auto!important;
+    padding:12px!important;
+    border-radius:24px!important;
+    transform:translateY(-16px) scale(.985)!important;
+    transform-origin:top right!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    box-shadow:0 22px 55px rgba(36,42,51,.16)!important;
+    transition:opacity .24s ease,transform .28s cubic-bezier(.2,.8,.2,1),visibility .24s ease!important;
+  }
+  .site-header[data-shared-header="true"] .profile-menu.open{
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+    transform:translateY(0) scale(1)!important;
+  }
+  .site-header[data-shared-header="true"] .profile-menu:before{display:none!important}
+
+  /* The contents follow the panel instead of popping in all at once. */
+  .site-header[data-shared-header="true"] .profile-menu-head,
+  .site-header[data-shared-header="true"] .profile-level-card,
+  .site-header[data-shared-header="true"] .profile-mini-stats,
+  .site-header[data-shared-header="true"] .profile-menu-divider,
+  .site-header[data-shared-header="true"] .profile-menu-link{
+    opacity:0;
+    transform:translateY(-8px);
+    transition:opacity .2s ease,transform .24s ease;
+  }
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-menu-head,
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-level-card,
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-mini-stats,
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-menu-divider,
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-menu-link{
+    opacity:1;
+    transform:none;
+  }
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-menu-head{transition-delay:.03s}
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-level-card{transition-delay:.06s}
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-mini-stats{transition-delay:.08s}
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-menu-divider{transition-delay:.1s}
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-menu-link:nth-child(1){transition-delay:.11s}
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-menu-link:nth-child(2){transition-delay:.13s}
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-menu-link:nth-child(3){transition-delay:.15s}
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-menu-link:nth-child(4){transition-delay:.17s}
+  .site-header[data-shared-header="true"] .profile-menu.open .profile-menu-link:nth-child(5){transition-delay:.19s}
+}
+
+@media (max-width:390px){
+  .site-header[data-shared-header="true"] .profile-menu{top:calc(100% + 102px)!important;width:calc(100vw - 16px)!important;right:-2px!important}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .profile-menu,.profile-menu *{transition-duration:.01ms!important}
+}
