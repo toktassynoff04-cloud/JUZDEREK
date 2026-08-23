@@ -1,4 +1,4 @@
-(()=>{const A=[
+(()=>{if(window.__JUZ_ACH_SYSTEM_LOADED)return;window.__JUZ_ACH_SYSTEM_LOADED=true;const A=[
 {id:'aim',n:'Мерген',d:'100 дұрыс жауап жина.',r:'rare',target:100,type:'correct',img:'achievement-archer.webp'},
 {id:'first',n:'Алғашқы қадам',d:'Алғашқы тақырыпты 100% толық меңгер.',r:'rare',target:1,type:'topics',img:'achievement-first-step.webp'},
 {id:'scholar',n:'Білімпаз',d:'5 тақырыпты толық меңгер.',r:'rare',target:5,type:'topics',img:'achievement-scholar.webp'},
