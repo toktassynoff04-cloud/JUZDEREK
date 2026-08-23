@@ -1,16 +1,7 @@
 (()=>{
-  function ensureCss(href,key){
-    if(document.querySelector(`link[data-${key}]`))return;
-    const l=document.createElement('link');
-    l.rel='stylesheet';
-    l.href=href;
-    l.setAttribute(`data-${key}`,'1');
-    document.head.appendChild(l);
-  }
-  function init(){
-    ensureCss('./mobile-nav-v2.css?v=20260823-2','juz-mobile-nav-v2');
-    ensureCss('./profile-menu-mobile.css?v=20260823-1','juz-profile-menu-mobile');
-    ensureCss('./profile-dropdown-mobile.css?v=20260823-1','juz-profile-dropdown-mobile');
-  }
+  function ensureCss(href,key){if(document.querySelector(`link[data-${key}]`))return;const l=document.createElement('link');l.rel='stylesheet';l.href=href;l.setAttribute(`data-${key}`,'1');document.head.appendChild(l)}
+  function ensureScript(src,key){if(document.querySelector(`script[data-${key}]`))return;const s=document.createElement('script');s.src=src;s.defer=true;s.setAttribute(`data-${key}`,'1');document.head.appendChild(s)}
+  function ensureSupportEntry(){const menu=document.querySelector('.profile-menu-links');if(!menu||menu.querySelector('[data-open-support]'))return;const btn=document.createElement('button');btn.type='button';btn.className='profile-menu-link';btn.dataset.openSupport='1';btn.innerHTML='<span class="profile-menu-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v10H9l-4 4V5z"/><path d="M9 9h6M9 12h4"/></svg></span>Кері байланыс';const change=menu.querySelector('#changeUsername');menu.insertBefore(btn,change||null)}
+  function init(){ensureCss('./mobile-nav-v2.css?v=20260823-2','juz-mobile-nav-v2');ensureCss('./profile-menu-mobile.css?v=20260823-1','juz-profile-menu-mobile');ensureCss('./profile-dropdown-mobile.css?v=20260823-1','juz-profile-dropdown-mobile');ensureScript('./support-ui.js?v=20260823-chat2','juz-support-ui');ensureSupportEntry();const header=document.querySelector('[data-site-header],.site-header');if(header&&!header.dataset.supportObserved){header.dataset.supportObserved='1';new MutationObserver(ensureSupportEntry).observe(header,{childList:true,subtree:true})}}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
