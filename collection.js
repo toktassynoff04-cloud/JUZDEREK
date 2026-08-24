@@ -19,7 +19,7 @@
   const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch{return fallback}};
   const safeInt=(v,max=100000)=>{const n=Number(v);return Number.isFinite(n)?Math.max(0,Math.min(max,Math.floor(n))):0};
   const validIds=new Set(PEOPLE.map(p=>p.id));
-  function loadState(){const raw=read(STATE_KEY,{}),unlocked=Array.isArray(raw?.unlocked)?raw.unlocked.filter(id=>typeof id==='string'&&validIds.has(id)):[];if(!unlocked.length)unlocked.push('napoleon');return{unlocked:[...new Set(unlocked)].slice(0,PEOPLE.length),chests:safeInt(raw?.chests,1000),claimedTopicMilestones:safeInt(raw?.claimedTopicMilestones,10000),claimedLevelMilestones:safeInt(raw?.claimedLevelMilestones,10000)}}
+  function loadState(){const raw=read(STATE_KEY,{}),unlocked=Array.isArray(raw?.unlocked)?raw.unlocked.filter(id=>typeof id==='string'&&validIds.has(id)):[];return{unlocked:[...new Set(unlocked)].slice(0,PEOPLE.length),chests:safeInt(raw?.chests,1000),claimedTopicMilestones:safeInt(raw?.claimedTopicMilestones,10000),claimedLevelMilestones:safeInt(raw?.claimedLevelMilestones,10000)}}
   let state=loadState();
   const saveState=()=>{if(!ADMIN)localStorage.setItem(STATE_KEY,JSON.stringify(state))};
   const gameProgress=()=>{const x=read('juzderek_game_progress',{xp:0});return x&&typeof x==='object'?x:{xp:0}};
