@@ -23,7 +23,7 @@
       if(new Set(ds).size!==ds.length)fail(errors,`${f?.id||`facts[${i}]`} has duplicate distractorIds`);
       ds.forEach(id=>{if(id===f.id)fail(errors,`${f.id} cannot distract itself`);if(!factIds.has(id))fail(errors,`${f.id} distractor not found: ${id}`)});
     });
-    if(people.length<4)fail(errors,'people must contain at least 4 items');
+    if(people.length>0&&people.length<4)fail(errors,'people must contain at least 4 items when person mode is used');
     const personIds=new Set();
     people.forEach((p,i)=>{
       if(!p?.id)fail(errors,`people[${i}].id is required`);
