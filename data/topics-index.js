@@ -25,7 +25,8 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'russia-absolutism':Object.freeze({id:'russia-absolutism',name:'Ресейдегі абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/russia-absolutism.json',ready:true}),
   'china-political-system':Object.freeze({id:'china-political-system',name:'Қытай саяси жүйесіндегі ерекшеліктер',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/china-political-system.json',ready:true}),
   'japan-absolutism':Object.freeze({id:'japan-absolutism',name:'Жапониядағы абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/japan-absolutism.json',ready:true}),
-  'ottoman-empire':Object.freeze({id:'ottoman-empire',name:'Осман империясы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/ottoman-empire.json',ready:true})
+  'ottoman-empire':Object.freeze({id:'ottoman-empire',name:'Осман империясы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/ottoman-empire.json',ready:true}),
+  'industrial-revolution-social-structure':Object.freeze({id:'industrial-revolution-social-structure',name:'Өнеркәсіп төңкерісі және индустриалды қоғамның әлеуметтік құрылымы',period:'modern',periodLabel:'Жаңа заман',file:'./data/topics/industrial-revolution-social-structure.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
 // === GENERATED INDEX END / STATIC NAVIGATION PATCH BELOW ===
