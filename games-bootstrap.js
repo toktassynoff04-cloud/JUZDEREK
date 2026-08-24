@@ -13,7 +13,7 @@
       await window.JUZDEREK_TOPIC_LOADER.loadTopic(topicId);
       await script('./real-stats-progress.js?v=20260821-absolutism-fix1');
       await script('./achievements-system.js?v=20260821-absolutism-fix1');
-      await script('./games-engine-v2.js?v=20260821-absolutism-fix1');
+      await script('./games-engine-v2.js?v=20260824-content-pack');
       await script('./xp-economy-v2.js?v=20260820-xp3');
       await script('./chrono-game-v2.js?v=20260821-absolutism-fix1');
       await script('./mistakes.js?v=20260821-absolutism-fix1');
