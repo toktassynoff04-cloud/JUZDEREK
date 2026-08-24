@@ -26,15 +26,21 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'china-political-system':Object.freeze({id:'china-political-system',name:'Қытай саяси жүйесіндегі ерекшеліктер',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/china-political-system.json',ready:true}),
   'japan-absolutism':Object.freeze({id:'japan-absolutism',name:'Жапониядағы абсолютизм',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/japan-absolutism.json',ready:true}),
   'ottoman-empire':Object.freeze({id:'ottoman-empire',name:'Осман империясы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/ottoman-empire.json',ready:true}),
+  'eastern-medieval-culture':Object.freeze({id:'eastern-medieval-culture',name:'Шығыстың ортағасырлық мәдениеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/eastern-medieval-culture.json',ready:true}),
+  'western-europe-renaissance':Object.freeze({id:'western-europe-renaissance',name:'Батыс Еуропада Қайта өрлеу мәдениетінің қалыптасуы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/western-europe-renaissance.json',ready:true}),
+  'humanism-ideas':Object.freeze({id:'humanism-ideas',name:'Гуманизм идеялары',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/humanism-ideas.json',ready:true}),
+  'scientific-knowledge-development':Object.freeze({id:'scientific-knowledge-development',name:'Ғылыми білімдердің дамуы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/scientific-knowledge-development.json',ready:true}),
   'industrial-revolution-social-structure':Object.freeze({id:'industrial-revolution-social-structure',name:'Өнеркәсіп төңкерісі және индустриалды қоғамның әлеуметтік құрылымы',period:'modern',periodLabel:'Жаңа заман',file:'./data/topics/industrial-revolution-social-structure.json',ready:true}),
+  'new-era-overview':Object.freeze({id:'new-era-overview',name:'Жаңа заман дәуірі туралы түсінік және оның ерекшеліктері',period:'modern',periodLabel:'Жаңа заман',file:'./data/topics/new-era-overview.json',ready:true}),
   'enlightenment-period':Object.freeze({id:'enlightenment-period',name:'Ағартушылық кезеңі',period:'modern',periodLabel:'Жаңа заман',file:'./data/topics/enlightenment-period.json',ready:true})
 });
 window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(window.JUZDEREK_TOPIC_INDEX).map(t=>[t.name,t.id])));
 // === GENERATED INDEX END / STATIC NAVIGATION PATCH BELOW ===
 (()=>{
   const patchChapterMap=()=>{
-    const groups=window.JUZDEREK_CHAPTER_MAP?.medieval||[];
-    const mongols=groups.find(c=>c?.[0]==='mongols');
+    const medieval=window.JUZDEREK_CHAPTER_MAP?.medieval||[];
+    const modern=window.JUZDEREK_CHAPTER_MAP?.modern||[];
+    const mongols=medieval.find(c=>c?.[0]==='mongols');
     if(mongols&&Array.isArray(mongols[2])){
       const replacements={
         'Моңғол империясының құрылуы':'Алтын Орда',
@@ -44,7 +50,7 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
       mongols[2]=mongols[2].map(name=>replacements[name]||name).filter(name=>name!=='Құбылай мемлекеті, Ильханат');
       if(!mongols[2].includes('Шағатай мемлекеті')) mongols[2].push('Шағатай мемлекеті');
     }
-    const europe=groups.find(c=>c?.[0]==='europe');
+    const europe=medieval.find(c=>c?.[0]==='europe');
     if(europe&&Array.isArray(europe[2])){
       const merged="Феодалдық соғыстар. Жанна д'Арк";
       const next=[];
@@ -58,7 +64,7 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
       }
       europe[2]=next;
     }
-    const absolutism=groups.find(c=>c?.[0]==='absolutism');
+    const absolutism=medieval.find(c=>c?.[0]==='absolutism');
     if(absolutism&&Array.isArray(absolutism[2])){
       const next=[];
       for(const name of absolutism[2]){
@@ -71,6 +77,21 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
       if(!next.includes(centralized)) next.unshift(centralized);
       absolutism[2]=next;
     }
+    const renaissance=medieval.find(c=>c?.[0]==='renaissance');
+    if(renaissance&&Array.isArray(renaissance[2])){
+      renaissance[2]=renaissance[2].map(name=>name==='Қайта өрлеу дәуірінің мәдениеті'?'Батыс Еуропада Қайта өрлеу мәдениетінің қалыптасуы':name);
+    }
+    const science=medieval.find(c=>c?.[0]==='science');
+    if(science&&Array.isArray(science[2])){
+      science[2]=science[2].filter(name=>name!=='Әлемнің қазіргі ғылыми бейнесінің негізін қалаушылар және олардың ізбасарлары');
+    }
+    const industry=modern.find(c=>c?.[0]==='industry');
+    if(industry&&Array.isArray(industry[2])){
+      const needed=['Жаңа заман дәуірі туралы түсінік және оның ерекшеліктері','Өнеркәсіп төңкерісі және индустриалды қоғамның әлеуметтік құрылымы'];
+      needed.forEach(name=>{if(!industry[2].includes(name))industry[2].push(name)});
+    }
+    const enlightenment=modern.find(c=>c?.[0]==='enlightenment');
+    if(enlightenment&&Array.isArray(enlightenment[2])&&!enlightenment[2].includes('Ағартушылық кезеңі')) enlightenment[2].unshift('Ағартушылық кезеңі');
     if(typeof renderTopics==='function')renderTopics();
     if(typeof syncHero==='function')syncHero();
   };
@@ -81,7 +102,7 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
     return;
   }
   const s=document.createElement('script');
-  s.src='./chapter-navigation.js?v=20260820-chapters-v1';
+  s.src='./chapter-navigation.js?v=20260824-content-pack';
   s.dataset.juzChapters='1';
   s.addEventListener('load',patchChapterMap,{once:true});
   document.head.appendChild(s);
