@@ -1,4 +1,35 @@
-/* JUZDEREK mobile readiness fixes — 2026-08-23 */
+/* JUZDEREK mobile readiness fixes — 2026-08-24 */
+
+/* Cross-browser flashcard face isolation.
+   Some browser/GPU/zoom combinations can paint both 3D faces at once.
+   Opacity/visibility makes the active face deterministic while preserving flip animation. */
+.flash-face{
+  backface-visibility:hidden!important;
+  -webkit-backface-visibility:hidden!important;
+  transition:opacity .18s ease,visibility 0s linear .18s!important;
+}
+.flash-front{
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+}
+.flash-back{
+  opacity:0!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+.flashcard.flipped .flash-front{
+  opacity:0!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+.flashcard.flipped .flash-back{
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+  transition-delay:0s!important;
+}
+
 @media (max-width:760px){
   html,body{overflow-x:hidden}
 
