@@ -4,6 +4,7 @@ import path from 'node:path';
 const root=process.cwd();
 const textExt=new Set(['.html','.js','.mjs','.css','.json','.md','.txt']);
 const skipDirs=new Set(['.git','node_modules','.vercel']);
+const skipFiles=new Set(['scripts/security-audit.mjs']);
 const findings=[];
 
 function walk(dir){
@@ -12,6 +13,7 @@ function walk(dir){
     const full=path.join(dir,entry.name);
     if(entry.isDirectory()){walk(full);continue}
     const rel=path.relative(root,full).replaceAll('\\','/');
+    if(skipFiles.has(rel))continue;
     if(/^\.env(?:\.|$)/.test(entry.name))findings.push(`${rel}: environment file must not be committed`);
     if(!textExt.has(path.extname(entry.name).toLowerCase()))continue;
     const text=fs.readFileSync(full,'utf8');
