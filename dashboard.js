@@ -7,81 +7,26 @@ const svgIcons={
  spark:'<svg viewBox="0 0 24 24"><path d="m12 3 2.2 4.8L19 10l-4.8 2.2L12 17l-2.2-4.8L5 10l4.8-2.2L12 3Z"/></svg>',
  target:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg>'
 };
-
-function applyIcons(root=document){
-  root.querySelectorAll('[data-icon]').forEach(el=>{el.innerHTML=svgIcons[el.dataset.icon]||''})
-}
-
+function applyIcons(root=document){root.querySelectorAll('[data-icon]').forEach(el=>{el.innerHTML=svgIcons[el.dataset.icon]||''})}
 const periods={
  ancient:{title:'Ежелгі заман',icon:'temple',className:'ancient',description:'Ежелгі өркениеттер мен мемлекеттер.',topics:['Ежелгі Египет','Ежелгі Қосөзен','Ежелгі Қытай','Ежелгі Үндістан','Ежелгі Парсы мемлекеті','Ежелгі Грекия өркениеті','Александр Македонскийдің империясы','Ежелгі Рим өркениеті','Рим империясы','Ежелгі діни нанымдар','Көне философиялық ілімдер','Әлемдік діндер мен өркениеттердің дамуы']},
  medieval:{title:'Орта ғасыр',icon:'shield',className:'medieval',description:'Ортағасырлық мемлекеттер, қоғам және мәдениет.',topics:['Орта ғасырлар түсінігі','Феодалдық қоғам','Ортағасырлық қалалар мен өнер','Халықтардың Ұлы қоныс аударуы және Батыс Рим империясының құлауы','Византия империясы','Киев Русі','Ислам дінінің пайда болуы','Араб халифаты және мұсылман әлемі','Крест жорықтары','Шыңғыс хан','Моңғол империясы','Моңғолдардың әскери өнері','Әмір Темір мемлекеті','Мәскеу мемлекеті','Құбылай мемлекеті және Ильханат','Франция мен Англиядағы шаруалар көтерілісі','Феодалдық соғыстар','Жанна д’Арк','Еуропадағы орталықтанған мемлекеттер','Абсолютизм','Осман империясы','Ұлы Жібек жолы','Ұлы географиялық ашылулар','Реформация','Қайта өрлеу дәуірі','Гуманизм','Шығыстың ортағасырлық мәдениеті']},
  modern:{title:'Жаңа заман',icon:'ship',className:'modern',description:'XVII–XIX ғасырлардағы революциялар мен үлкен өзгерістер.',topics:['Жаңа заман дәуірі туралы түсінік','Өнеркәсіп төңкерісі және индустриалды қоғам','Ағартушылық дәуірі','XVII ғасырдағы ағылшын революциясы','АҚШ-тың құрылуы және Тәуелсіздік үшін соғыс','Француз революциясы','Наполеон дәуірі','Ресей империясының қалыптасуы','XVII–XVIII ғасырлардағы Үндістан','Еуропалық отаршылдық саясаты','Танзимат реформалары','Қырым соғысы','Апиын соғыстары','1848 жылғы Еуропа революциялары','Германия мен Италияның бірігуі','АҚШ-тағы азамат соғысы','Жапонияның ашылуы','Сипайлар көтерілісі','Үнді Ұлттық Конгресі','XIX ғасырдағы ғылым мен мәдениет']},
  contemporary:{title:'Қазіргі заман',icon:'globe',className:'contemporary',description:'XX–XXI ғасырлардағы соғыстар, халықаралық қатынастар және технологиялар.',topics:['Қазіргі заман ұғымы және оның ерекшеліктері','Бірінші дүниежүзілік соғыс','Версаль–Вашингтон жүйесі','Мұстафа Кемал Ататүрік және Түркия','Махатма Ганди және Үндістан','XX ғасырдағы Қытай','XX ғасырдағы Жапония','1917 жылғы Ресей революциясы','КСРО-ның құрылуы','Ұлы экономикалық дағдарыс','Ф.Д. Рузвельттің Жаңа бағыты','Фашизм және тоталитарлық режимдер','Екінші дүниежүзілік соғыс','Отарсыздану үдерісі','Қырғиқабақ соғыс','Араб–израиль қақтығысы','КСРО: жылымық және тоқырау','Қытай реформалары','КСРО-ның ыдырауы және постбиполярлық әлем','Жаһандану','БҰҰ және халықаралық ұйымдар','Қазіргі халықаралық қатынастар','Ғылыми-техникалық революция','Ақпараттық технологиялар','XX–XXI ғасырлар мәдениеті және ЮНЕСКО']}
 };
-
 const dashboardKey='juzderek_dashboard_v1';
-function readDashboardState(){
-  try{return JSON.parse(localStorage.getItem(dashboardKey)||'{}')||{}}catch{return{}}
-}
-function saveSelectedPeriod(period){
-  const state=readDashboardState();state.period=period;localStorage.setItem(dashboardKey,JSON.stringify(state))
-}
-
+function readDashboardState(){try{return JSON.parse(localStorage.getItem(dashboardKey)||'{}')||{}}catch{return{}}}
+function saveSelectedPeriod(period){const state=readDashboardState();state.period=period;localStorage.setItem(dashboardKey,JSON.stringify(state))}
 let selectedPeriod=periods[readDashboardState().period]?readDashboardState().period:'ancient';
-
-function renderPeriods(){
-  const grid=document.getElementById('periodGrid');if(!grid)return;
-  grid.innerHTML=Object.entries(periods).map(([key,p])=>`<button class="period-card ${p.className} ${key===selectedPeriod?'active':''}" data-period="${key}"><span class="period-card-icon" data-icon="${p.icon}"></span><h3>${p.title}</h3><p>${p.topics.length} тақырып</p><span class="round-arrow">→</span></button>`).join('');
-  applyIcons(grid);
-  grid.querySelectorAll('[data-period]').forEach(btn=>btn.addEventListener('click',()=>selectPeriod(btn.dataset.period,true)));
-}
-
-function renderTopics(){
-  const p=periods[selectedPeriod],grid=document.getElementById('topicGrid');if(!p||!grid)return;
-  grid.innerHTML=p.topics.map((name,index)=>{
-    const available=selectedPeriod==='ancient'&&(name==='Ежелгі Парсы мемлекеті'||name==='Ежелгі Грекия өркениеті');
-    return `<button class="topic-card ${available?'ready':''}" data-topic="${name}"><span class="topic-index">${String(index+1).padStart(2,'0')}</span><span><h3>${name}</h3><p>${available?'Оқуды бастауға дайын':'Контент кейін қосылады'}</p></span><span class="topic-go">→</span></button>`
-  }).join('');
-  grid.querySelectorAll('.topic-card').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const name=btn.dataset.topic;
-      if(selectedPeriod==='ancient'&&name==='Ежелгі Парсы мемлекеті'){location.href='games.html?topic=ancient-persia&mode=cards';return}
-      if(selectedPeriod==='ancient'&&name==='Ежелгі Грекия өркениеті'){location.href='games.html?topic=ancient-greece&mode=cards';return}
-      btn.animate([{transform:'scale(1)'},{transform:'scale(.985)'},{transform:'scale(1)'}],{duration:260})
-    })
-  })
-}
-
-function syncHero(){
-  const p=periods[selectedPeriod];if(!p)return;
-  const title=document.getElementById('heroTitle'),desc=document.getElementById('heroDescription'),count=document.getElementById('heroCount'),icon=document.getElementById('heroIcon');
-  if(title)title.textContent=p.title;
-  if(desc)desc.textContent=p.description;
-  if(count)count.innerHTML=`<strong>${p.topics.length}</strong><span>тақырып</span><span class="arrow">→</span>`;
-  if(icon){icon.dataset.icon=p.icon;applyIcons(icon.parentElement||document)}
-  const topicsTitle=document.getElementById('topicsTitle'),pill=document.getElementById('topicCountPill');
-  if(topicsTitle)topicsTitle.textContent=p.title+' тақырыптары';
-  if(pill)pill.textContent=p.topics.length+' тақырып';
-}
-
-function selectPeriod(key,scroll=false){
-  if(!periods[key])return;
-  selectedPeriod=key;saveSelectedPeriod(key);syncHero();renderPeriods();renderTopics();
-  if(scroll)document.getElementById('topicsSection')?.scrollIntoView({behavior:'smooth'})
-}
-
+function renderPeriods(){const grid=document.getElementById('periodGrid');if(!grid)return;grid.innerHTML=Object.entries(periods).map(([key,p])=>`<button class="period-card ${p.className} ${key===selectedPeriod?'active':''}" data-period="${key}"><span class="period-card-icon" data-icon="${p.icon}"></span><h3>${p.title}</h3><p>${p.topics.length} тақырып</p><span class="round-arrow">→</span></button>`).join('');applyIcons(grid);grid.querySelectorAll('[data-period]').forEach(btn=>btn.addEventListener('click',()=>selectPeriod(btn.dataset.period,true)))}
+function renderTopics(){const p=periods[selectedPeriod],grid=document.getElementById('topicGrid');if(!p||!grid)return;grid.innerHTML=p.topics.map((name,index)=>{const available=selectedPeriod==='ancient'&&(name==='Ежелгі Парсы мемлекеті'||name==='Ежелгі Грекия өркениеті');return `<button class="topic-card ${available?'ready':''}" data-topic="${name}"><span class="topic-index">${String(index+1).padStart(2,'0')}</span><span><h3>${name}</h3><p>${available?'Оқуды бастауға дайын':'Контент кейін қосылады'}</p></span><span class="topic-go">→</span></button>`}).join('');grid.querySelectorAll('.topic-card').forEach(btn=>{btn.addEventListener('click',()=>{const name=btn.dataset.topic;if(selectedPeriod==='ancient'&&name==='Ежелгі Парсы мемлекеті'){location.href='games.html?topic=ancient-persia&mode=cards';return}if(selectedPeriod==='ancient'&&name==='Ежелгі Грекия өркениеті'){location.href='games.html?topic=ancient-greece&mode=cards';return}btn.animate([{transform:'scale(1)'},{transform:'scale(.985)'},{transform:'scale(1)'}],{duration:260})})})}
+function syncHero(){const p=periods[selectedPeriod];if(!p)return;const title=document.getElementById('heroTitle'),desc=document.getElementById('heroDescription'),count=document.getElementById('heroCount'),icon=document.getElementById('heroIcon');if(title)title.textContent=p.title;if(desc)desc.textContent=p.description;if(count)count.innerHTML=`<strong>${p.topics.length}</strong><span>тақырып</span><span class="arrow">→</span>`;if(icon){icon.dataset.icon=p.icon;applyIcons(icon.parentElement||document)}const topicsTitle=document.getElementById('topicsTitle'),pill=document.getElementById('topicCountPill');if(topicsTitle)topicsTitle.textContent=p.title+' тақырыптары';if(pill)pill.textContent=p.topics.length+' тақырып'}
+function selectPeriod(key,scroll=false){if(!periods[key])return;selectedPeriod=key;saveSelectedPeriod(key);syncHero();renderPeriods();renderTopics();if(scroll)document.getElementById('topicsSection')?.scrollIntoView({behavior:'smooth'})}
 function bindSafeNavigation(){
-  document.getElementById('heroCount')?.addEventListener('click',()=>document.getElementById('topicsSection')?.scrollIntoView({behavior:'smooth'}));
-  document.getElementById('navTopics')?.addEventListener('click',e=>{e.preventDefault();document.getElementById('topicsSection')?.scrollIntoView({behavior:'smooth'})});
-  document.getElementById('continueBtn')?.addEventListener('click',()=>{location.href='games.html?topic=ancient-persia&mode=cards'});
-  document.getElementById('recentContinue')?.addEventListener('click',()=>{location.href='games.html?topic=ancient-persia&mode=cards'});
+ document.getElementById('heroCount')?.addEventListener('click',()=>document.getElementById('topicsSection')?.scrollIntoView({behavior:'smooth'}));
+ document.getElementById('navTopics')?.addEventListener('click',e=>{e.preventDefault();document.getElementById('topicsSection')?.scrollIntoView({behavior:'smooth'})});
+ document.getElementById('continueBtn')?.addEventListener('click',()=>document.getElementById('periodGrid')?.scrollIntoView({behavior:'smooth',block:'center'}));
+ document.getElementById('recentContinue')?.addEventListener('click',()=>document.getElementById('topicsSection')?.scrollIntoView({behavior:'smooth'}));
 }
-
-function initDashboard(){
-  applyIcons();
-  bindSafeNavigation();
-  selectPeriod(selectedPeriod,false);
-  window.dispatchEvent(new CustomEvent('juzderek:dashboard-ready',{detail:{period:selectedPeriod}}));
-}
-
+function initDashboard(){applyIcons();bindSafeNavigation();selectPeriod(selectedPeriod,false);window.dispatchEvent(new CustomEvent('juzderek:dashboard-ready',{detail:{period:selectedPeriod}}))}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initDashboard);else initDashboard();
