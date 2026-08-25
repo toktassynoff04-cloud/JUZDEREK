@@ -20,7 +20,7 @@
   function closeProgress(){document.getElementById('progressBoardOverlay')?.classList.remove('show');document.body.classList.remove('juz-overlay-open')}
   function patchUsernameCopy(){document.querySelectorAll('.username-card p').forEach(p=>{if(p.textContent.includes('Үздіктер тақтасында'))p.textContent='JUZDEREK ішінде көрінетін пайдаланушы атыңды енгіз.'});document.querySelectorAll('.username-hint').forEach(el=>{el.innerHTML='<strong>Маңызды:</strong> есте сақтауға оңай пайдаланушы атын таңда.'})}
   function render(){syncDailyXp();renderHomeStats();removeLeaderboardNav();ensureProgressBoard();patchUsernameCopy()}
+  const schedule=()=>queueMicrotask(render);
   document.addEventListener('click',e=>{if(e.target.closest('.progress-board-card')){e.preventDefault();openProgress()}},true);document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement?.classList.contains('progress-board-card'))openProgress();if(e.key==='Escape')closeProgress()});
-  const nativeSetItem=localStorage.setItem.bind(localStorage);localStorage.setItem=function(key,value){nativeSetItem(key,value);if(['juzderek_game_progress','juzderek_topics_progress','juzderek_learning_meta'].includes(key))queueMicrotask(render)};
-  window.JUZ_REAL_STATS={masteredTopics,todayXp,yesterdayXp,playedGames,render,openProgress};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();window.addEventListener('juzderek:progress',render);window.addEventListener('storage',render);
+  window.JUZ_REAL_STATS={masteredTopics,todayXp,yesterdayXp,playedGames,render,openProgress};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();window.addEventListener('juzderek:progress',schedule);window.addEventListener('storage',e=>{if(['juzderek_game_progress','juzderek_topics_progress','juzderek_learning_meta'].includes(e.key))schedule()});
 })();
