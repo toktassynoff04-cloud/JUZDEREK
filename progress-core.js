@@ -12,7 +12,7 @@
   function topicMeta(id){return window.JUZDEREK_TOPIC_INDEX?.[id]||null}
   function requiredModes(id,topic=null){
     const registryTopic=topic||window.JUZDEREK_TOPICS?.[id]||null;
-    if(registryTopic){const people=Array.isArray(registryTopic.people)?registryTopic.people.filter(p=>p?.distractorOnly!==true):[];return people.length?MODE_ORDER:[ 'cards','quiz','chrono' ]}
+    if(registryTopic){const people=Array.isArray(registryTopic.people)?registryTopic.people.filter(p=>p?.distractorOnly!==true):[];return people.length?MODE_ORDER:['cards','quiz','chrono']}
     if(id==='new-era-overview')return ['cards','quiz','chrono'];
     return MODE_ORDER;
   }
@@ -28,9 +28,9 @@
   function learningMeta(){return read('juzderek_learning_meta',{lastDay:null,streak:0,bestStreak:0,daily:{}})}
   function touchLearning(){const today=dayKey(),meta=learningMeta();if(meta.lastDay!==today){const yesterday=shiftDay(today,-1);meta.streak=meta.lastDay===yesterday?safeNum(meta.streak,36500)+1:1;meta.bestStreak=Math.max(safeNum(meta.bestStreak,36500),meta.streak);meta.lastDay=today}meta.daily=meta.daily||{};meta.daily[today]=safeNum(meta.daily[today],100000)+1;localStorage.setItem('juzderek_learning_meta',JSON.stringify(meta));return meta}
   function dailyXpStore(){return read('juzderek_daily_xp',{baseline:null,days:{}})}
-  function syncDailyXp(){const total=xp(),data=dailyXpStore(),today=dayKey();data.days=data.days||{};if(data.baseline===null||!Number.isFinite(Number(data.baseline))){data.baseline=total;data.days[today]=safeNum(data.days[today])}else if(total>Number(data.baseline)){data.days[today]=safeNum(data.days[today])+total-Number(data.baseline);data.baseline=total}else if(total<Number(data.baseline)){data.baseline=total}const keys=Object.keys(data.days).sort();if(keys.length>35)keys.slice(0,-35).forEach(k=>delete data.days[k]);localStorage.setItem('juzderek_daily_xp',JSON.stringify(data));return data}
+  function syncDailyXp(){const raw=localStorage.getItem('juzderek_daily_xp'),total=xp(),data=dailyXpStore(),today=dayKey();data.days=data.days||{};if(data.baseline===null||!Number.isFinite(Number(data.baseline))){data.baseline=total;data.days[today]=safeNum(data.days[today])}else if(total>Number(data.baseline)){data.days[today]=safeNum(data.days[today])+total-Number(data.baseline);data.baseline=total}else if(total<Number(data.baseline)){data.baseline=total}const keys=Object.keys(data.days).sort();if(keys.length>35)keys.slice(0,-35).forEach(k=>delete data.days[k]);const next=JSON.stringify(data);if(next!==raw)localStorage.setItem('juzderek_daily_xp',next);return data}
   function todayXp(){return safeNum(syncDailyXp().days?.[dayKey()])}
-  function dayXp(offset=0){const d=syncDailyXp();return safeNum(d.days?.[shiftDay(dayKey(),offset)])}
+  function dayXp(offset=0){const d=syncDailyXp();return safeNum(d.days?.[shiftDay(dayKey(),offset)]) }
   window.JUZ_LEVELS=LEVELS;
   window.JUZ_PROGRESS_CORE={MODE_ORDER,LEVELS,read,safeNum,dayKey,shiftDay,requiredModes,topicProgressStore,topicState,completedModes,isMastered,masteredTopics,uniqueGames,gameProgress,xp,levelInfo,learningMeta,touchLearning,syncDailyXp,todayXp,dayXp};
 })();
