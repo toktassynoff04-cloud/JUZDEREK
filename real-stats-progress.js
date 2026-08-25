@@ -1,7 +1,9 @@
 (()=> {
   const json=(key,fallback={})=>{try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch{return fallback}};
   const dateKey=(d=new Date())=>{const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`};
-  function masteredTopics(){const store=json('juzderek_topics_progress',{});return Object.values(store).filter(t=>Array.isArray(t?.completed)&&new Set(t.completed).size>=4).length}
+  const PERSONLESS=new Set(['new-era-overview']);
+  const requiredModes=id=>PERSONLESS.has(id)?['cards','quiz','chrono']:['cards','quiz','person','chrono'];
+  function masteredTopics(){const store=json('juzderek_topics_progress',{});return Object.entries(store).filter(([id,t])=>{const done=new Set(Array.isArray(t?.completed)?t.completed:[]);return requiredModes(id).every(m=>done.has(m))}).length}
   function learningMeta(){return json('juzderek_learning_meta',{lastDay:null,streak:0,bestStreak:0,daily:{}})}
   function gameProgress(){return json('juzderek_game_progress',{xp:0,correct:0,games:0})}
   function dailyXpStore(){return json('juzderek_daily_xp',{baseline:null,days:{}})}
@@ -21,8 +23,7 @@
   function closeProgress(){document.getElementById('progressBoardOverlay')?.classList.remove('show');document.body.classList.remove('juz-overlay-open')}
   function patchUsernameCopy(){document.querySelectorAll('.username-card p').forEach(p=>{if(p.textContent.includes('Үздіктер тақтасында'))p.textContent='JUZDEREK ішінде көрінетін пайдаланушы атыңды енгіз.'});document.querySelectorAll('.username-hint').forEach(el=>{el.innerHTML='<strong>Маңызды:</strong> есте сақтауға оңай пайдаланушы атын таңда.'})}
   function render(){syncDailyXp();renderHomeStats();removeLeaderboardNav();replaceLeaderboardCard();patchUsernameCopy()}
-  document.addEventListener('click',e=>{if(e.target.closest('.progress-board-card')){e.preventDefault();openProgress()}},true);
-  document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement?.classList.contains('progress-board-card'))openProgress();if(e.key==='Escape')closeProgress()});
+  document.addEventListener('click',e=>{if(e.target.closest('.progress-board-card')){e.preventDefault();openProgress()}},true);document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement?.classList.contains('progress-board-card'))openProgress();if(e.key==='Escape')closeProgress()});
   const nativeSetItem=localStorage.setItem.bind(localStorage);localStorage.setItem=function(key,value){nativeSetItem(key,value);if(['juzderek_game_progress','juzderek_topics_progress','juzderek_learning_meta'].includes(key))queueMicrotask(render)};
   window.JUZ_REAL_STATS={masteredTopics,todayXp,yesterdayXp,playedGames,render,openProgress};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();window.addEventListener('juzderek:progress',render);window.addEventListener('storage',render);
 })();
