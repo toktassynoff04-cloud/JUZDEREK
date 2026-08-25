@@ -13,4 +13,5 @@ function todaySet(){const s=pool(),day=today();s.days=s.days||{};if(!Array.isArr
 function answer(key,known){const s=pool(),x=s.items[key];if(!x)return;const DAY=86400000;if(known){x.stage=(x.stage||0)+1;if(x.stage>=3){x.mastered=true;x.masteredAt=Date.now()}else{x.dueAt=Date.now()+(x.stage===1?DAY*3:DAY*7)}}else{x.wrong=(x.wrong||0)+1;x.stage=0;x.mastered=false;x.dueAt=Date.now()}x.lastAt=Date.now();save(s);dispatchEvent(new CustomEvent('juzderek:review'));}
 function stats(){const s=pool(),all=Object.values(s.items).filter(x=>!x.mastered),set=todaySet(),day=today(),keys=s.days?.[day]||[],done=keys.filter(k=>s.items[k]?.mastered||((s.items[k]?.dueAt||0)>Date.now())).length;return{total:all.length,todayTotal:keys.length,todayDone:done.length,todayLeft:set.length};}
 window.JUZ_DAILY_REVIEW={pool,due,todaySet,answer,stats,add};
+if(document.getElementById('dailyReview')){const css=document.createElement('link');css.rel='stylesheet';css.href='./feature-guide.css?v=20260825-1';document.head.appendChild(css);const js=document.createElement('script');js.src='./feature-guide.js?v=20260825-1';js.defer=true;document.head.appendChild(js)}
 })();
