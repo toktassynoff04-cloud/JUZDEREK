@@ -1,0 +1,1 @@
+(()=>{if(window.JUZ_PROGRESS_CORE||document.querySelector('script[data-juz-progress-core]'))return;const s=document.createElement('script');s.src='./progress-core.js?v=20260825-core1';s.dataset.juzProgressCore='1';document.head.appendChild(s)})();
