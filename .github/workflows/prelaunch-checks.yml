@@ -3,7 +3,7 @@ name: Prelaunch checks
 on:
   pull_request:
   push:
-    branches: [main, phase1-free-tier-20260825, prelaunch-audit-20260823, security-hardening-20260823]
+    branches: [main, phase1-free-tier-20260825, server-xp-20260825, prelaunch-audit-20260823, security-hardening-20260823]
 
 permissions:
   contents: read
