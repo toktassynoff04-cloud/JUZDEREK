@@ -12,7 +12,7 @@
       await script('./site-header-component.js?v=20260823-mobile-1');
       await script('./progress-core.js?v=20260826-storagefix1');
       await script('./server-xp-client.js?v=20260826-freeze2');
-      await script('./daily-review.js?v=20260825-mistakes1');
+      await script('./daily-review.js?v=20260826-storagefix2');
       await script('./learning-analytics.js?v=20260825-quality2');
       await window.JUZDEREK_TOPIC_LOADER.loadTopic(topicId);
       await script('./real-stats-progress.js?v=20260826-storagefix1');
