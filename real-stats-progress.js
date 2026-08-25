@@ -22,5 +22,5 @@
   function render(){syncDailyXp();renderHomeStats();removeLeaderboardNav();ensureProgressBoard();patchUsernameCopy()}
   document.addEventListener('click',e=>{if(e.target.closest('.progress-board-card')){e.preventDefault();openProgress()}},true);document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement?.classList.contains('progress-board-card'))openProgress();if(e.key==='Escape')closeProgress()});
   const nativeSetItem=localStorage.setItem.bind(localStorage);localStorage.setItem=function(key,value){nativeSetItem(key,value);if(['juzderek_game_progress','juzderek_topics_progress','juzderek_learning_meta'].includes(key))queueMicrotask(render)};
-  window.JUZ_REAL_STATS={masteredTopics,todayXp,yesterdayXp,playedGames,render,openProgress};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();window.addEventListener('juzderek:progress',render);window.addEventListener('storage',render);
+  window.JUZ_REAL_STATS={masteredTopics,todayXp,yesterdayXp,playedGames,render,openProgress};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();window.addEventListener('juzderek:progress',render);window.addEventListener('storage',e=>{if(['juzderek_game_progress','juzderek_topics_progress','juzderek_learning_meta'].includes(e.key))render()});
 })();
