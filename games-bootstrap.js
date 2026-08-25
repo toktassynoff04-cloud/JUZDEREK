@@ -21,6 +21,7 @@
       await script('./chrono-game-v2.js?v=20260825-quality1');
       await script('./mistakes.js?v=20260821-absolutism-fix1');
       await script('./result-screen.js?v=20260825-core1');
+      await script('./learning-game-hooks.js?v=20260825-quality1');
       const mode=params.get('mode');
       if(['cards','quiz','person','chrono'].includes(mode)&&typeof window.setMode==='function')window.setMode(mode);
     }catch(error){
