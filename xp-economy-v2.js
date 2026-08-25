@@ -28,6 +28,12 @@
     all[daily.today]=d;
     localStorage.setItem('juzderek_daily_activity',JSON.stringify(all));
     window.JUZ_PROGRESS_CORE?.syncDailyXp?.();
+    if(gained>0&&window.JUZ_SERVER_XP?.complete){
+      window.JUZ_SERVER_XP.complete(TOPIC_ID,mode).then(result=>{
+        const authoritative=Number(result?.xp)||0;
+        if(xpEl)xpEl.textContent=authoritative+' XP';
+      }).catch(err=>console.warn('[JUZDEREK XP] sync queued',err?.message||err));
+    }
     return gained;
   };
 })();
