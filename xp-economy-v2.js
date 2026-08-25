@@ -38,7 +38,7 @@
     if(firstCompletion&&!d.modes.includes(mode))d.modes.push(mode);
     all[daily.today]=d;
     localStorage.setItem('juzderek_daily_activity',JSON.stringify(all));
-    if(firstCompletion&&window.JUZ_SERVER_XP?.complete){
+    if(window.JUZ_SERVER_XP?.complete){
       window.JUZ_SERVER_XP.complete(TOPIC_ID,mode).then(result=>{
         const authoritative=Number(result?.xp)||0,serverGained=Math.max(0,Number(result?.gained)||0);
         state.sessionXp=serverGained;
