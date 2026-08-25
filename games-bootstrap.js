@@ -11,7 +11,6 @@
     try{
       await script('./site-header-component.js?v=20260823-mobile-1');
       await script('./progress-core.js?v=20260825-core1');
-      await script('./server-xp-client.js?v=20260826-freeze2');
       await script('./daily-review.js?v=20260825-mistakes1');
       await window.JUZDEREK_TOPIC_LOADER.loadTopic(topicId);
       await script('./games-engine-v2.js?v=20260825-quality1');
