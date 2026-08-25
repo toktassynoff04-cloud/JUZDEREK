@@ -5,15 +5,18 @@
   const token=()=>{let v=localStorage.getItem('juzderek_support_student_token');if(!/^[a-f0-9]{64}$/.test(v||'')){const bytes=new Uint8Array(32);crypto.getRandomValues(bytes);v=Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');localStorage.setItem('juzderek_support_student_token',v)}return v};
   const readProgress=()=>{try{return JSON.parse(localStorage.getItem('juzderek_game_progress')||'{}')||{}}catch{return{}}};
   const readQueue=()=>{try{const q=JSON.parse(localStorage.getItem(QUEUE_KEY)||'[]');return Array.isArray(q)?q:[]}catch{return[]}};
-  const writeQueue=q=>{try{localStorage.setItem(QUEUE_KEY,JSON.stringify(q.slice(-60)))}catch{}};
-  function applyXp(xp){const p=readProgress();p.xp=Math.max(0,Number(xp)||0);localStorage.setItem('juzderek_game_progress',JSON.stringify(p));localStorage.setItem(SYNC_KEY,String(Date.now()));window.dispatchEvent(new CustomEvent('juzderek:progress',{detail:p}));window.JUZ_PROGRESS_CORE?.syncDailyXp?.();return p.xp}
+  const writeQueue=q=>{try{const next=JSON.stringify(q.slice(-60)),raw=localStorage.getItem(QUEUE_KEY);if(next!==raw)localStorage.setItem(QUEUE_KEY,next)}catch{}};
+  function applyXp(xp){const p=readProgress(),nextXp=Math.max(0,Number(xp)||0),changed=Number(p.xp)!==nextXp;p.xp=nextXp;if(changed)localStorage.setItem('juzderek_game_progress',JSON.stringify(p));localStorage.setItem(SYNC_KEY,String(Date.now()));if(changed){window.dispatchEvent(new CustomEvent('juzderek:progress',{detail:p}));window.dispatchEvent(new CustomEvent('juzderek:xp-synced',{detail:{xp:nextXp}}))}window.JUZ_PROGRESS_CORE?.syncDailyXp?.();return nextXp}
   async function post(path,body){const r=await fetch(path,{method:'POST',headers:{'content-type':'application/json'},cache:'no-store',body:JSON.stringify(body)});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'XP sync failed');return d}
   async function request(topicId,mode){const d=await post('/api/xp/complete',{studentId:id(),studentToken:token(),topicId,mode});applyXp(d.xp);return d}
-  async function sync(force=false){const last=Number(localStorage.getItem(SYNC_KEY)||0);if(!force&&Date.now()-last<SYNC_MS)return readProgress().xp||0;const d=await post('/api/xp/state',{studentId:id(),studentToken:token()});return applyXp(d.xp)}
+  let syncing=null;
+  async function sync(force=false){const last=Number(localStorage.getItem(SYNC_KEY)||0);if(!force&&Date.now()-last<SYNC_MS)return readProgress().xp||0;if(syncing)return syncing;syncing=post('/api/xp/state',{studentId:id(),studentToken:token()}).then(d=>applyXp(d.xp)).finally(()=>{syncing=null});return syncing}
   let flushing=false;
   function enqueue(topicId,mode){const key=`${topicId}:${mode}`,q=readQueue();if(!q.some(x=>x.key===key))q.push({key,topicId,mode});writeQueue(q)}
   async function flush(){if(flushing||!navigator.onLine)return;flushing=true;try{let q=readQueue();while(q.length){const item=q[0];try{await request(item.topicId,item.mode);q.shift();writeQueue(q)}catch{break}}}finally{flushing=false}}
   async function complete(topicId,mode){enqueue(topicId,mode);try{const d=await request(topicId,mode);writeQueue(readQueue().filter(x=>x.key!==`${topicId}:${mode}`));return d}catch(err){setTimeout(flush,5000);throw err}}
-  addEventListener('online',()=>{flush();sync(true).catch(()=>{})});addEventListener('focus',()=>{flush();sync(false).catch(()=>{})});setTimeout(()=>{sync(false).catch(()=>{});flush()},1200);
+  addEventListener('online',()=>{flush().finally(()=>sync(true).catch(()=>{}))});
+  addEventListener('focus',()=>{flush();sync().catch(()=>{})});
+  setTimeout(()=>{sync().catch(()=>{});flush()},1200);
   window.JUZ_SERVER_XP={studentId:id,studentToken:token,applyXp,complete,flush,sync};
 })();
