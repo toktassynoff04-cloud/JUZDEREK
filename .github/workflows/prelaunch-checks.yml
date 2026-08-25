@@ -3,7 +3,7 @@ name: Prelaunch checks
 on:
   pull_request:
   push:
-    branches: [main, phase1-free-tier-20260825, server-xp-20260825, prelaunch-audit-20260823, security-hardening-20260823]
+    branches: [main, xp-stabilization, phase1-free-tier-20260825, server-xp-20260825, prelaunch-audit-20260823, security-hardening-20260823]
 
 permissions:
   contents: read
@@ -23,6 +23,8 @@ jobs:
         shell: bash
         run: |
           find . -type f \( -name '*.js' -o -name '*.mjs' \) -not -path './node_modules/*' -print0 | xargs -0 -n1 node --check
+      - name: Freeze guard
+        run: node scripts/freeze-guard.mjs
       - name: Content validation
         continue-on-error: true
         run: node scripts/validate-content.mjs
