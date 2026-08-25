@@ -10,15 +10,15 @@
     if(!topicId){location.replace('periods.html');return}
     try{
       await script('./site-header-component.js?v=20260823-mobile-1');
-      await script('./progress-core.js?v=20260825-core1');
-      await script('./server-xp-client.js?v=20260825-serverxp1');
+      await script('./progress-core.js?v=20260826-xp-stable1');
+      await script('./server-xp-client.js?v=20260826-xp-stable1');
       await script('./daily-review.js?v=20260825-mistakes1');
       await script('./learning-analytics.js?v=20260825-quality2');
       await window.JUZDEREK_TOPIC_LOADER.loadTopic(topicId);
-      await script('./real-stats-progress.js?v=20260825-core1');
-      await script('./achievements-system.js?v=20260825-core1');
+      await script('./real-stats-progress.js?v=20260826-xp-stable1');
+      await script('./achievements-system.js?v=20260826-xp-stable1');
       await script('./games-engine-v2.js?v=20260825-quality1');
-      await script('./xp-economy-v2.js?v=20260825-serverxp1');
+      await script('./xp-economy-v2.js?v=20260826-xp-stable1');
       await script('./chrono-game-v2.js?v=20260825-quality1');
       await script('./mistakes.js?v=20260821-absolutism-fix1');
       await script('./result-screen.js?v=20260825-core1');
