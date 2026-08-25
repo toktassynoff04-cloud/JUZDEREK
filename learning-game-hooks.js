@@ -1,0 +1,16 @@
+(()=>{
+  const A=()=>window.JUZ_LEARNING_ANALYTICS,topic=()=>window.activeTopic||window.topic||{},topicId=()=>window.TOPIC_ID||topic().id||new URLSearchParams(location.search).get('topic')||'',topicName=()=>window.TOPIC_NAME||topic().name||topicId();
+  const readProgress=()=>{try{return JSON.parse(localStorage.getItem('juzderek_topics_progress')||'{}')}catch{return{}}};
+  const replay=mode=>{const t=readProgress()[topicId()]||{};return Array.isArray(t.completed)&&t.completed.includes(mode)};
+  const start=mode=>A()?.start?.(topicId(),topicName(),mode,replay(mode));
+  const mistake=(mode,itemKey,kind,label,answer)=>A()?.mistake?.({topicId:topicId(),topicName:topicName(),mode,itemKey,kind,label,answer});
+  if(typeof window.completeMode==='function'){const original=window.completeMode;window.completeMode=function(mode,score,total){A()?.complete?.(topicId(),topicName(),mode,score,total);return original.apply(this,arguments)}}
+  let lastMode='cards';start('cards');
+  document.addEventListener('click',e=>{
+    const tab=e.target.closest?.('.game-tab[data-mode]');if(tab){const m=tab.dataset.mode;if(m&&m!==lastMode){lastMode=m;start(m)}return}
+    const repeat=e.target.closest?.('#repeatBtn');if(repeat){const date=document.querySelector('.flash-date')?.textContent?.trim()||'',event=document.querySelector('.flash-event')?.textContent?.trim()||'';mistake('cards',date||event,'fact',date,event);return}
+    const ans=e.target.closest?.('.answer');if(ans){setTimeout(()=>{if(!ans.classList.contains('wrong'))return;if(ans.classList.contains('person-answer')){const clue=document.querySelector('.person-clue')?.textContent?.trim()||'',correct=[...document.querySelectorAll('.person-answer.correct')].map(x=>x.textContent.trim()).find(Boolean)||document.getElementById('personFeedback')?.textContent?.replace(/^Дұрыс жауап:\s*/,'').trim()||'';mistake('person',correct||clue,'person',clue,correct)}else{const date=document.querySelector('.date-accent')?.textContent?.trim()||'',correct=[...document.querySelectorAll('.answer.correct')].map(x=>x.textContent.trim()).find(Boolean)||document.getElementById('feedback')?.textContent?.replace(/^Дұрыс жауап:\s*/,'').trim()||'';mistake('quiz',date||correct,'fact',date,correct)}},0);return}
+    const chrono=e.target.closest?.('.chrono-option');if(chrono){setTimeout(()=>{if(!chrono.classList.contains('wrong'))return;const rows=[...document.querySelectorAll('.chrono-review-item')];if(rows.length){rows.forEach(r=>{const date=r.querySelector('.chrono-review-date')?.textContent?.trim()||'',event=r.querySelector('p')?.textContent?.trim()||'';mistake('chrono',date||event,'fact',date,event)})}else{const label=[...document.querySelectorAll('.chrono-copy')].map(x=>x.textContent.trim()).join(' | ');mistake('chrono',`set:${Date.now()}`,'chrono','Хронологиялық реттілік',label)}},20)}
+  },true);
+  const mo=new MutationObserver(()=>{const active=document.querySelector('.game-tab.active[data-mode]')?.dataset.mode;if(active&&active!==lastMode){lastMode=active;start(active)}});mo.observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+})();
