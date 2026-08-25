@@ -11,6 +11,12 @@ const validToken=t=>/^[a-f0-9]{64}$/.test(String(t||''));
 const recent=new Map(),WINDOW_MS=700,MAX_CACHE=5000;
 function tooSoon(key){const now=Date.now(),last=recent.get(key)||0;recent.set(key,now);if(recent.size>MAX_CACHE){const cutoff=now-60000;for(const[k,t]of recent){if(t<cutoff)recent.delete(k);if(recent.size<=MAX_CACHE)break}}return now-last<WINDOW_MS}
 
+async function incrementMasteredTopic(studentId){
+  const rows=await supabase(`student_analytics?select=mastered_topics&student_id=eq.${encodeURIComponent(studentId)}&limit=1`);
+  const current=Math.max(0,Number(Array.isArray(rows)?rows[0]?.mastered_topics:0)||0);
+  await supabase(`student_analytics?student_id=eq.${encodeURIComponent(studentId)}`,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({mastered_topics:current+1,last_seen:new Date().toISOString()})});
+}
+
 module.exports=async(req,res)=>{
   if(req.method!=='POST')return res.status(405).json({error:'Method not allowed'});
   try{
@@ -24,6 +30,9 @@ module.exports=async(req,res)=>{
     const data=await supabase('rpc/juzderek_award_xp',{method:'POST',body:JSON.stringify({p_student_id:studentId,p_token_hash:tokenHash,p_topic_id:topicId,p_mode:mode,p_required_mask:requiredMask})});
     const row=Array.isArray(data)?data[0]:data;
     if(!row)return res.status(500).json({error:'XP update failed'});
+    if(row.topic_bonus_awarded){
+      try{await incrementMasteredTopic(studentId)}catch(err){console.error('[xp] mastered topic sync failed',{studentId,message:err?.message||'unknown'})}
+    }
     res.setHeader('Cache-Control','no-store');
     res.status(200).json({xp:Number(row.xp)||0,gained:Number(row.gained)||0,modeAwarded:!!row.mode_awarded,topicBonusAwarded:!!row.topic_bonus_awarded});
   }catch(err){
