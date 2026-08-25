@@ -1,72 +1,91 @@
-/* JUZDEREK mobile readiness fixes — 2026-08-24 */
+/* JUZDEREK mobile readiness fixes — 2026-08-25 */
 
-/* Cross-browser flashcard face isolation.
-   Some browser/GPU/zoom combinations can paint both 3D faces at once.
-   Opacity/visibility makes the active face deterministic while preserving flip animation. */
-.flash-face{
-  backface-visibility:hidden!important;
-  -webkit-backface-visibility:hidden!important;
-  transition:opacity .18s ease,visibility 0s linear .18s!important;
-}
-.flash-front{
-  opacity:1!important;
-  visibility:visible!important;
-  pointer-events:auto!important;
-}
-.flash-back{
-  opacity:0!important;
-  visibility:hidden!important;
-  pointer-events:none!important;
-}
-.flashcard.flipped .flash-front{
-  opacity:0!important;
-  visibility:hidden!important;
-  pointer-events:none!important;
-}
-.flashcard.flipped .flash-back{
-  opacity:1!important;
-  visibility:visible!important;
-  pointer-events:auto!important;
-  transition-delay:0s!important;
-}
+/* Cross-browser flashcard face isolation. */
+.flash-face{backface-visibility:hidden!important;-webkit-backface-visibility:hidden!important;transition:opacity .18s ease,visibility 0s linear .18s!important}.flash-front{opacity:1!important;visibility:visible!important;pointer-events:auto!important}.flash-back{opacity:0!important;visibility:hidden!important;pointer-events:none!important}.flashcard.flipped .flash-front{opacity:0!important;visibility:hidden!important;pointer-events:none!important}.flashcard.flipped .flash-back{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transition-delay:0s!important}
 
 @media (max-width:760px){
-  html,body{overflow-x:hidden}
+  html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important}
+  body{position:relative}
+  .page-shell{width:calc(100% - 24px)!important;max-width:calc(100% - 24px)!important;margin:14px auto 38px!important;min-width:0!important}
+  #dashboardView,.dashboard-insight-grid,.dashboard-main,.dashboard-side,.bottom-grid,.recent-card,.progress-board-card,.leaderboard-card,.topics-section{min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+  .dashboard-insight-grid{display:block!important;width:100%!important;margin-top:14px!important}
+  .dashboard-main,.dashboard-side{display:block!important;width:100%!important}
+  .dashboard-side{margin-top:14px!important}
+  .dashboard-side #progressBoardMount{width:100%!important;min-width:0!important}
+  .dashboard-side .progress-board-card,.dashboard-side .leaderboard-card{width:100%!important;max-width:100%!important;margin:0 0 14px!important}
+  .bottom-grid{display:block!important;width:100%!important;margin-top:0!important}
+  .content-card{width:100%!important;max-width:100%!important;padding:16px!important;border-radius:22px!important;overflow:hidden!important}
 
-  /* Safari/iOS flashcard 3D fix: only one face is visible at a time. */
-  .flash-wrap{min-height:420px!important;padding:10px 0 6px!important;perspective:1200px!important;-webkit-perspective:1200px!important}
-  .flashcard{width:100%!important;min-height:390px!important;transform-style:preserve-3d!important;-webkit-transform-style:preserve-3d!important}
-  .flashcard.flipped{transform:rotateY(180deg)!important;-webkit-transform:rotateY(180deg)!important}
-  .flash-face{inset:0!important;min-height:390px!important;padding:42px 24px 30px!important;backface-visibility:hidden!important;-webkit-backface-visibility:hidden!important;transform-style:preserve-3d!important;-webkit-transform-style:preserve-3d!important}
-  .flash-front{transform:rotateY(0deg) translateZ(1px)!important;-webkit-transform:rotateY(0deg) translateZ(1px)!important}
-  .flash-back{transform:rotateY(180deg) translateZ(1px)!important;-webkit-transform:rotateY(180deg) translateZ(1px)!important}
-  .flash-label{font-size:14px!important;padding:8px 12px!important;letter-spacing:.055em!important}
-  .flash-date{font-size:40px!important;line-height:1.12!important;margin:22px 0 6px!important;max-width:100%!important;overflow-wrap:anywhere!important}
-  .flash-event{font-size:22px!important;line-height:1.42!important;margin-top:20px!important;max-width:100%!important;overflow-wrap:anywhere!important}
-  .flash-divider{margin:22px 0 16px!important}
-  .tap-hint{font-size:14px!important;line-height:1.45!important;max-width:100%!important}
-  .flashcard:after{width:86px!important;height:31px!important;top:-12px!important}
-  .flashcard:before{inset:14px -8px -14px 8px!important;border-radius:28px!important;transform:rotate(1deg)!important}
+  /* Recent activity */
+  .recent-card .section-head{align-items:flex-start!important}
+  .recent-card .section-head h2{font-size:21px!important}
+  .activity-row{width:100%!important;max-width:100%!important;min-width:0!important;min-height:118px!important;padding:14px 12px 14px 82px!important;display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:7px!important;overflow:hidden!important}
+  .activity-icon{left:12px!important;width:58px!important;height:58px!important}
+  .activity-copy{min-width:0!important;width:100%!important;overflow:hidden!important}
+  .activity-copy strong,.activity-copy span{white-space:normal!important;overflow-wrap:anywhere!important}
+  .activity-progress{width:100%!important;max-width:100%!important;min-width:0!important}
+  .soft-btn{justify-self:start!important;max-width:100%!important}
 
-  /* Era cards: keep every card balanced on narrow screens. */
-  .period-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
-  .period-card,.period-card.ancient{height:184px!important;min-width:0!important;padding:16px 14px 48px!important;align-items:center!important;justify-content:flex-start!important;text-align:center!important}
-  .period-card.ancient:before{display:none!important}
-  .period-card.ancient .period-card-icon{margin-left:0!important}
-  .period-card-icon{width:70px!important;height:66px!important;margin:2px auto 8px!important;flex:0 0 auto!important}
-  .period-card-icon:after{width:70px!important;height:66px!important}
-  .period-card h3{width:100%!important;max-width:100%!important;margin:0 0 5px!important;font-size:18px!important;line-height:1.15!important;overflow-wrap:anywhere!important}
-  .period-card p{width:100%!important;max-width:100%!important;font-size:13px!important;line-height:1.3!important;overflow-wrap:anywhere!important}
-  .period-grid .period-card .round-arrow{right:12px!important;bottom:11px!important;width:34px!important;height:34px!important}
+  /* Rank journey */
+  .level-journey{width:100%!important;max-width:100%!important;overflow:hidden!important}
+  .level-mobile-current{grid-template-columns:86px minmax(0,1fr)!important;gap:10px!important;padding:12px!important;width:100%!important;max-width:100%!important}
+  .level-mobile-character{width:86px!important;height:108px!important}
+  .level-mobile-title strong{font-size:19px!important}
+  .level-mobile-copy>b{font-size:12px!important;white-space:normal!important}
+  .level-journey-route{width:calc(100% + 8px)!important;max-width:calc(100% + 8px)!important;margin:14px -4px 0!important;padding:0 8px 4px!important;overflow-x:auto!important;overflow-y:hidden!important}
+  .level-journey-step{flex:0 0 84px!important}
+  .level-character-wrap{width:84px!important;height:72px!important}
+  .level-character{max-width:76px!important;max-height:72px!important}
+
+  /* Progress board — never wider than viewport */
+  .progress-board-card{padding:15px!important;border-radius:21px!important;overflow:hidden!important}
+  .progress-board-head{gap:8px!important;min-width:0!important}
+  .progress-board-head>div{min-width:0!important}
+  .progress-board-head h2{font-size:20px!important}
+  .progress-board-head p{font-size:11px!important;white-space:normal!important}
+  .progress-rank-chip{flex:0 0 auto!important;padding:6px 8px!important;font-size:10px!important}
+  .progress-compact-row{display:block!important;width:100%!important;margin-top:12px!important}
+  .progress-compare{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;width:100%!important}
+  .progress-compare>div{min-width:0!important;padding:11px!important}
+  .progress-compare strong{font-size:17px!important;white-space:nowrap!important}
+  .progress-growth{width:100%!important;min-width:0!important;margin-top:8px!important;padding:11px!important;gap:8px!important}
+  .progress-growth>div{min-width:0!important}.progress-growth span{font-size:10px!important;white-space:normal!important}.progress-growth strong{font-size:15px!important}
+  .progress-week{width:100%!important;max-width:100%!important;padding:10px!important;overflow:hidden!important}
+  .progress-bars{width:100%!important;gap:3px!important}.progress-day{min-width:0!important}.progress-bar-zone i{width:min(16px,70%)!important}
+  .progress-board-modal{width:calc(100vw - 20px)!important;max-width:calc(100vw - 20px)!important;padding:18px 13px!important;border-radius:22px!important}
+  .progress-modal-head{display:block!important;padding-right:44px!important}.progress-modal-head h2{font-size:24px!important}.progress-modal-compare{grid-template-columns:1fr!important}.progress-modal-week{padding:12px!important;overflow:hidden!important}
+
+  /* Leaderboard compact card */
+  .leaderboard-card{min-height:0!important;padding:15px!important;border-radius:21px!important;overflow:hidden!important}
+  .leaderboard-head{display:flex!important;align-items:flex-start!important;gap:8px!important;margin-bottom:12px!important}
+  .leaderboard-head>div{min-width:0!important;flex:1!important}.leaderboard-head h2{font-size:20px!important}.leaderboard-head p{font-size:11px!important;white-space:normal!important}
+  .leaderboard-open{flex:0 0 auto!important;padding:7px 8px!important;font-size:9px!important}
+  .my-rank-card{width:100%!important;max-width:100%!important;grid-template-columns:64px minmax(0,1fr)!important;gap:8px!important;padding:11px!important;overflow:hidden!important}
+  .my-rank-main{min-width:0!important;display:block!important}.my-rank-main b{display:block!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}.my-rank-main span{display:block!important;margin-top:2px!important}
+  .my-rank-xp{grid-column:1/-1!important;min-width:0!important;gap:8px!important}.my-rank-xp span{white-space:normal!important;text-align:right!important}
+  .leaderboard-list{width:100%!important;max-width:100%!important;gap:7px!important}
+  .leader-row{width:100%!important;max-width:100%!important;min-width:0!important;grid-template-columns:32px minmax(0,1fr) auto!important;gap:8px!important;padding:8px!important;overflow:hidden!important}
+  .leader-row>div{min-width:0!important}
+  .leader-rank-visual{display:grid!important;place-items:center!important;width:32px!important;overflow:visible!important}
+  .rank-medal,.leader-num{width:28px!important;height:28px!important;border-radius:9px!important}.rank-medal img{width:16px!important;height:16px!important}
+  .leader-person{display:block!important;min-width:0!important;overflow:hidden!important}
+  .leader-name{display:block!important;font-size:12px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+  .leader-title{display:block!important;margin-top:2px!important;font-size:9px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+  .leader-xp{font-size:10.5px!important;white-space:nowrap!important}
+  .leader-stat{display:none!important}
+  .leaderboard-full-btn{margin-top:10px!important}
+  .leaderboard-overlay{padding:10px!important}
+  .leaderboard-modal{width:calc(100vw - 20px)!important;max-width:calc(100vw - 20px)!important;padding:18px 12px!important;border-radius:22px!important}
+  .leaderboard-modal-head{padding-right:42px!important}.leaderboard-modal-head h2{font-size:23px!important}
+  .leaderboard-modal .my-rank-card{grid-template-columns:64px minmax(0,1fr)!important}
+  .leaderboard-modal-list .leader-row{grid-template-columns:32px minmax(0,1fr) auto!important;min-width:0!important}
+  .leaderboard-modal-list .leader-stat{display:none!important}
+
+  /* Safari/iOS flashcard 3D fix */
+  .flash-wrap{min-height:420px!important;padding:10px 0 6px!important;perspective:1200px!important;-webkit-perspective:1200px!important}.flashcard{width:100%!important;min-height:390px!important;transform-style:preserve-3d!important;-webkit-transform-style:preserve-3d!important}.flashcard.flipped{transform:rotateY(180deg)!important;-webkit-transform:rotateY(180deg)!important}.flash-face{inset:0!important;min-height:390px!important;padding:42px 24px 30px!important;backface-visibility:hidden!important;-webkit-backface-visibility:hidden!important;transform-style:preserve-3d!important;-webkit-transform-style:preserve-3d!important}.flash-front{transform:rotateY(0deg) translateZ(1px)!important;-webkit-transform:rotateY(0deg) translateZ(1px)!important}.flash-back{transform:rotateY(180deg) translateZ(1px)!important;-webkit-transform:rotateY(180deg) translateZ(1px)!important}.flash-label{font-size:14px!important;padding:8px 12px!important;letter-spacing:.055em!important}.flash-date{font-size:40px!important;line-height:1.12!important;margin:22px 0 6px!important;max-width:100%!important;overflow-wrap:anywhere!important}.flash-event{font-size:22px!important;line-height:1.42!important;margin-top:20px!important;max-width:100%!important;overflow-wrap:anywhere!important}.flash-divider{margin:22px 0 16px!important}.tap-hint{font-size:14px!important;line-height:1.45!important;max-width:100%!important}.flashcard:after{width:86px!important;height:31px!important;top:-12px!important}.flashcard:before{inset:14px -8px -14px 8px!important;border-radius:28px!important;transform:rotate(1deg)!important}
+
+  /* Era cards */
+  .period-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}.period-card,.period-card.ancient{height:184px!important;min-width:0!important;padding:16px 14px 48px!important;align-items:center!important;justify-content:flex-start!important;text-align:center!important}.period-card.ancient:before{display:none!important}.period-card.ancient .period-card-icon{margin-left:0!important}.period-card-icon{width:70px!important;height:66px!important;margin:2px auto 8px!important;flex:0 0 auto!important}.period-card-icon:after{width:70px!important;height:66px!important}.period-card h3{width:100%!important;max-width:100%!important;margin:0 0 5px!important;font-size:18px!important;line-height:1.15!important;overflow-wrap:anywhere!important}.period-card p{width:100%!important;max-width:100%!important;font-size:13px!important;line-height:1.3!important;overflow-wrap:anywhere!important}.period-grid .period-card .round-arrow{right:12px!important;bottom:11px!important;width:34px!important;height:34px!important}
 }
 
-@media (max-width:420px){
-  .period-grid{gap:10px!important}
-  .period-card,.period-card.ancient{height:176px!important;padding:14px 10px 46px!important}
-  .period-card-icon,.period-card-icon:after{width:62px!important;height:58px!important}
-  .period-card h3{font-size:16px!important}
-  .period-card p{font-size:12px!important}
-  .flash-face{padding:40px 20px 28px!important}
-  .flash-event{font-size:21px!important}
-  .flash-date{font-size:38px!important}
-}
+@media (max-width:420px){.page-shell{width:calc(100% - 18px)!important;max-width:calc(100% - 18px)!important}.period-grid{gap:10px!important}.period-card,.period-card.ancient{height:176px!important;padding:14px 10px 46px!important}.period-card-icon,.period-card-icon:after{width:62px!important;height:58px!important}.period-card h3{font-size:16px!important}.period-card p{font-size:12px!important}.flash-face{padding:40px 20px 28px!important}.flash-event{font-size:21px!important}.flash-date{font-size:38px!important}.content-card{padding:14px!important}.level-mobile-current{grid-template-columns:78px minmax(0,1fr)!important}.level-mobile-character{width:78px!important;height:98px!important}.progress-board-head h2,.leaderboard-head h2{font-size:19px!important}}
