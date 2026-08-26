@@ -1,12 +1,12 @@
 const {supabase,sendError,clean}=require('../support/_lib');
 const clamp=(v,max)=>{const n=Number(v);return Number.isFinite(n)?Math.max(0,Math.min(max,Math.floor(n))):0};
 const validId=id=>/^[a-zA-Z0-9-]{20,80}$/.test(String(id||''));
-const recent=new Map(),WINDOW_MS=2500,MAX_CACHE=5000;
-function tooSoon(id){const now=Date.now(),last=recent.get(id)||0;recent.set(id,now);if(recent.size>MAX_CACHE){const cutoff=now-60000;for(const[k,t]of recent){if(t<cutoff)recent.delete(k);if(recent.size<=MAX_CACHE)break}}return now-last<WINDOW_MS}
 module.exports=async(req,res)=>{
   if(req.method!=='POST')return res.status(405).json({error:'Method not allowed'});
   try{
-    const b=req.body||{};if(!validId(b.studentId))return res.status(400).json({error:'Invalid student id'});const studentId=String(b.studentId);if(tooSoon(studentId))return res.status(204).end();
+    const b=req.body||{};
+    if(!validId(b.studentId))return res.status(400).json({error:'Invalid student id'});
+    const studentId=String(b.studentId);
     const username=clean(b.username,40)||'Аты көрсетілмеген';
     const row={
       student_id:studentId,
