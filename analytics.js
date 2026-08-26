@@ -11,8 +11,22 @@
   function streak(){const meta=window.JUZ_PROGRESS_CORE?.learningMeta?.()||read('juzderek_learning_meta',{});const n=Number(meta?.streak);return Number.isFinite(n)&&n>=0?Math.min(10000,Math.floor(n)):0}
   function collect(){recoverAidos();const now=Date.now(),state=read(KEY,{pageViews:0,sessions:0,lastSessionAt:0,lastSentAt:0,lastSig:''}),newSession=!state.lastSessionAt||now-state.lastSessionAt>SESSION_MS;if(!countedPageView){state.pageViews=Math.min(1000000,(Number(state.pageViews)||0)+1);countedPageView=true}if(newSession){state.sessions=Math.min(100000,(Number(state.sessions)||0)+1);state.lastSessionAt=now}write(KEY,state);const p=progress(),name=clean(localStorage.getItem('juzderek_username')||'');return{studentId:clientId(),username:name,page:(location.pathname||'/').slice(0,120),pageViews:state.pageViews,sessions:state.sessions,xp:Math.max(0,Math.min(10000000,Math.floor(Number(p.xp)||0))),games:Math.max(0,Math.min(1000000,Math.floor(Number(p.games)||0))),correct:Math.max(0,Math.min(1000000,Math.floor(Number(p.correct)||0))),masteredTopics:masteredTopics(),streak:streak(),newSession}}
   const sig=p=>JSON.stringify([p.username,p.page,p.pageViews,p.sessions,p.xp,p.games,p.correct,p.masteredTopics,p.streak]);
-  let timer=null,busy=false,pending=false,lastUsername=clean(localStorage.getItem('juzderek_username')||'');
-  async function send(force=false){if(busy||document.hidden&&!force)return;const payload=collect(),state=read(KEY,{}),now=Date.now(),s=sig(payload);if(!force&&s===state.lastSig)return;if(!force&&now-(Number(state.lastSentAt)||0)<MIN_SEND_MS){pending=true;queue(MIN_SEND_MS-(now-(Number(state.lastSentAt)||0)));return}busy=true;try{const r=await fetch('/api/analytics/track',{method:'POST',headers:{'content-type':'application/json'},keepalive:true,body:JSON.stringify(payload)});if(r.ok){state.lastSentAt=Date.now();state.lastSig=s;write(KEY,state);pending=false}}catch{}finally{busy=false;if(pending)queue(QUEUE_MS)}}
+  let timer=null,busy=false,pending=false,forcePending=false,lastUsername=clean(localStorage.getItem('juzderek_username')||'');
+  async function send(force=false){
+    if(document.hidden&&!force)return;
+    if(busy){if(force)forcePending=true;else pending=true;return}
+    const payload=collect(),state=read(KEY,{}),now=Date.now(),s=sig(payload);
+    if(!force&&s===state.lastSig)return;
+    if(!force&&now-(Number(state.lastSentAt)||0)<MIN_SEND_MS){pending=true;queue(MIN_SEND_MS-(now-(Number(state.lastSentAt)||0)));return}
+    busy=true;
+    try{
+      const r=await fetch('/api/analytics/track',{method:'POST',headers:{'content-type':'application/json'},keepalive:true,body:JSON.stringify(payload)});
+      if(r.ok){state.lastSentAt=Date.now();state.lastSig=s;write(KEY,state);pending=false}
+    }catch{}finally{
+      busy=false;
+      if(forcePending){forcePending=false;setTimeout(()=>send(true),100)}else if(pending)queue(QUEUE_MS)
+    }
+  }
   function queue(delay=QUEUE_MS){clearTimeout(timer);timer=setTimeout(()=>send(false),Math.max(250,delay))}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',queue);else queue();
   window.addEventListener('juzderek:progress',queue);
@@ -22,5 +36,6 @@
   window.addEventListener('storage',e=>{if(['juzderek_game_progress','juzderek_topics_progress','juzderek_learning_meta','juzderek_username'].includes(e.key))queue()});
   window.addEventListener('focus',()=>{if(Date.now()-(read(KEY,{}).lastSessionAt||0)>SESSION_MS)queue(500)});
   window.addEventListener('pagehide',()=>send(true));
+  window.JUZ_ANALYTICS_SYNC=()=>send(true);
   const usernameWatcher=setInterval(()=>{const current=clean(localStorage.getItem('juzderek_username')||'');if(current!==lastUsername){lastUsername=current;queue(300)}if(current)clearInterval(usernameWatcher)},500);setTimeout(()=>clearInterval(usernameWatcher),30000);
 })();
