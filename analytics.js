@@ -14,6 +14,12 @@
   async function send(force=false){if(busy||document.hidden&&!force)return;const payload=collect(),state=read(KEY,{}),now=Date.now(),s=sig(payload);if(!force&&s===state.lastSig)return;if(!force&&now-(Number(state.lastSentAt)||0)<MIN_SEND_MS){pending=true;queue(MIN_SEND_MS-(now-(Number(state.lastSentAt)||0)));return}busy=true;try{const r=await fetch('/api/analytics/track',{method:'POST',headers:{'content-type':'application/json'},keepalive:true,body:JSON.stringify(payload)});if(r.ok){state.lastSentAt=Date.now();state.lastSig=s;write(KEY,state);pending=false}}catch{}finally{busy=false;if(pending)queue(QUEUE_MS)}}
   function queue(delay=QUEUE_MS){clearTimeout(timer);timer=setTimeout(()=>send(false),Math.max(250,delay))}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',queue);else queue();
-  window.addEventListener('juzderek:progress',queue);window.addEventListener('juzderek:tracker',queue);window.addEventListener('juzderek:username-ready',queue);window.addEventListener('storage',e=>{if(['juzderek_game_progress','juzderek_topics_progress','juzderek_learning_meta','juzderek_username'].includes(e.key))queue()});window.addEventListener('focus',()=>{if(Date.now()-(read(KEY,{}).lastSessionAt||0)>SESSION_MS)queue(500)});window.addEventListener('pagehide',()=>send(true));
+  window.addEventListener('juzderek:progress',queue);
+  window.addEventListener('juzderek:tracker',queue);
+  window.addEventListener('juzderek:username-ready',queue);
+  window.addEventListener('juzderek:xp-local',()=>send(true));
+  window.addEventListener('storage',e=>{if(['juzderek_game_progress','juzderek_topics_progress','juzderek_learning_meta','juzderek_username'].includes(e.key))queue()});
+  window.addEventListener('focus',()=>{if(Date.now()-(read(KEY,{}).lastSessionAt||0)>SESSION_MS)queue(500)});
+  window.addEventListener('pagehide',()=>send(true));
   const usernameWatcher=setInterval(()=>{const current=clean(localStorage.getItem('juzderek_username')||'');if(current!==lastUsername){lastUsername=current;queue(300)}if(current)clearInterval(usernameWatcher)},500);setTimeout(()=>clearInterval(usernameWatcher),30000);
 })();
