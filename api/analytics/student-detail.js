@@ -1,0 +1,26 @@
+const {supabase,sendError,requireAdmin}=require('../support/_lib');
+const enc=v=>encodeURIComponent(String(v||''));
+module.exports=async(req,res)=>{
+  if(req.method!=='GET')return res.status(405).json({error:'Method not allowed'});
+  try{
+    requireAdmin(req);
+    const studentId=String(req.query.studentId||'').trim();
+    if(!studentId)return res.status(400).json({error:'studentId required'});
+    const [students,modes,mistakes]=await Promise.all([
+      supabase(`student_analytics?student_id=eq.${enc(studentId)}&select=student_id,username,first_seen,last_seen,last_page,page_views,sessions,xp,games,correct,mastered_topics,streak&limit=1`),
+      supabase(`learning_mode_analytics?student_id=eq.${enc(studentId)}&select=topic_id,topic_name,mode,starts,completions,score_sum,total_sum,replays,updated_at&order=updated_at.desc&limit=1000`).catch(()=>[]),
+      supabase(`learning_mistake_analytics?student_id=eq.${enc(studentId)}&select=topic_id,topic_name,mode,item_key,kind,item_label,answer_label,wrong_count,updated_at&order=wrong_count.desc&limit=1000`).catch(()=>[])
+    ]);
+    const student=Array.isArray(students)&&students[0];if(!student)return res.status(404).json({error:'Student not found'});
+    const ms=Array.isArray(modes)?modes:[],errs=Array.isArray(mistakes)?mistakes:[],topicMap=new Map(),modeMap=new Map();
+    for(const x of ms){const tk=x.topic_id||'unknown',t=topicMap.get(tk)||{topicId:tk,topicName:x.topic_name||tk,starts:0,completions:0,scoreSum:0,totalSum:0,replays:0,mistakes:0,updatedAt:x.updated_at};t.starts+=+x.starts||0;t.completions+=+x.completions||0;t.scoreSum+=+x.score_sum||0;t.totalSum+=+x.total_sum||0;t.replays+=+x.replays||0;if(String(x.updated_at||'')>String(t.updatedAt||''))t.updatedAt=x.updated_at;topicMap.set(tk,t);const mk=x.mode||'unknown',m=modeMap.get(mk)||{mode:mk,starts:0,completions:0,scoreSum:0,totalSum:0,replays:0};m.starts+=+x.starts||0;m.completions+=+x.completions||0;m.scoreSum+=+x.score_sum||0;m.totalSum+=+x.total_sum||0;m.replays+=+x.replays||0;modeMap.set(mk,m)}
+    for(const x of errs){const t=topicMap.get(x.topic_id)||{topicId:x.topic_id,topicName:x.topic_name||x.topic_id,starts:0,completions:0,scoreSum:0,totalSum:0,replays:0,mistakes:0,updatedAt:x.updated_at};t.mistakes+=(+x.wrong_count||0);topicMap.set(x.topic_id,t)}
+    const metric=x=>({...x,accuracy:x.totalSum?Math.round(x.scoreSum/x.totalSum*100):0,dropoffs:Math.max(0,x.starts-x.completions)}),topics=[...topicMap.values()].map(metric),modeStats=[...modeMap.values()].map(metric);
+    const totalScore=topics.reduce((a,x)=>a+x.scoreSum,0),total=topics.reduce((a,x)=>a+x.totalSum,0);
+    const strong=topics.filter(x=>x.totalSum&&x.accuracy>=80).sort((a,b)=>b.accuracy-a.accuracy).slice(0,5),needsAttention=topics.filter(x=>x.totalSum&&(x.accuracy<70||x.mistakes>0)).sort((a,b)=>a.accuracy-b.accuracy||b.mistakes-a.mistakes).slice(0,5),replays=[...topics].filter(x=>x.replays>0).sort((a,b)=>b.replays-a.replays).slice(0,8);
+    const topMistakes=errs.map(x=>({topicId:x.topic_id,topicName:x.topic_name,mode:x.mode,kind:x.kind,label:x.item_label||x.item_key,answer:x.answer_label||'',wrongCount:+x.wrong_count||0,updatedAt:x.updated_at})).sort((a,b)=>b.wrongCount-a.wrongCount).slice(0,10);
+    const recent=ms.slice(0,10).map(x=>({topicId:x.topic_id,topicName:x.topic_name,mode:x.mode,accuracy:(+x.total_sum||0)?Math.round((+x.score_sum||0)/(+x.total_sum||0)*100):0,completions:+x.completions||0,replays:+x.replays||0,updatedAt:x.updated_at}));
+    const insights=[];if(needsAttention[0])insights.push(`${needsAttention[0].topicName}: назар аудару керек (${needsAttention[0].accuracy}%)`);if(strong[0])insights.push(`${strong[0].topicName}: жақсы меңгерген (${strong[0].accuracy}%)`);if(replays.length)insights.push(`${replays.length} тақырыпта қайта оқу бар`);if((+student.streak||0)>=3)insights.push(`Белсенді серия: ${+student.streak} күн`);
+    res.setHeader('Cache-Control','no-store');res.status(200).json({student:{...student,username:(!String(student.username||'').trim()||String(student.username).trim()==='Оқушы')?'Аты көрсетілмеген':student.username,accuracy:total?Math.round(totalScore/total*100):0},insights,strong,needsAttention,topics:topics.sort((a,b)=>String(b.updatedAt||'').localeCompare(String(a.updatedAt||''))).slice(0,20),modeStats,topMistakes,replays,recent});
+  }catch(err){sendError(res,err)}
+};
