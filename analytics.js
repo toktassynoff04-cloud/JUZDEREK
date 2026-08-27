@@ -4,6 +4,7 @@
   const clean=v=>String(v??'').replace(/[\u0000-\u001f\u007f]/g,' ').replace(/\s+/g,' ').trim().slice(0,40);
   const read=(k,f)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(f))}catch{return f}};
   const write=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+  const request=(key,url,options)=>window.JUZ_REQUEST_GUARD?.run?.(key,url,options,8000)||fetch(url,options);
   function clientId(){let id=localStorage.getItem('juzderek_support_student_id')||localStorage.getItem('juzderek_analytics_id');if(!/^[a-zA-Z0-9-]{20,80}$/.test(id||'')){id=(crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`);localStorage.setItem('juzderek_analytics_id',id)}return id}
   function progress(){const p=read('juzderek_game_progress',{});return p&&typeof p==='object'?p:{}}
   function recoverAidos(){const name=clean(localStorage.getItem('juzderek_username')||'');if(name!=='Aidos'||localStorage.getItem('juzderek_recovery_aidos_1650')==='1')return false;const p=progress();if((Number(p.xp)||0)<1650){p.xp=1650;write('juzderek_game_progress',p)}localStorage.setItem('juzderek_recovery_aidos_1650','1');window.dispatchEvent(new CustomEvent('juzderek:progress',{detail:{source:'recovery'}}));return true}
@@ -20,9 +21,9 @@
     if(!force&&now-(Number(state.lastSentAt)||0)<MIN_SEND_MS){pending=true;queue(MIN_SEND_MS-(now-(Number(state.lastSentAt)||0)));return}
     busy=true;
     try{
-      const r=await fetch('/api/analytics/track',{method:'POST',headers:{'content-type':'application/json'},keepalive:true,body:JSON.stringify(payload)});
+      const r=await request('analytics-track','/api/analytics/track',{method:'POST',headers:{'content-type':'application/json'},keepalive:true,body:JSON.stringify(payload)});
       if(r.ok){state.lastSentAt=Date.now();state.lastSig=s;write(KEY,state);pending=false}
-    }catch{}finally{
+    }catch(err){window.JUZ_RUNTIME_GUARD?.record?.('analytics-request',err?.message||err,'/api/analytics/track')}finally{
       busy=false;
       if(forcePending){forcePending=false;setTimeout(()=>send(true),100)}else if(pending)queue(QUEUE_MS)
     }
