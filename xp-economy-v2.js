@@ -41,6 +41,7 @@
     all[daily.today]=d;
     localStorage.setItem('juzderek_daily_activity',JSON.stringify(all));
 
+    window.dispatchEvent(new CustomEvent('juzderek:mode-complete',{detail:{topicId:TOPIC_ID,topicName:TOPIC_NAME,mode,score:Number(score)||0,total:Number(total)||0,firstCompletion,gained}}));
     window.dispatchEvent(new CustomEvent('juzderek:xp-local',{detail:{xp:Number(getProgress().xp)||0,gained,mode,topicId:TOPIC_ID}}));
     return gained;
   };
