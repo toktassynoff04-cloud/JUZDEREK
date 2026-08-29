@@ -33,6 +33,9 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'reformation-europe-counterreformation':Object.freeze({id:'reformation-europe-counterreformation',name:'Реформацияның Еуропа елдеріне таралуы. Контрреформация',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/reformation-europe-counterreformation.json',ready:true}),
   'africa-traditional-civilization':Object.freeze({id:'africa-traditional-civilization',name:'Африка дәстүрлі өркениеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/africa-traditional-civilization.json',ready:true}),
   'america-australia-oceania-traditional-civilization':Object.freeze({id:'america-australia-oceania-traditional-civilization',name:'Америка, Аустралия және Мұхит аралдарындағы дәстүрлі өркениет',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/america-australia-oceania-traditional-civilization.json',ready:true}),
+  'great-silk-road':Object.freeze({id:'great-silk-road',name:'Ұлы Жібек жолы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/great-silk-road.json',ready:true}),
+  'international-travel-great-discoveries':Object.freeze({id:'international-travel-great-discoveries',name:'Халықаралық саяхаттар. Ұлы географиялық ашылулардың қажеттілігі',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/international-travel-great-discoveries.json',ready:true}),
+  'colonial-expansion-xvi-xvii':Object.freeze({id:'colonial-expansion-xvi-xvii',name:'XVI–XVII ғасырлардағы отарлық экспансия',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/colonial-expansion-xvi-xvii.json',ready:true}),
   'scientific-knowledge-development':Object.freeze({id:'scientific-knowledge-development',name:'Ғылыми білімдердің дамуы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/scientific-knowledge-development.json',ready:true}),
   'industrial-revolution-social-structure':Object.freeze({id:'industrial-revolution-social-structure',name:'Өнеркәсіп төңкерісі және индустриалды қоғамның әлеуметтік құрылымы',period:'modern',periodLabel:'Жаңа заман',file:'./data/topics/industrial-revolution-social-structure.json',ready:true}),
   'new-era-overview':Object.freeze({id:'new-era-overview',name:'Жаңа заман дәуірі туралы түсінік және оның ерекшеліктері',period:'modern',periodLabel:'Жаңа заман',file:'./data/topics/new-era-overview.json',ready:true}),
@@ -63,7 +66,7 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
           if(!next.includes(merged)) next.push(merged);
           continue;
         }
-        if(name==='Жанна д’Арк'||name==="Жанна д'Арк"||name==='Еуропадағы орталықтанған мемлекеттердің қалыптасуы') continue;
+        if(name==='Жанна д’Арк'||name==="Жанна d'Арк"||name==='Еуропадағы орталықтанған мемлекеттердің қалыптасуы') continue;
         next.push(name);
       }
       europe[2]=next;
