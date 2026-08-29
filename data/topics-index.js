@@ -29,6 +29,7 @@ window.JUZDEREK_TOPIC_INDEX=Object.freeze({
   'eastern-medieval-culture':Object.freeze({id:'eastern-medieval-culture',name:'Шығыстың ортағасырлық мәдениеті',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/eastern-medieval-culture.json',ready:true}),
   'western-europe-renaissance':Object.freeze({id:'western-europe-renaissance',name:'Батыс Еуропада Қайта өрлеу мәдениетінің қалыптасуы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/western-europe-renaissance.json',ready:true}),
   'humanism-ideas':Object.freeze({id:'humanism-ideas',name:'Гуманизм идеялары',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/humanism-ideas.json',ready:true}),
+  'reformation-luther-muntzer':Object.freeze({id:'reformation-luther-muntzer',name:'Реформацияның себептері. Мартин Лютер мен Томас Мюнцер',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/reformation-luther-muntzer.json',ready:true}),
   'scientific-knowledge-development':Object.freeze({id:'scientific-knowledge-development',name:'Ғылыми білімдердің дамуы',period:'medieval',periodLabel:'Орта ғасыр',file:'./data/topics/scientific-knowledge-development.json',ready:true}),
   'industrial-revolution-social-structure':Object.freeze({id:'industrial-revolution-social-structure',name:'Өнеркәсіп төңкерісі және индустриалды қоғамның әлеуметтік құрылымы',period:'modern',periodLabel:'Жаңа заман',file:'./data/topics/industrial-revolution-social-structure.json',ready:true}),
   'new-era-overview':Object.freeze({id:'new-era-overview',name:'Жаңа заман дәуірі туралы түсінік және оның ерекшеліктері',period:'modern',periodLabel:'Жаңа заман',file:'./data/topics/new-era-overview.json',ready:true}),
@@ -80,6 +81,10 @@ window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(win
     const renaissance=medieval.find(c=>c?.[0]==='renaissance');
     if(renaissance&&Array.isArray(renaissance[2])){
       renaissance[2]=renaissance[2].map(name=>name==='Қайта өрлеу дәуірінің мәдениеті'?'Батыс Еуропада Қайта өрлеу мәдениетінің қалыптасуы':name);
+    }
+    const reformation=medieval.find(c=>c?.[0]==='reformation');
+    if(reformation&&Array.isArray(reformation[2])){
+      reformation[2]=['Реформацияның себептері. Мартин Лютер мен Томас Мюнцер','Реформацияның Еуропа елдеріне таралуы. Контрреформация'];
     }
     const science=medieval.find(c=>c?.[0]==='science');
     if(science&&Array.isArray(science[2])){
