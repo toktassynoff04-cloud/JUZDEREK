@@ -7,7 +7,8 @@ module.exports=async(req,res)=>{
     const b=req.body||{};
     if(!validId(b.studentId))return res.status(400).json({error:'Invalid student id'});
     const studentId=String(b.studentId);
-    const username=clean(b.username,40)||'Аты көрсетілмеген';
+    const username=clean(b.username,40);
+    if(!username||username.toLocaleLowerCase('kk-KZ')==='оқушы'||username.toLocaleLowerCase('kk-KZ')==='аты көрсетілмеген')return res.status(400).json({error:'Student name is required'});
     const row={
       student_id:studentId,
       username,
