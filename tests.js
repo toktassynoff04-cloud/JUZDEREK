@@ -2,7 +2,8 @@
   'use strict';
 
   const TEST_URL = './data/tests/pilot-world-history-01.json';
-  const state = { test: null, index: 0, answers: {}, review: false };
+  const DISPLAY_TITLE = '№1 ҚАЙТАЛАУ ТЕСТ';
+  const state = { test: null, index: 0, answers: {}, mode: 'full', queue: [], lastMistakes: [] };
 
   const $ = (id) => document.getElementById(id);
   const els = {
@@ -14,8 +15,9 @@
     breakdown: $('resultBreakdown'), reviewBtn: $('reviewBtn'), restartBtn: $('restartBtn')
   };
 
+  const activeQuestions = () => state.queue.length ? state.queue : (state.test?.questions || []);
   function maxScore(q) { return q.type === 'single' ? 1 : 2; }
-  function totalMax() { return state.test.questions.reduce((sum, q) => sum + maxScore(q), 0); }
+  function totalMax(list = activeQuestions()) { return list.reduce((sum, q) => sum + maxScore(q), 0); }
   function answerFor(q) { return state.answers[q.id]; }
   function isAnswered(q) {
     const a = answerFor(q);
@@ -84,13 +86,15 @@
   }
 
   function renderGrid() {
+    const questions = activeQuestions();
     els.grid.innerHTML = '';
-    state.test.questions.forEach((q, i) => {
+    questions.forEach((q, i) => {
       const b = document.createElement('button');
-      b.type = 'button'; b.className = 'question-dot'; b.textContent = i + 1;
+      b.type = 'button'; b.className = 'question-dot';
+      b.textContent = state.mode === 'mistakes' ? (state.test.questions.indexOf(q) + 1) : (i + 1);
       if (isAnswered(q)) b.classList.add('answered');
       if (i === state.index) b.classList.add('active');
-      b.addEventListener('click', () => { state.index = i; state.review = false; renderQuestion(); });
+      b.addEventListener('click', () => { state.index = i; renderQuestion(); });
       els.grid.appendChild(b);
     });
   }
@@ -141,55 +145,85 @@
   }
 
   function renderQuestion() {
-    const q = state.test.questions[state.index];
+    const questions = activeQuestions();
+    const q = questions[state.index];
     els.card.hidden = false; els.result.hidden = true; els.warning.textContent = '';
-    els.title.textContent = state.test.title; els.counter.textContent = `${state.index + 1} / ${state.test.questions.length}`;
-    const answeredCount = state.test.questions.filter(isAnswered).length;
+    els.title.textContent = state.mode === 'mistakes' ? `${DISPLAY_TITLE} · Қателермен жұмыс` : DISPLAY_TITLE;
+    els.counter.textContent = `${state.index + 1} / ${questions.length}`;
+    const answeredCount = questions.filter(isAnswered).length;
     els.answered.textContent = `${answeredCount} жауап берілді`;
-    els.fill.style.width = `${((state.index + 1) / state.test.questions.length) * 100}%`;
+    els.fill.style.width = `${((state.index + 1) / questions.length) * 100}%`;
     els.badge.textContent = typeLabel(q); els.text.textContent = q.text; els.hint.textContent = typeHint(q); els.area.innerHTML = '';
     if (q.type === 'single') renderChoice(q, false);
     else if (q.type === 'multiple') renderChoice(q, true);
     else renderMatching(q);
     els.prev.disabled = state.index === 0;
-    els.next.textContent = state.index === state.test.questions.length - 1 ? 'Тестті аяқтау' : 'Келесі →';
+    els.next.textContent = state.index === questions.length - 1 ? (state.mode === 'mistakes' ? 'Қателермен жұмысты аяқтау' : 'Тестті аяқтау') : 'Келесі →';
     renderGrid();
   }
 
   function finish() {
-    const unanswered = state.test.questions.findIndex(q => !isAnswered(q));
-    if (unanswered !== -1 && !confirm(`Жауап берілмеген сұрақтар бар. Сонда да аяқтайсыз ба?`)) { state.index = unanswered; renderQuestion(); return; }
-    const scores = state.test.questions.map(q => ({ q, score: scoreQuestion(q), max: maxScore(q) }));
-    const total = scores.reduce((s, x) => s + x.score, 0), max = totalMax();
-    els.card.hidden = true; els.result.hidden = false; els.score.textContent = total; els.scoreMax.textContent = `/ ${max} балл`;
-    els.percent.textContent = `${Math.round((total / max) * 100)}% нәтиже`;
+    const questions = activeQuestions();
+    const unanswered = questions.findIndex(q => !isAnswered(q));
+    if (unanswered !== -1 && !confirm('Жауап берілмеген сұрақтар бар. Сонда да аяқтайсыз ба?')) { state.index = unanswered; renderQuestion(); return; }
+
+    const scores = questions.map(q => ({ q, score: scoreQuestion(q), max: maxScore(q) }));
+    const total = scores.reduce((s, x) => s + x.score, 0), max = totalMax(questions);
+    const mistakes = scores.filter(x => x.score < x.max).map(x => x.q);
+    state.lastMistakes = mistakes;
+
+    els.card.hidden = true; els.result.hidden = false;
+    const resultTitle = els.result.querySelector('h2');
+    if (resultTitle) resultTitle.textContent = state.mode === 'mistakes' ? 'Қателермен жұмыс аяқталды' : 'Тест аяқталды';
+    els.score.textContent = total; els.scoreMax.textContent = `/ ${max} балл`;
+    els.percent.textContent = state.mode === 'mistakes'
+      ? `${questions.length - mistakes.length} / ${questions.length} сұрақ толық түзетілді`
+      : `${Math.round((total / max) * 100)}% нәтиже`;
+
     const single = scores.filter(x => x.q.type === 'single'), multiple = scores.filter(x => x.q.type === 'multiple'), matching = scores.filter(x => x.q.type === 'matching');
-    const block = (name, arr) => `<div class="breakdown-item"><strong>${arr.reduce((s,x)=>s+x.score,0)} / ${arr.reduce((s,x)=>s+x.max,0)}</strong><span>${name}</span></div>`;
+    const block = (name, arr) => arr.length ? `<div class="breakdown-item"><strong>${arr.reduce((s,x)=>s+x.score,0)} / ${arr.reduce((s,x)=>s+x.max,0)}</strong><span>${name}</span></div>` : '';
     els.breakdown.innerHTML = block('Біржауапты', single) + block('Көпжауапты', multiple) + block('Сәйкестендіру', matching);
+
+    if (mistakes.length) {
+      els.reviewBtn.hidden = false;
+      els.reviewBtn.textContent = state.mode === 'mistakes' ? `Қалған ${mistakes.length} қатені қайталау` : `Қателермен жұмыс · ${mistakes.length}`;
+    } else {
+      els.reviewBtn.hidden = true;
+    }
+    els.restartBtn.textContent = 'Тестті қайта тапсыру';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function showReview() {
-    const old = els.result.querySelector('.review-list'); if (old) { old.remove(); return; }
-    const list = document.createElement('div'); list.className = 'review-list';
-    state.test.questions.forEach((q, i) => {
-      const score = scoreQuestion(q), max = maxScore(q);
-      if (score === max) return;
-      const box = document.createElement('div'); box.className = 'review-block';
-      const title = document.createElement('strong'); title.textContent = `${i + 1}. ${q.text}`;
-      const p = document.createElement('p'); p.textContent = `Алған балл: ${score} / ${max}`;
-      box.append(title, p); list.appendChild(box);
-    });
-    if (!list.children.length) { const box = document.createElement('div'); box.className = 'review-block review-good'; box.textContent = 'Барлық тапсырма толық дұрыс орындалды.'; list.appendChild(box); }
-    els.result.appendChild(list);
+  function startMistakeRetry() {
+    if (!state.lastMistakes.length) return;
+    state.mode = 'mistakes';
+    state.queue = [...state.lastMistakes];
+    state.queue.forEach(q => { delete state.answers[q.id]; });
+    state.index = 0;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function restartFull() {
+    state.mode = 'full';
+    state.queue = [...state.test.questions];
+    state.answers = {};
+    state.lastMistakes = [];
+    state.index = 0;
+    els.reviewBtn.hidden = false;
+    renderQuestion();
+    window.scrollTo({ top: 0 });
   }
 
   els.prev.addEventListener('click', () => { if (state.index > 0) { state.index--; renderQuestion(); } });
-  els.next.addEventListener('click', () => { if (state.index < state.test.questions.length - 1) { state.index++; renderQuestion(); } else finish(); });
-  els.reviewBtn.addEventListener('click', showReview);
-  els.restartBtn.addEventListener('click', () => { state.answers = {}; state.index = 0; renderQuestion(); window.scrollTo({ top: 0 }); });
+  els.next.addEventListener('click', () => { if (state.index < activeQuestions().length - 1) { state.index++; renderQuestion(); } else finish(); });
+  els.reviewBtn.addEventListener('click', startMistakeRetry);
+  els.restartBtn.addEventListener('click', restartFull);
 
   fetch(TEST_URL, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error('Test data failed'); return r.json(); }).then(data => {
-    state.test = data; document.title = `JUZDEREK — ${data.title}`; renderQuestion();
+    state.test = data;
+    state.queue = [...data.questions];
+    document.title = `JUZDEREK — ${DISPLAY_TITLE}`;
+    renderQuestion();
   }).catch(() => { els.title.textContent = 'Тест жүктелмеді'; els.text.textContent = 'Тест деректерін жүктеу кезінде қате шықты.'; });
 })();
