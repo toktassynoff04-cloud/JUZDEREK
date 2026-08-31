@@ -1,9 +1,0 @@
-const {supabase,sendError,requireAdmin}=require('../support/_lib');
-module.exports=async(req,res)=>{
- if(req.method!=='GET')return res.status(405).json({error:'Method not allowed'});
- try{requireAdmin(req);let attempts=[],questions=[];try{attempts=await supabase('test_attempt_analytics?select=test_id,test_title,attempts,score_sum,max_score_sum,best_score,best_max_score,last_score,last_max_score,completed_at&limit=10000');questions=await supabase('test_question_analytics?select=test_id,test_title,question_id,question_number,attempts,full_correct,score_sum,max_score_sum&limit=10000')}catch(e){return res.status(200).json({ready:false,tests:[]})}
- const map=new Map();for(const x of attempts){const id=x.test_id,t=map.get(id)||{testId:id,title:x.test_title||id,students:0,attempts:0,scoreSum:0,maxSum:0,lastCompleted:null,questions:[]};t.students++;t.attempts+=Number(x.attempts)||0;t.scoreSum+=Number(x.score_sum)||0;t.maxSum+=Number(x.max_score_sum)||0;if(!t.lastCompleted||new Date(x.completed_at)>new Date(t.lastCompleted))t.lastCompleted=x.completed_at;map.set(id,t)}
- for(const x of questions){const t=map.get(x.test_id)||{testId:x.test_id,title:x.test_title||x.test_id,students:0,attempts:0,scoreSum:0,maxSum:0,lastCompleted:null,questions:[]};const a=Number(x.attempts)||0,fc=Number(x.full_correct)||0,ss=Number(x.score_sum)||0,ms=Number(x.max_score_sum)||0;t.questions.push({id:x.question_id,number:Number(x.question_number)||0,attempts:a,fullCorrect:fc,accuracy:ms?Math.round(ss/ms*100):0,fullCorrectRate:a?Math.round(fc/a*100):0});map.set(x.test_id,t)}
- const tests=[...map.values()].map(t=>({...t,avgAccuracy:t.maxSum?Math.round(t.scoreSum/t.maxSum*100):0,questions:t.questions.sort((a,b)=>a.accuracy-b.accuracy||a.number-b.number)})).sort((a,b)=>String(a.testId).localeCompare(String(b.testId)));
- res.setHeader('Cache-Control','no-store');res.status(200).json({ready:true,tests})}catch(err){sendError(res,err)}
-};
