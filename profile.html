@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JUZDEREK — Менің оқу анализім</title>
+<link rel="stylesheet" href="./site-header.css?v=20260831-testfix1">
+<link rel="stylesheet" href="./profile-menu.css?v=20260831-testfix1">
+<link rel="stylesheet" href="./next-ux.css?v=20260819-01">
+<link rel="stylesheet" href="./profile-analysis.css?v=20260901-01">
+</head>
+<body>
+<header class="site-header" data-site-header></header>
+<main class="analysis-shell">
+  <section class="analysis-hero">
+    <div>
+      <span class="analysis-kicker">JUZDEREK 360°</span>
+      <h1>Менің оқу анализім</h1>
+      <p>Қай тақырыптарды жақсы меңгергеніңді және қай тақырыптарды қайта бекіту керегін көр.</p>
+    </div>
+    <div class="mastery-card" aria-label="Жалпы меңгеру">
+      <div class="mastery-ring" id="masteryRing"><strong id="masteryValue">0%</strong></div>
+      <div><span>Жалпы меңгеру</span><small id="masteryMeta">Әзірге дерек жоқ</small></div>
+    </div>
+  </section>
+
+  <section class="status-summary" aria-label="Тақырыптар статусы">
+    <div class="summary-item attention"><strong id="attentionCount">0</strong><span>Назар аудару керек</span></div>
+    <div class="summary-item reinforce"><strong id="reinforceCount">0</strong><span>Бекіту керек</span></div>
+    <div class="summary-item strong"><strong id="strongCount">0</strong><span>Жақсы меңгерген</span></div>
+  </section>
+
+  <section class="analysis-section">
+    <div class="section-head"><div><span class="section-kicker">ТАҚЫРЫПТАР</span><h2>Оқу картасы</h2></div><p>Нәтиже аяқталған ойындардағы көрсеткіштер бойынша есептеледі.</p></div>
+    <div class="topic-columns">
+      <article class="topic-panel attention-panel"><div class="panel-title"><span class="status-dot"></span><h3>Назар аудару керек</h3><span id="attentionBadge" class="count-badge">0</span></div><div id="attentionList" class="topic-list"></div></article>
+      <article class="topic-panel reinforce-panel"><div class="panel-title"><span class="status-dot"></span><h3>Бекіту керек</h3><span id="reinforceBadge" class="count-badge">0</span></div><div id="reinforceList" class="topic-list"></div></article>
+      <article class="topic-panel strong-panel"><div class="panel-title"><span class="status-dot"></span><h3>Жақсы меңгерген</h3><span id="strongBadge" class="count-badge">0</span></div><div id="strongList" class="topic-list"></div></article>
+    </div>
+  </section>
+
+  <section class="analysis-section skills-section">
+    <div class="section-head"><div><span class="section-kicker">ДАҒДЫЛАР</span><h2>Дағдылар анализі</h2></div><p>Әр ойын форматы бойынша жинақталған нәтиже.</p></div>
+    <div id="skillsGrid" class="skills-grid"></div>
+  </section>
+</main>
+<script src="./data/topics-index.js?v=20260901-01"></script>
+<script src="./site-header-component.js?v=20260901-profile1"></script>
+<script src="./profile-analysis.js?v=20260901-01"></script>
+<script src="./analytics.js?v=20260831-01"></script>
+</body>
+</html>
