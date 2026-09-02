@@ -1,20 +1,28 @@
 {
+  "id": "./",
   "name": "JUZDEREK — Тарих енді қызықты!",
   "short_name": "JUZDEREK",
   "description": "Дүниежүзі тарихын ойын, тест және қайталау арқылы меңгеруге арналған интерактивті платформа.",
   "lang": "kk",
-  "start_url": "./index.html",
+  "start_url": "./index.html?source=pwa",
   "scope": "./",
   "display": "standalone",
-  "orientation": "any",
+  "display_override": ["standalone"],
+  "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#ff5b16",
   "icons": [
     {
+      "src": "./assets/image-Photoroom%20-%202026-08-18T223037.285.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
       "src": "./assets/mascot-progress.webp",
       "sizes": "any",
       "type": "image/webp",
-      "purpose": "any"
+      "purpose": "maskable"
     }
   ]
 }
