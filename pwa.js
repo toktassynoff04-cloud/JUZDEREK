@@ -1,10 +1,14 @@
 (() => {
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const ua = navigator.userAgent || '';
+  const isIOS = /iphone|ipad|ipod/i.test(ua);
+  const isAndroid = /android/i.test(ua);
+  const isMobile = isIOS || isAndroid || window.matchMedia('(max-width: 820px) and (pointer: coarse)').matches;
   let deferredPrompt = null;
 
   const mountInstallCard = () => {
     if (isStandalone || document.getElementById('juzPwaInstall')) return;
+
     const card = document.createElement('aside');
     card.id = 'juzPwaInstall';
     card.className = 'pwa-install-card';
@@ -20,14 +24,12 @@
         <button class="pwa-install-btn ghost" type="button" data-pwa-later>Кейін</button>
         <button class="pwa-install-btn primary" type="button" data-pwa-install>Орнату</button>
       </div>
-      <div class="pwa-ios-help" data-pwa-ios-help>
-        iPhone: Safari мәзірінен <b>Бөлісу</b> → <b>«На экран Домой»</b> → <b>Добавить</b> таңда.
-      </div>`;
+      <div class="pwa-ios-help" data-pwa-help></div>`;
     document.body.appendChild(card);
 
     const installBtn = card.querySelector('[data-pwa-install]');
     const laterBtn = card.querySelector('[data-pwa-later]');
-    const iosHelp = card.querySelector('[data-pwa-ios-help]');
+    const help = card.querySelector('[data-pwa-help]');
 
     installBtn.addEventListener('click', async () => {
       if (deferredPrompt) {
@@ -37,11 +39,13 @@
         card.classList.remove('show');
         return;
       }
-      if (isIOS) {
-        iosHelp.classList.add('show');
-        installBtn.textContent = 'Түсінікті';
-        installBtn.onclick = () => card.classList.remove('show');
-      }
+
+      help.innerHTML = isIOS
+        ? 'iPhone: <b>Safari</b>-де төмендегі <b>Бөлісу</b> батырмасын бас → <b>«На экран Домой»</b> → <b>Добавить</b>.'
+        : 'Android: браузер мәзірін <b>⋮</b> аш → <b>Install app / Установить приложение</b> немесе <b>Add to Home screen</b> таңда.';
+      help.classList.add('show');
+      installBtn.textContent = 'Түсінікті';
+      installBtn.addEventListener('click', () => card.classList.remove('show'), { once: true });
     });
 
     laterBtn.addEventListener('click', () => {
@@ -50,10 +54,10 @@
     });
 
     setTimeout(() => {
-      if (!sessionStorage.getItem('juzderek_pwa_install_dismissed') && (deferredPrompt || isIOS)) {
+      if (!sessionStorage.getItem('juzderek_pwa_install_dismissed') && (isMobile || deferredPrompt)) {
         card.classList.add('show');
       }
-    }, 1200);
+    }, 900);
   };
 
   window.addEventListener('beforeinstallprompt', event => {
@@ -78,17 +82,15 @@
             const worker = registration.installing;
             if (!worker) return;
             worker.addEventListener('statechange', () => {
-              if (worker.state === 'installed' && navigator.serviceWorker.controller) {
-                showUpdateToast();
-              }
+              if (worker.state === 'installed' && navigator.serviceWorker.controller) showUpdateToast();
             });
           });
         })
         .catch(error => console.warn('[JUZDEREK PWA] Service worker registration failed:', error));
 
-      if (isIOS) mountInstallCard();
+      if (isMobile) mountInstallCard();
     });
-  } else if (isIOS) {
+  } else if (isMobile) {
     window.addEventListener('load', mountInstallCard);
   }
 
