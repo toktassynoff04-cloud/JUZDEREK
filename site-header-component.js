@@ -1,4 +1,18 @@
 (()=>{
+  function ensurePwa(){
+    const head=document.head;
+    if(!head)return;
+    const ensureMeta=(name,content)=>{let m=head.querySelector(`meta[name="${name}"]`);if(!m){m=document.createElement('meta');m.name=name;head.appendChild(m)}m.content=content};
+    ensureMeta('theme-color','#ff5b16');
+    ensureMeta('apple-mobile-web-app-capable','yes');
+    ensureMeta('apple-mobile-web-app-status-bar-style','default');
+    ensureMeta('apple-mobile-web-app-title','JUZDEREK');
+    if(!head.querySelector('link[rel="manifest"]')){const l=document.createElement('link');l.rel='manifest';l.href='./manifest.webmanifest';head.appendChild(l)}
+    let apple=head.querySelector('link[rel="apple-touch-icon"]');if(!apple){apple=document.createElement('link');apple.rel='apple-touch-icon';head.appendChild(apple)}apple.href='./assets/image-Photoroom%20-%202026-08-18T223037.285.png';
+    if(!head.querySelector('link[data-juz-pwa-css]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./pwa.css?v=20260903-01';l.dataset.juzPwaCss='1';head.appendChild(l)}
+    if(!document.querySelector('script[data-juz-pwa]')){const s=document.createElement('script');s.src='./pwa.js?v=20260903-01';s.defer=true;s.dataset.juzPwa='1';head.appendChild(s)}
+  }
+  ensurePwa();
   if(!document.querySelector('link[data-juz-next-ux]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./next-ux.css?v=20260819-01';l.dataset.juzNextUx='1';document.head.appendChild(l)}
   const AVATAR='./assets/profile-avatar-glasses.webp';
   const LEVELS=[{level:1,name:'Ізденуші',min:0},{level:2,name:'Ізденуші',min:500},{level:3,name:'Зерттеуші',min:1200},{level:4,name:'Зерттеуші',min:2200},{level:5,name:'Білгір',min:3500},{level:6,name:'Білгір',min:5000},{level:7,name:'Білгір',min:7000},{level:8,name:'Сарапшы',min:9500},{level:9,name:'Сарапшы',min:12500},{level:10,name:'Сарапшы',min:16000},{level:11,name:'Тарихшы',min:20000},{level:12,name:'Тарихшы',min:25000},{level:13,name:'Тарихшы',min:31000},{level:14,name:'Аңыз',min:38000},{level:15,name:'Аңыз',min:46000}];
