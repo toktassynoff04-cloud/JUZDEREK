@@ -7,8 +7,8 @@
     ensureMeta('apple-mobile-web-app-capable','yes');
     ensureMeta('apple-mobile-web-app-status-bar-style','default');
     ensureMeta('apple-mobile-web-app-title','JUZDEREK');
-    if(!head.querySelector('link[rel="manifest"]')){const l=document.createElement('link');l.rel='manifest';l.href='./manifest.webmanifest';head.appendChild(l)}
-    let apple=head.querySelector('link[rel="apple-touch-icon"]');if(!apple){apple=document.createElement('link');apple.rel='apple-touch-icon';head.appendChild(apple)}apple.href='./assets/image-Photoroom%20-%202026-08-18T223037.285.png';
+    let manifest=head.querySelector('link[rel="manifest"]');if(!manifest){manifest=document.createElement('link');manifest.rel='manifest';head.appendChild(manifest)}manifest.href='./manifest.webmanifest?v=20260903-icon1';
+    let apple=head.querySelector('link[rel="apple-touch-icon"]');if(!apple){apple=document.createElement('link');apple.rel='apple-touch-icon';head.appendChild(apple)}apple.setAttribute('sizes','180x180');apple.href='./assets/apple-touch-icon.png?v=20260903-01';
     if(!head.querySelector('link[data-juz-pwa-css]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./pwa.css?v=20260903-01';l.dataset.juzPwaCss='1';head.appendChild(l)}
     if(!document.querySelector('script[data-juz-pwa]')){const s=document.createElement('script');s.src='./pwa.js?v=20260903-01';s.defer=true;s.dataset.juzPwa='1';head.appendChild(s)}
   }
