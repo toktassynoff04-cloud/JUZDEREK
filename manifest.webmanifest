@@ -13,15 +13,15 @@
   "theme_color": "#ff5b16",
   "icons": [
     {
-      "src": "./assets/image-Photoroom%20-%202026-08-18T223037.285.png",
-      "sizes": "any",
+      "src": "./assets/apple-touch-icon.png?v=20260903-01",
+      "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./assets/mascot-progress.webp",
-      "sizes": "any",
-      "type": "image/webp",
+      "src": "./assets/apple-touch-icon.png?v=20260903-01",
+      "sizes": "180x180",
+      "type": "image/png",
       "purpose": "maskable"
     }
   ]
