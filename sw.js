@@ -1,4 +1,4 @@
-const CACHE_NAME = 'juzderek-shell-v1';
+const CACHE_NAME = 'juzderek-shell-v2';
 const APP_SHELL = [
   './',
   './index.html',
