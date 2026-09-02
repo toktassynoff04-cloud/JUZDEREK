@@ -5,6 +5,7 @@
   const isAndroid = /android/i.test(ua);
   const isMobile = isIOS || isAndroid || window.matchMedia('(max-width: 820px) and (pointer: coarse)').matches;
   let deferredPrompt = null;
+  let refreshing = false;
 
   const mountInstallCard = () => {
     if (isStandalone || document.getElementById('juzPwaInstall')) return;
@@ -14,7 +15,7 @@
     card.className = 'pwa-install-card';
     card.innerHTML = `
       <div class="pwa-install-row">
-        <div class="pwa-install-icon"><img src="./assets/mascot-progress.webp" alt=""></div>
+        <div class="pwa-install-icon"><img src="./assets/apple-touch-icon.png?v=20260903-01" alt=""></div>
         <div class="pwa-install-copy">
           <strong>JUZDEREK-ті телефонға орнат</strong>
           <span>Қолданба сияқты жеке терезеде ашылады.</span>
@@ -74,16 +75,19 @@
   });
 
   if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (refreshing) return;
+      refreshing = true;
+      location.reload();
+    });
+
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
         .then(registration => {
           registration.update();
-          registration.addEventListener('updatefound', () => {
-            const worker = registration.installing;
-            if (!worker) return;
-            worker.addEventListener('statechange', () => {
-              if (worker.state === 'installed' && navigator.serviceWorker.controller) showUpdateToast();
-            });
+          window.addEventListener('focus', () => registration.update());
+          document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') registration.update();
           });
         })
         .catch(error => console.warn('[JUZDEREK PWA] Service worker registration failed:', error));
@@ -92,15 +96,5 @@
     });
   } else if (isMobile) {
     window.addEventListener('load', mountInstallCard);
-  }
-
-  function showUpdateToast() {
-    if (document.getElementById('juzPwaUpdate')) return;
-    const toast = document.createElement('div');
-    toast.id = 'juzPwaUpdate';
-    toast.className = 'pwa-update-toast';
-    toast.innerHTML = '<span>JUZDEREK-тің жаңа нұсқасы дайын.</span><button type="button">Жаңарту</button>';
-    toast.querySelector('button').addEventListener('click', () => location.reload());
-    document.body.appendChild(toast);
   }
 })();
