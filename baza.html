@@ -4,72 +4,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>JUZDEREK — База қалыптастыру</title>
-  <link rel="stylesheet" href="./site-header.css?v=20260903-baza1">
+  <link rel="stylesheet" href="./site-header.css?v=20260903-baza2">
   <link rel="stylesheet" href="./next-ux.css?v=20260819-01">
-  <link rel="stylesheet" href="./baza.css?v=20260903-baza1">
+  <link rel="stylesheet" href="./baza.css?v=20260903-baza2">
 </head>
 <body>
   <header class="site-header" data-site-header></header>
-
   <main class="baza-page">
     <section class="baza-shell" aria-labelledby="baza-title">
-      <div class="baza-topline">
-        <div>
-          <span class="baza-kicker">JUZDEREK</span>
-          <h1 id="baza-title">База қалыптастыру</h1>
-          <p>Негізгі сұрақтарды еске түсіріп, жауабыңды өзің тексер.</p>
-        </div>
-        <div class="baza-session-badge">Демо нұсқа</div>
-      </div>
-
+      <div class="baza-topline"><div><span class="baza-kicker">JUZDEREK</span><h1 id="baza-title">База қалыптастыру</h1><p>Аптаның тақырыптарын араластырып, негізгі сұрақтарды еске түсір.</p></div></div>
       <article class="question-card" aria-live="polite">
-        <div class="question-card__head">
-          <div class="counter-wrap"><strong id="questionIndex">01</strong><span>/</span><span id="questionTotal">14</span></div>
-          <span class="level-badge" id="levelBadge">A деңгейі</span>
-        </div>
-
+        <div class="question-card__head"><div class="counter-wrap"><strong id="questionIndex">01</strong><span>/</span><span id="questionTotal">15</span></div></div>
         <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
-
         <div class="question-stage">
-          <div class="question-icon">?</div>
-          <h2 id="questionText">1155 жылы Есугей батыр шабуыл жасаған тайпа:</h2>
-
-          <div class="answer-panel" id="answerPanel" hidden>
-            <span>Дұрыс жауап</span>
-            <strong id="answerText">татар</strong>
-          </div>
-
-          <div class="hint-row" id="hintRow">
-            <span class="hint-icon">♧</span>
-            <span>Жауапты есіңе түсіріп, дайын болған соң тексер.</span>
-          </div>
-
-          <button class="reveal-button" id="revealButton" type="button">
-            <span class="eye-icon" aria-hidden="true">◉</span>
-            <span>Жауапты көру</span>
-          </button>
+          <div class="question-icon">?</div><h2 id="questionText"></h2>
+          <div class="answer-panel" id="answerPanel" hidden><span>Дұрыс жауап</span><div id="answerText"></div></div>
+          <div class="hint-row" id="hintRow"><span class="hint-icon">♧</span><span>Жауапты есіңе түсіріп, дайын болған соң тексер.</span></div>
+          <button class="reveal-button" id="revealButton" type="button"><span class="eye-icon" aria-hidden="true">◉</span><span>Жауапты көру</span></button>
         </div>
-
         <div class="self-check" id="selfCheck" aria-label="Өзіндік бағалау">
-          <button class="choice-button choice-button--repeat" id="repeatButton" type="button" disabled>
-            <span aria-hidden="true">↻</span>
-            <span>Қайталаймын</span>
-          </button>
-          <button class="choice-button choice-button--know" id="knowButton" type="button" disabled>
-            <span aria-hidden="true">✓</span>
-            <span>Білдім</span>
-          </button>
+          <button class="choice-button choice-button--repeat" id="repeatButton" type="button" disabled><span aria-hidden="true">↻</span><span>Қайталаймын</span></button>
+          <button class="choice-button choice-button--know" id="knowButton" type="button" disabled><span aria-hidden="true">✓</span><span>Білдім</span></button>
         </div>
       </article>
-
-      <div class="demo-note">
-        <strong>Қазір бұл — интерфейс прототипі.</strong>
-        <span>Кейін сен беретін база осы шаблонға автоматты түрде қосылады.</span>
-      </div>
+      <div class="demo-note" id="sessionNote"><strong>15 сұрақ.</strong><span>Төрт тақырып бір нұсқада аралас келеді.</span></div>
     </section>
   </main>
-
-  <script src="./site-header-component.js?v=20260903-baza1"></script>
-  <script src="./baza.js?v=20260903-baza1"></script>
+  <script src="./site-header-component.js?v=20260903-baza2"></script>
+  <script src="./baza.js?v=20260903-baza2"></script>
 </body>
 </html>
