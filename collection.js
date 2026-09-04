@@ -27,7 +27,7 @@
     const studentId=clientId();
     if(!/^[a-zA-Z0-9-]{20,80}$/.test(studentId))return;
     try{
-      const r=await fetch('/api/collection-grants',{method:'POST',headers:{'content-type':'application/json'},cache:'no-store',body:JSON.stringify({studentId})});
+      const r=await fetch('/api/analytics/track',{method:'POST',headers:{'content-type':'application/json'},cache:'no-store',body:JSON.stringify({action:'claim_collection_bonus',studentId})});
       if(!r.ok)return;
       const data=await r.json().catch(()=>({}));
       const amount=safeInt(data?.chests,100);
