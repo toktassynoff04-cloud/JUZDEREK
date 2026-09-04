@@ -7,6 +7,11 @@ module.exports=async(req,res)=>{
     const b=req.body||{};
     if(!validId(b.studentId))return res.status(400).json({error:'Invalid student id'});
     const studentId=String(b.studentId);
+    if(b.action==='claim_collection_bonus'){
+      const data=await supabase('rpc/claim_collection_bonus',{method:'POST',body:JSON.stringify({p_student_id:studentId})});
+      const chests=clamp(data,100);
+      return res.status(200).json({chests});
+    }
     const username=clean(b.username,40);
     if(!username||username.toLocaleLowerCase('kk-KZ')==='оқушы'||username.toLocaleLowerCase('kk-KZ')==='аты көрсетілмеген')return res.status(400).json({error:'Student name is required'});
     const row={
