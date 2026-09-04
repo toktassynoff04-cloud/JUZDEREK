@@ -21,6 +21,23 @@
   function loadState(){const raw=read(STATE_KEY,{}),unlocked=Array.isArray(raw?.unlocked)?raw.unlocked.filter(id=>typeof id==='string'&&validIds.has(id)):[];return{unlocked:[...new Set(unlocked)].slice(0,PEOPLE.length),chests:safeInt(raw?.chests,1000),claimedTopicMilestones:safeInt(raw?.claimedTopicMilestones,10000),claimedLevelMilestones:safeInt(raw?.claimedLevelMilestones,10000)}}
   let state=loadState();
   const saveState=()=>{if(!ADMIN)localStorage.setItem(STATE_KEY,JSON.stringify(state))};
+  const clientId=()=>localStorage.getItem('juzderek_support_student_id')||localStorage.getItem('juzderek_analytics_id')||'';
+  async function claimRemoteBonus(){
+    if(ADMIN)return;
+    const studentId=clientId();
+    if(!/^[a-zA-Z0-9-]{20,80}$/.test(studentId))return;
+    try{
+      const r=await fetch('/api/collection-grants',{method:'POST',headers:{'content-type':'application/json'},cache:'no-store',body:JSON.stringify({studentId})});
+      if(!r.ok)return;
+      const data=await r.json().catch(()=>({}));
+      const amount=safeInt(data?.chests,100);
+      if(!amount)return;
+      state.chests=Math.min(1000,state.chests+amount);
+      saveState();
+      renderCounts();
+      refreshOpenButton();
+    }catch{}
+  }
   const core=()=>window.JUZ_PROGRESS_CORE;
   const gameProgress=()=>core()?.gameProgress?.()||read('juzderek_game_progress',{xp:0});
   const masteredTopics=()=>core()?.masteredTopics?.()||0;
@@ -48,5 +65,5 @@
   function prepareReveal(person){if(!person||!validIds.has(person.id))return;const front=document.getElementById('revealFront');front.className=`flip-face flip-front ${person.rarity}`;document.getElementById('revealRarity').textContent=`◆ ${person.label.toUpperCase()}`;document.getElementById('revealImage').src=person.image;document.getElementById('revealImage').alt=person.name;document.getElementById('revealName').textContent=person.name;document.getElementById('revealYears').textContent=person.years}
   function refreshOpenButton(){const locked=PEOPLE.length-state.unlocked.length;if(ADMIN){openBtn.disabled=false;openBtn.textContent=stage===3?'Тағы preview':'Сандықты ашу';document.getElementById('readyCopy').textContent='Admin режимінде сандық шексіз ашылады.';return}if(locked<=0){openBtn.disabled=true;openBtn.textContent='Коллекция толық';document.getElementById('readyCopy').textContent='Барлық 10 тұлға жиналды!';return}if(state.chests<=0){openBtn.disabled=true;openBtn.textContent='Сандық жоқ';document.getElementById('readyCopy').textContent='7 тақырыпты аяқта немесе әр 5 level сайын сандық ал.';return}openBtn.disabled=false;openBtn.textContent=stage===3?'Қайта ашу':'Сандықты ашу'}
   function runOpening(){if(busy)return;if(stage===3){showStage(0);refreshOpenButton();return}const pool=ADMIN?PEOPLE:availablePeople();if(!pool.length)return;selected=weightedPick(pool);if(!selected)return;if(!ADMIN){if(state.chests<=0)return;state.chests-=1;if(!state.unlocked.includes(selected.id))state.unlocked.push(selected.id);saveState()}prepareReveal(selected);busy=true;openBtn.disabled=true;openBtn.textContent='Ашылуда...';showStage(1);setTimeout(()=>showStage(2),820);setTimeout(()=>{showStage(3);flip?.classList.remove('flipped');setTimeout(()=>flip?.classList.add('flipped'),620)},1650);setTimeout(()=>{busy=false;renderCollection();renderCounts();refreshOpenButton()},2550)}
-  openBtn?.addEventListener('click',runOpening);document.querySelector('[data-stage="ready"]')?.addEventListener('click',()=>{if(!openBtn.disabled)runOpening()});document.getElementById('continueBtn')?.addEventListener('click',()=>{showStage(0);refreshOpenButton();document.getElementById('collectionBoard')?.scrollIntoView({behavior:'smooth',block:'start'})});renderCollection();renderCounts();refreshOpenButton();
+  openBtn?.addEventListener('click',runOpening);document.querySelector('[data-stage="ready"]')?.addEventListener('click',()=>{if(!openBtn.disabled)runOpening()});document.getElementById('continueBtn')?.addEventListener('click',()=>{showStage(0);refreshOpenButton();document.getElementById('collectionBoard')?.scrollIntoView({behavior:'smooth',block:'start'})});renderCollection();renderCounts();refreshOpenButton();claimRemoteBonus();
 })();
