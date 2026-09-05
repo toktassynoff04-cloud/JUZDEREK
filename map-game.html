@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>JUZDEREK — Картадан тап</title>
+<style>
+:root{--orange:#ff5b16;--orange2:#ff7d2b;--ink:#111a2d;--muted:#65708a;--line:#e7e9ee;--panel:#fff;--soft:#fff4ec;--sea:#bfe4f6;--land:#f5f0df;--ok:#18a957;--bad:#ef5d5d}
+*{box-sizing:border-box}body{margin:0;background:#f7f8fa;color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.shell{max-width:1440px;margin:0 auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff;border:1px solid #eceef2;border-radius:24px;padding:14px 18px;margin-bottom:16px}.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:24px}.mark{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--orange2),var(--orange));display:grid;place-items:center;color:#fff;font-size:23px}.badge{padding:9px 14px;border-radius:999px;background:var(--soft);color:#b8440f;font-weight:800;font-size:14px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px}.map-card,.quiz-card{background:var(--panel);border:1px solid #eceef2;border-radius:26px;overflow:hidden}.map-head{padding:20px 22px 14px;display:flex;justify-content:space-between;align-items:end;gap:12px}.map-head h1{margin:0;font-size:34px;line-height:1.05}.map-head p{margin:7px 0 0;color:var(--muted);font-size:15px}.progress{font-weight:800;color:#7b8497;white-space:nowrap}.map-wrap{padding:0 14px 14px}.map-frame{position:relative;border-radius:20px;overflow:hidden;background:var(--sea);border:1px solid #d9e4ea}.map-frame svg{display:block;width:100%;height:auto;touch-action:manipulation}.region{stroke:#727d8f;stroke-width:2.2;vector-effect:non-scaling-stroke;cursor:pointer;transition:filter .12s ease,opacity .12s ease,stroke .12s ease}.region:hover{filter:brightness(.97)}.region.correct{stroke:var(--ok);stroke-width:4;filter:saturate(1.15)}.region.wrong{stroke:var(--bad);stroke-width:4}.water-target{fill:transparent;stroke:transparent;cursor:pointer}.water-target.correct{fill:rgba(24,169,87,.17);stroke:var(--ok);stroke-width:3}.water-target.wrong{fill:rgba(239,93,93,.12);stroke:var(--bad);stroke-width:3}.label{font-size:17px;fill:#59657d;font-weight:700;pointer-events:none}.sea-label{font-size:17px;fill:#1d67a7;font-weight:800;pointer-events:none}.quiz-card{padding:22px;display:flex;flex-direction:column;min-height:560px}.qtop{display:flex;align-items:center;justify-content:space-between;gap:10px}.qnum{font-size:14px;font-weight:900;color:#7c8495}.score{font-size:14px;font-weight:900;color:#b64b17;background:var(--soft);padding:8px 11px;border-radius:999px}.bar{height:8px;background:#eceff4;border-radius:999px;overflow:hidden;margin:18px 0 28px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange2),var(--orange));transition:width .25s ease}.prompt{font-size:34px;line-height:1.15;font-weight:900;margin:0 0 16px}.sub{color:var(--muted);font-size:16px;line-height:1.55;margin:0}.status{margin-top:22px;min-height:58px;border-radius:16px;padding:15px 16px;font-weight:800;display:flex;align-items:center;gap:10px;background:#f5f7fa;color:#5d6679}.status.ok{background:#eaf8f0;color:#137a41}.status.bad{background:#fff0f0;color:#b83d3d}.foot{margin-top:auto;padding-top:24px;border-top:1px solid var(--line);color:#8b93a3;font-size:13px;line-height:1.45}.done{display:none;flex:1;align-items:center;justify-content:center;text-align:center}.done.show{display:flex}.done-box{max-width:270px}.done .icon{font-size:52px}.done h2{font-size:30px;margin:12px 0 8px}.again{border:0;background:linear-gradient(135deg,var(--orange2),var(--orange));color:#fff;border-radius:15px;padding:14px 18px;font-weight:900;font-size:16px;cursor:pointer;width:100%;margin-top:18px}
+@media(max-width:900px){.shell{padding:10px}.top{border-radius:18px;padding:11px 13px}.brand{font-size:20px}.layout{grid-template-columns:1fr}.map-head h1{font-size:28px}.quiz-card{min-height:auto;padding:18px}.prompt{font-size:28px}.quiz-card{order:-1}.foot{margin-top:26px}.map-wrap{padding:0 8px 8px}.map-frame{border-radius:16px}.label,.sea-label{font-size:20px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <div class="brand"><span class="mark">J</span><span>JUZDEREK</span></div>
+    <div class="badge">🗺️ Картадан тап</div>
+  </header>
+  <main class="layout">
+    <section class="map-card">
+      <div class="map-head"><div><h1>Картадан тап</h1><p>Дұрыс аймақты тапқанша картадан таңдай бер.</p></div><div class="progress" id="mapProgress">1 / 8</div></div>
+      <div class="map-wrap">
+        <div class="map-frame">
+          <svg id="mapSvg" viewBox="0 0 1000 720" role="img" aria-label="Таяу Шығыс пен Жерорта теңізі аймағының оқу картасы">
+            <rect width="1000" height="720" fill="#bfe4f6"/>
+            <path d="M0 0H1000V90L920 82 845 105 760 96 690 125 610 108 530 118 455 96 382 112 312 92 240 106 168 85 85 96 0 80Z" fill="#f5f0df" stroke="#778193" stroke-width="2"/>
+            <path id="asia-minor" class="region" data-id="asia-minor" d="M140 140L208 116 295 118 370 132 450 125 510 150 500 208 425 228 338 222 265 238 188 220 128 186Z" fill="#f5a0a9"/>
+            <path id="levant" class="region" data-id="levant" d="M430 236L492 215 520 258 501 340 460 364 431 322Z" fill="#c7a8d8"/>
+            <path id="mesopotamia" class="region" data-id="mesopotamia" d="M510 205L588 194 638 230 645 315 596 370 525 347 500 279Z" fill="#cddf8a"/>
+            <path id="iran" class="region" data-id="iran" d="M630 208L776 180 865 220 900 312 862 402 754 418 648 358 643 284Z" fill="#d7c998"/>
+            <path id="arabia" class="region" data-id="arabia" d="M505 365L620 337 721 390 760 505 684 572 575 596 482 526 450 438Z" fill="#f8e66b"/>
+            <path id="egypt" class="region" data-id="egypt" d="M286 367L411 354 451 420 447 525 315 520 278 446Z" fill="#e3c2db"/>
+            <path id="oman" class="region" data-id="oman" d="M765 510L845 474 892 521 860 590 790 610 744 566Z" fill="#8ddbb1"/>
+            <path id="yemen" class="region" data-id="yemen" d="M570 596L683 570 745 565 781 617 692 662 598 650Z" fill="#d6cfd8"/>
+            <path id="mediterranean" class="water-target" data-id="mediterranean" d="M20 250C115 202 215 228 288 270 350 306 392 308 445 270L445 345C370 375 315 368 253 348 166 320 93 326 20 360Z"/>
+            <path id="black-sea" class="water-target" data-id="black-sea" d="M180 78C254 48 362 55 447 74 514 89 555 105 547 137 538 169 480 177 411 170 329 162 252 167 188 148 150 137 143 99 180 78Z"/>
+            <path id="caspian" class="water-target" data-id="caspian" d="M680 74C714 60 754 72 772 109 788 143 776 194 748 226 721 257 684 245 668 208 651 168 652 91 680 74Z"/>
+            <path id="persian-gulf" class="water-target" data-id="persian-gulf" d="M714 420C753 404 806 410 838 442 848 453 840 472 820 480 787 493 747 482 719 456 706 444 702 425 714 420Z"/>
+            <text x="310" y="105" class="sea-label">Қара теңіз</text><text x="70" y="300" class="sea-label">Жерорта теңізі</text><text x="680" y="150" class="sea-label">Каспий теңізі</text><text x="736" y="458" class="sea-label">Парсы шығанағы</text>
+            <text x="276" y="185" class="label">Кіші Азия</text><text x="553" y="292" class="label">Қосөзен</text><text x="718" y="314" class="label">Иран</text><text x="560" y="475" class="label">Арабия</text><text x="329" y="440" class="label">Мысыр</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+    <aside class="quiz-card">
+      <div id="playPane">
+        <div class="qtop"><span class="qnum" id="qnum">Сұрақ 1/8</span><span class="score" id="score">0 дұрыс</span></div>
+        <div class="bar"><i id="bar"></i></div>
+        <h2 class="prompt" id="prompt">Кіші Азияны көрсетіңіз.</h2>
+        <p class="sub">Картадан тиісті аймақты басыңыз. Қате бассаңыз, сұрақ ауыспайды — дұрыс жерді тапқанша жалғастырасыз.</p>
+        <div class="status" id="status">Картадан жауап таңдаңыз.</div>
+      </div>
+      <div class="done" id="done"><div class="done-box"><div class="icon">🏁</div><h2>Карта аяқталды!</h2><p class="sub">Барлық нысанды дұрыс таптыңыз.</p><button class="again" id="again">Қайта ойнау</button></div></div>
+      <div class="foot">Пилот нұсқа: бір ғана жеңіл SVG карта. Бет ашылғанда сыртқы карта кітапханасы, тайлдар немесе ауыр суреттер жүктелмейді.</div>
+    </aside>
+  </main>
+</div>
+<script>
+(()=>{
+  const QUESTIONS=[
+    {id:'asia-minor',text:'Кіші Азияны көрсетіңіз.'},
+    {id:'mediterranean',text:'Жерорта теңізін көрсетіңіз.'},
+    {id:'black-sea',text:'Қара теңізді көрсетіңіз.'},
+    {id:'caspian',text:'Каспий теңізін көрсетіңіз.'},
+    {id:'arabia',text:'Арабия түбегін көрсетіңіз.'},
+    {id:'persian-gulf',text:'Парсы шығанағын көрсетіңіз.'},
+    {id:'egypt',text:'Мысырды көрсетіңіз.'},
+    {id:'mesopotamia',text:'Қосөзен аймағын көрсетіңіз.'}
+  ];
+  const regions=[...document.querySelectorAll('[data-id]')],prompt=document.getElementById('prompt'),status=document.getElementById('status'),qnum=document.getElementById('qnum'),score=document.getElementById('score'),bar=document.getElementById('bar'),mapProgress=document.getElementById('mapProgress'),playPane=document.getElementById('playPane'),done=document.getElementById('done'),again=document.getElementById('again');
+  let order=[],index=0,locked=false;
+  const shuffle=a=>{const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b};
+  function clearMarks(){regions.forEach(r=>r.classList.remove('correct','wrong'))}
+  function render(){clearMarks();const q=order[index];prompt.textContent=q.text;qnum.textContent=`Сұрақ ${index+1}/${order.length}`;score.textContent=`${index} дұрыс`;mapProgress.textContent=`${index+1} / ${order.length}`;bar.style.width=`${index/order.length*100}%`;status.className='status';status.textContent='Картадан жауап таңдаңыз.'}
+  function finish(){bar.style.width='100%';playPane.style.display='none';done.classList.add('show');mapProgress.textContent=`${order.length} / ${order.length}`}
+  function start(){order=shuffle(QUESTIONS);index=0;locked=false;playPane.style.display='block';done.classList.remove('show');render()}
+  regions.forEach(region=>region.addEventListener('click',()=>{
+    if(locked||index>=order.length)return;const q=order[index];clearMarks();
+    if(region.dataset.id===q.id){locked=true;region.classList.add('correct');status.className='status ok';status.textContent='✓ Дұрыс!';setTimeout(()=>{index++;locked=false;if(index>=order.length)finish();else render()},650)}
+    else{region.classList.add('wrong');status.className='status bad';status.textContent='Тағы байқап көріңіз.';setTimeout(()=>region.classList.remove('wrong'),420)}
+  }));
+  again.addEventListener('click',start);start();
+})();
+</script>
+</body>
+</html>
