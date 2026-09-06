@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ff5b16">
+  <title>JUZDEREK MAP</title>
+  <link rel="stylesheet" href="./map.css">
+</head>
+<body>
+  <header class="map-header">
+    <div class="map-brand"><span class="map-brand-mark">J</span><span>JUZDEREK MAP</span></div>
+    <a class="map-back" href="../index.html">← JUZDEREK</a>
+  </header>
+
+  <main class="map-app">
+    <section class="map-home" id="mapHome">
+      <div class="map-hero">
+        <div>
+          <span class="map-kicker">ГЕОГРАФИЯЛЫҚ ТРЕНАЖЕР</span>
+          <h1>Картадан тап</h1>
+          <p>Категорияны таңда. Әр бөлім өзіне ыңғайлы жеке картамен ашылады.</p>
+        </div>
+        <div class="map-hero-badge"><strong>8</strong><span>бөлім</span></div>
+      </div>
+      <div class="map-category-grid" id="categoryGrid"></div>
+    </section>
+
+    <section class="map-play" id="mapPlay" hidden>
+      <div class="map-play-top">
+        <button class="map-icon-btn" id="backToCategories" type="button" aria-label="Категорияларға қайту">←</button>
+        <div>
+          <span class="map-kicker" id="playCategory"></span>
+          <h2 id="playTitle">Картадан тап</h2>
+        </div>
+        <div class="map-progress-chip" id="progressChip">1 / 10</div>
+      </div>
+
+      <div class="map-play-grid">
+        <section class="map-stage-card">
+          <div class="map-stage-toolbar">
+            <span id="mapStatus">Карта таңдалған кезде ғана жүктеледі</span>
+            <div class="map-tools">
+              <button type="button" id="zoomOut" aria-label="Кішірейту">−</button>
+              <button type="button" id="zoomIn" aria-label="Үлкейту">+</button>
+              <button type="button" id="zoomReset" aria-label="Қалпына келтіру">⌂</button>
+            </div>
+          </div>
+          <div class="map-viewport" id="mapViewport">
+            <div class="map-canvas" id="mapCanvas">
+              <img id="mapImage" alt="" hidden>
+              <div class="map-placeholder" id="mapPlaceholder">
+                <div class="map-placeholder-globe">◎</div>
+                <strong>Бұл бөлімнің картасы осында тұрады</strong>
+                <span>Карталарды кейін бір-бірден дәлдеп қосамыз.</span>
+              </div>
+              <svg id="hitLayer" class="map-hit-layer" viewBox="0 0 1000 650" aria-hidden="true"></svg>
+            </div>
+          </div>
+          <div class="map-feedback" id="feedback">Нысанның дәл үстін бас.</div>
+        </section>
+
+        <aside class="map-question-card">
+          <span class="map-question-meta" id="questionMeta">Сұрақ</span>
+          <div class="map-progress"><i id="progressBar"></i></div>
+          <h3 id="questionText">Карта дайын болғанда сұрақ осы жерде шығады.</h3>
+          <p>Қате лимиті жоқ. Дұрыс тапқанша келесі сұраққа өтпейді.</p>
+          <div class="map-rule">Өткізіп жіберу жоқ · Көмек жоқ</div>
+          <div class="map-stats">
+            <div><small>Табылғаны</small><strong id="foundCount">0</strong></div>
+            <div><small>Қате басу</small><strong id="missCount">0</strong></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script src="./map.js"></script>
+</body>
+</html>
