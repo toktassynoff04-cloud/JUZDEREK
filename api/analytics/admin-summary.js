@@ -3,8 +3,14 @@ module.exports=async(req,res)=>{
   if(req.method!=='GET')return res.status(405).json({error:'Method not allowed'});
   try{
     requireAdmin(req);
-    const rows=await supabase('student_analytics?select=student_id,username,first_seen,last_seen,last_page,page_views,sessions,xp,games,correct,mastered_topics,streak&order=last_seen.desc&limit=1000');
-    const raw=Array.isArray(rows)?rows:[];
+    const pageSize=1000;
+    const raw=[];
+    for(let offset=0;;offset+=pageSize){
+      const page=await supabase(`student_analytics?select=student_id,username,first_seen,last_seen,last_page,page_views,sessions,xp,games,correct,mastered_topics,streak&order=last_seen.desc&limit=${pageSize}&offset=${offset}`);
+      const chunk=Array.isArray(page)?page:[];
+      raw.push(...chunk);
+      if(chunk.length<pageSize)break;
+    }
     const items=raw.map(x=>({...x,username:(!String(x.username||'').trim()||String(x.username).trim()==='Оқушы')?'Аты көрсетілмеген':x.username}));
     const now=Date.now(),week=7*86400000,dayKey=d=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Almaty',year:'numeric',month:'2-digit',day:'2-digit'}).format(d),todayKey=dayKey(new Date());
     const sum=k=>items.reduce((a,x)=>a+(Number(x[k])||0),0);
