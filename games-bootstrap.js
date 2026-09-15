@@ -18,7 +18,7 @@
       background('daily-review','./daily-review.js?v=20260825-mistakes1');
       background('learning-analytics','./learning-analytics.js?v=20260827-guard1');
       await script('./games-engine-v2.js?v=20260827-cleanup1');
-      await optional('term-mode','./term-game-extension.js?v=20260915-layoutfix1');
+      await optional('term-mode','./term-game-extension.js?v=20260915-integrated1');
       if(requestedMode==='term'&&window.JUZ_TERM_MODE){window.JUZ_TERM_MODE.open()}
       else if(['cards','quiz','person'].includes(requestedMode)&&typeof window.setMode==='function'){window.setMode(requestedMode)}
       await Promise.all([
