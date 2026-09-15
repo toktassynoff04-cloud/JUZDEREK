@@ -12,7 +12,7 @@
     try{
       await script('./runtime-guard.js?v=20260827-guard1');
       await script('./request-guard.js?v=20260827-guard1');
-      background('site-header','./site-header-component.js?v=20260823-mobile-1');
+      background('site-header','./site-header-component.js?v=20260915-routefix1');
       await script('./progress-core.js?v=20260826-xp-simple1');
       await window.JUZDEREK_TOPIC_LOADER.loadTopic(topicId);
       background('daily-review','./daily-review.js?v=20260825-mistakes1');
@@ -21,19 +21,9 @@
       await optional('term-mode','./term-game-extension.js?v=20260915-integrated1');
       if(requestedMode==='term'&&window.JUZ_TERM_MODE){window.JUZ_TERM_MODE.open()}
       else if(['cards','quiz','person'].includes(requestedMode)&&typeof window.setMode==='function'){window.setMode(requestedMode)}
-      await Promise.all([
-        script('./xp-economy-v2.js?v=20260826-xp-simple1'),
-        script('./chrono-game-v2.js?v=20260825-quality1'),
-        script('./result-screen.js?v=20260826-xp-simple1')
-      ]);
+      await Promise.all([script('./xp-economy-v2.js?v=20260826-xp-simple1'),script('./chrono-game-v2.js?v=20260825-quality1'),script('./result-screen.js?v=20260826-xp-simple1')]);
       if(requestedMode==='chrono'&&typeof window.setMode==='function')window.setMode('chrono');
-      background('real-stats','./real-stats-progress.js?v=20260826-xp-simple1');
-      background('achievements','./achievements-system.js?v=20260826-xp-simple1');
-      background('mistakes','./mistakes.js?v=20260821-absolutism-fix1');
-    }catch(error){
-      window.JUZ_RUNTIME_GUARD?.record?.('core-bootstrap',error?.message||error,'games-bootstrap');
-      console.error('[JUZDEREK Content v2 bootstrap]',error);
-      friendlyUnavailable();
-    }
+      background('real-stats','./real-stats-progress.js?v=20260826-xp-simple1');background('achievements','./achievements-system.js?v=20260826-xp-simple1');background('mistakes','./mistakes.js?v=20260821-absolutism-fix1');
+    }catch(error){window.JUZ_RUNTIME_GUARD?.record?.('core-bootstrap',error?.message||error,'games-bootstrap');console.error('[JUZDEREK Content v2 bootstrap]',error);friendlyUnavailable()}
   })();
 })();
