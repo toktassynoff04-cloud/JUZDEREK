@@ -18,12 +18,14 @@
       await optional('real-stats','./real-stats-progress.js?v=20260826-xp-simple1');
       await optional('achievements','./achievements-system.js?v=20260826-xp-simple1');
       await script('./games-engine-v2.js?v=20260827-cleanup1');
+      await optional('term-mode','./term-game-extension.js?v=20260915-terms1');
       await script('./xp-economy-v2.js?v=20260826-xp-simple1');
       await script('./chrono-game-v2.js?v=20260825-quality1');
       await optional('mistakes','./mistakes.js?v=20260821-absolutism-fix1');
       await script('./result-screen.js?v=20260826-xp-simple1');
       const mode=params.get('mode');
-      if(['cards','quiz','person','chrono'].includes(mode)&&typeof window.setMode==='function')window.setMode(mode);
+      if(mode==='term'&&window.JUZ_TERM_MODE)window.JUZ_TERM_MODE.open();
+      else if(['cards','quiz','person','chrono'].includes(mode)&&typeof window.setMode==='function')window.setMode(mode);
     }catch(error){
       window.JUZ_RUNTIME_GUARD?.record?.('core-bootstrap',error?.message||error,'games-bootstrap');
       console.error('[JUZDEREK Content v2 bootstrap]',error);

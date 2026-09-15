@@ -1,0 +1,8 @@
+(()=>{const extra={
+'alexander-macedonian-empire':{id:'alexander-macedonian-empire',name:'Александр Македонскийдің империясы',period:'ancient',periodLabel:'Ежелгі заман',file:'./data/topics/alexander-macedonian-empire.json',ready:true},
+'ancient-rome-civilization':{id:'ancient-rome-civilization',name:'Ежелгі Рим өркениеті',period:'ancient',periodLabel:'Ежелгі заман',file:'./data/topics/ancient-rome-civilization.json',ready:true},
+'roman-empire':{id:'roman-empire',name:'Рим империясы',period:'ancient',periodLabel:'Ежелгі заман',file:'./data/topics/roman-empire.json',ready:true},
+'ancient-religious-beliefs':{id:'ancient-religious-beliefs',name:'Ежелгі діни нанымдар',period:'ancient',periodLabel:'Ежелгі заман',file:'./data/topics/ancient-religious-beliefs.json',ready:true},
+'ancient-philosophical-teachings':{id:'ancient-philosophical-teachings',name:'Көне философиялық ілімдер',period:'ancient',periodLabel:'Ежелгі заман',file:'./data/topics/ancient-philosophical-teachings.json',ready:true},
+'world-religions-civilizations-development':{id:'world-religions-civilizations-development',name:'Әлемдік діндер мен өркениеттердің дамуы',period:'ancient',periodLabel:'Ежелгі заман',file:'./data/topics/world-religions-civilizations-development.json',ready:true}
+};const index={...(window.JUZDEREK_TOPIC_INDEX||{}),...extra};window.JUZDEREK_TOPIC_INDEX=Object.freeze(index);window.JUZDEREK_TOPIC_ALIASES=Object.freeze(Object.fromEntries(Object.values(index).map(t=>[t.name,t.id])));})();
