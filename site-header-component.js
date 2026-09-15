@@ -1,12 +1,8 @@
 (()=>{
   function ensurePwa(){
-    const head=document.head;
-    if(!head)return;
+    const head=document.head;if(!head)return;
     const ensureMeta=(name,content)=>{let m=head.querySelector(`meta[name="${name}"]`);if(!m){m=document.createElement('meta');m.name=name;head.appendChild(m)}m.content=content};
-    ensureMeta('theme-color','#ff5b16');
-    ensureMeta('apple-mobile-web-app-capable','yes');
-    ensureMeta('apple-mobile-web-app-status-bar-style','default');
-    ensureMeta('apple-mobile-web-app-title','JUZDEREK');
+    ensureMeta('theme-color','#ff5b16');ensureMeta('apple-mobile-web-app-capable','yes');ensureMeta('apple-mobile-web-app-status-bar-style','default');ensureMeta('apple-mobile-web-app-title','JUZDEREK');
     let manifest=head.querySelector('link[rel="manifest"]');if(!manifest){manifest=document.createElement('link');manifest.rel='manifest';head.appendChild(manifest)}manifest.href='./manifest.webmanifest?v=20260903-icon1';
     let apple=head.querySelector('link[rel="apple-touch-icon"]');if(!apple){apple=document.createElement('link');apple.rel='apple-touch-icon';head.appendChild(apple)}apple.setAttribute('sizes','180x180');apple.href='./assets/apple-touch-icon.png?v=20260903-01';
     if(!head.querySelector('link[data-juz-pwa-css]')){const l=document.createElement('link');l.rel='stylesheet';l.href='./pwa.css?v=20260903-01';l.dataset.juzPwaCss='1';head.appendChild(l)}
@@ -21,9 +17,9 @@
   const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const safeNum=(v,max=10000000)=>{const n=Number(v);return Number.isFinite(n)?Math.max(0,Math.min(max,n)):0};
   const cleanName=v=>String(v??'').replace(/[^0-9A-Za-zА-Яа-яЁёӘәҒғҚқҢңӨөҰұҮүҺһІі _.-]/g,'').replace(/\s+/g,' ').trim().slice(0,20);
-  function activeKey(){const p=(location.pathname.split('/').pop()||'index.html').toLowerCase();if(p==='profile.html')return'profile';if(p==='tests.html'||p==='test-run.html')return'tests';if(p==='tracker.html')return'tracker';if(p==='achievements.html')return'achievements';if(p==='collection.html')return'collection';if(p==='periods.html'){if(location.hash==='#topicsSection')return'topics';if(location.hash==='#dailyMission')return'mission';return'periods'}return'home'}
+  function activeKey(){const p=(location.pathname.split('/').pop()||'index.html').toLowerCase();if(p==='profile.html')return'profile';if(p==='tests.html'||p==='test-run.html')return'tests';if(p==='tracker.html')return'tracker';if(p==='achievements.html')return'achievements';if(p==='collection.html')return'collection';if(p==='games.html')return'topics';if(p==='periods.html'){if(location.hash==='#topicsSection')return'topics';if(location.hash==='#dailyMission')return'mission';return'periods'}return'home'}
   function progress(){try{const raw=JSON.parse(localStorage.getItem('juzderek_game_progress')||'{}');return raw&&typeof raw==='object'?{xp:safeNum(raw.xp),correct:safeNum(raw.correct),games:safeNum(raw.games)}:{xp:0,correct:0,games:0}}catch{return{xp:0,correct:0,games:0}}}
-  function masteredTopics(){try{const t=JSON.parse(localStorage.getItem('juzderek_topics_progress')||'{}');if(!t||typeof t!=='object'||Array.isArray(t))return 0;return Object.values(t).filter(x=>x&&Array.isArray(x.completed)&&new Set(x.completed.filter(m=>['cards','quiz','person','chrono'].includes(m))).size>=4).length}catch{return 0}}
+  function masteredTopics(){try{const t=JSON.parse(localStorage.getItem('juzderek_topics_progress')||'{}');if(!t||typeof t!=='object'||Array.isArray(t))return 0;return Object.values(t).filter(x=>x&&Array.isArray(x.completed)&&new Set(x.completed.filter(m=>['cards','quiz','person','term','chrono'].includes(m))).size>=4).length}catch{return 0}}
   function username(){return cleanName(localStorage.getItem('juzderek_username')||'')}
   function levelInfo(xp){let current=LEVELS[0];for(const item of LEVELS){if(xp>=item.min)current=item;else break}const idx=LEVELS.findIndex(x=>x.level===current.level);const next=LEVELS[idx+1]||null;const pct=next?Math.max(0,Math.min(100,Math.round((xp-current.min)/(next.min-current.min)*100))):100;return{...current,next,pct,need:next?Math.max(0,next.min-xp):0}}
   function rankInfo(xp){let current=RANKS[0];for(const r of RANKS){if(xp>=r.min)current=r;else break}const idx=RANKS.findIndex(r=>r.name===current.name);const next=RANKS[idx+1]||null;const pct=next?Math.max(0,Math.min(100,Math.round((xp-current.min)/(next.min-current.min)*100))):100;return{...current,next,pct,need:next?Math.max(0,next.min-xp):0}}
