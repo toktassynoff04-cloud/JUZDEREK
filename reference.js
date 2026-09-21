@@ -11,7 +11,7 @@
   const oldShared=document.querySelector('script[src*="site-header-component.js"]');
   if(oldShared)oldShared.remove();
   const script=document.createElement('script');
-  script.src=`./site-header-component.js?v=${VERSION}`;
+  script.src='./site-header-component.js?v=20260921-friends1';
   script.onload=()=>{document.documentElement.classList.add('shared-header-ready');ensureUsernameEdit()};
   document.body.appendChild(script);
 
