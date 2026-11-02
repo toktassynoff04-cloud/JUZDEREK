@@ -5,7 +5,7 @@
   const isAndroid = /android/i.test(ua);
   const isMobile = isIOS || isAndroid || window.matchMedia('(max-width: 820px) and (pointer: coarse)').matches;
   let deferredPrompt = null;
-  let refreshing = false;
+  const VERSION_KEY = 'juzderek_seen_version_v1';
 
   const mountInstallCard = () => {
     if (isStandalone || document.getElementById('juzPwaInstall')) return;
@@ -74,27 +74,43 @@
     document.getElementById('juzPwaInstall')?.remove();
   });
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (refreshing) return;
-      refreshing = true;
-      location.reload();
-    });
-
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
-        .then(registration => {
-          registration.update();
-          window.addEventListener('focus', () => registration.update());
-          document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') registration.update();
-          });
-        })
-        .catch(error => console.warn('[JUZDEREK PWA] Service worker registration failed:', error));
-
-      if (isMobile) mountInstallCard();
-    });
-  } else if (isMobile) {
-    window.addEventListener('load', mountInstallCard);
+  // One version check per page load; no focus, visibility or interval polling.
+  async function checkVersionOnEntry() {
+    try {
+      const response = await fetch('./version.json', { cache: 'no-store' });
+      if (!response.ok) return;
+      const data = await response.json();
+      const current = String(data.version || '').trim();
+      if (!current) return;
+      const previous = localStorage.getItem(VERSION_KEY);
+      if (!previous) {
+        localStorage.setItem(VERSION_KEY, current);
+        return;
+      }
+      if (previous === current) return;
+      if (document.getElementById('juzUpdateNotice')) return;
+      const notice = document.createElement('aside');
+      notice.id = 'juzUpdateNotice';
+      notice.setAttribute('role', 'status');
+      notice.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:2147483000;max-width:340px;padding:20px;border-radius:18px;background:#fff;color:#222;box-shadow:0 12px 45px #0002;font:15px/1.5 system-ui,sans-serif';
+      notice.innerHTML = '<strong style="font-size:18px">✨ JUZDEREK жаңартылды!</strong><p style="margin:9px 0 15px">Жаңа контент пен өзгерістер қолжетімді. Өзгерістерді көру үшін бетті жаңарт.</p><div style="display:flex;gap:8px"><button type="button" data-update-now style="border:0;border-radius:10px;background:#f07436;color:white;padding:10px 14px;cursor:pointer;font-weight:700">Жаңарту</button><button type="button" data-update-later style="border:1px solid #ddd;border-radius:10px;background:white;padding:10px 14px;cursor:pointer">Кейінірек</button></div>';
+      document.body.appendChild(notice);
+      notice.querySelector('[data-update-now]').addEventListener('click', () => {
+        localStorage.setItem(VERSION_KEY, current);
+        location.reload();
+      });
+      notice.querySelector('[data-update-later]').addEventListener('click', () => notice.remove());
+    } catch (error) {
+      console.warn('[JUZDEREK] Version check unavailable:', error);
+    }
   }
+
+  window.addEventListener('load', () => {
+    checkVersionOnEntry();
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
+        .catch(error => console.warn('[JUZDEREK PWA] Service worker registration failed:', error));
+    }
+    if (isMobile) mountInstallCard();
+  });
 })();
